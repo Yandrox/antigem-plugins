@@ -32,6 +32,14 @@
       "version": "1.1.1",
       "description": "Escanea duplicados, archivos grandes y restos de proyectos; genera un plan y un informe sin borrar nada. / Scan duplicates, large files and project leftovers; generate a plan and report without deleting anything.",
       "icon": "icon.svg"
+    },
+    {
+      "path": "viral-script-lab",
+      "id": "viral-script-lab",
+      "name": "Viral Script Lab",
+      "version": "1.0.2",
+      "description": "Analiza guiones cortos (gancho, cortes, ritmo, 3 actos y CTA) y genera títulos y hashtags sin servicios externos. / Analyse short-form scripts (hook, cuts, pace, 3 acts and CTA) and generate titles and hashtags offline.",
+      "icon": "icon.svg"
     }
   ]
 }

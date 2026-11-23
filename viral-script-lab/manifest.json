@@ -1,0 +1,133 @@
+{
+  "manifest_version": 3,
+  "id": "viral-script-lab",
+  "name": "Viral Script Lab",
+  "version": "1.0.2",
+  "description": "Analiza guiones cortos (gancho, cortes, ritmo, 3 actos y CTA) y genera títulos y hashtags sin servicios externos. / Analyse short-form scripts (hook, cuts, pace, 3 acts and CTA) and generate titles and hashtags offline.",
+  "permissions": [
+    "storage",
+    "antigemFiles"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "viral_analyze",
+      "description": "ES: Analiza un guion corto y puntúa gancho, densidad de cortes, ritmo, estructura de 3 actos y CTA. EN: Analyse a short script and score hook, cut density, pace, three-act structure and CTA.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script": {
+            "type": "string",
+            "description": "ES: Texto del guion. EN: Script text."
+          },
+          "platform": {
+            "type": "string",
+            "enum": ["shorts", "reels", "tiktok", "all"],
+            "description": "ES: Plataforma objetivo (por defecto all). EN: Target platform (default all)."
+          },
+          "duration_seconds": {
+            "type": "number",
+            "description": "ES: Duración real; si se omite se estima desde las palabras. EN: Actual duration; estimated from words when omitted."
+          },
+          "wpm": {
+            "type": "number",
+            "description": "ES: Palabras por minuto para estimar la duración (por defecto 150). EN: Words per minute used to estimate duration (default 150)."
+          },
+          "hook_seconds": {
+            "type": "number",
+            "description": "ES: Ventana del gancho en segundos (por defecto 3). EN: Hook window in seconds (default 3)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          }
+        },
+        "required": ["script"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "viral_variants",
+      "description": "ES: Genera títulos, ganchos alternativos y hashtags a partir de un guion o tema, sin red. EN: Generate titles, alternative hooks and hashtags from a script or topic, offline.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script": {
+            "type": "string",
+            "description": "ES: Guion del que extraer tema y palabras clave. EN: Script to extract topic and keywords from."
+          },
+          "topic": {
+            "type": "string",
+            "description": "ES: Tema explícito; tiene prioridad sobre el guion. EN: Explicit topic; takes priority over the script."
+          },
+          "platform": {
+            "type": "string",
+            "enum": ["shorts", "reels", "tiktok", "all"],
+            "description": "ES: Plataforma objetivo (por defecto all). EN: Target platform (default all)."
+          },
+          "count": {
+            "type": "integer",
+            "description": "ES: Número de títulos, 3-20 (por defecto 8). EN: Number of titles, 3-20 (default 8)."
+          },
+          "hashtag_count": {
+            "type": "integer",
+            "description": "ES: Número de hashtags, 1-20 (por defecto 6). EN: Number of hashtags, 1-20 (default 6)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma de las variantes (por defecto both). EN: Variants language (default both)."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "viral_report",
+      "description": "ES: Combina análisis y variantes en un informe Markdown bilingüe; puede guardarse en disco. EN: Combine analysis and variants into a bilingual Markdown report; can be saved to disk.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "analysis": {
+            "type": "object",
+            "description": "ES: Análisis en línea; por defecto usa el último guardado. EN: Inline analysis; defaults to the latest stored one."
+          },
+          "analysis_id": {
+            "type": "string",
+            "description": "ES: ID de análisis guardado. EN: Stored analysis ID."
+          },
+          "variants": {
+            "type": "object",
+            "description": "ES: Variantes en línea; por defecto usa las últimas guardadas. EN: Inline variants; defaults to the latest stored ones."
+          },
+          "variants_id": {
+            "type": "string",
+            "description": "ES: ID de variantes guardadas. EN: Stored variants ID."
+          },
+          "include_variants": {
+            "type": "boolean",
+            "description": "ES: Incluir variantes (por defecto true). EN: Include variants (default true)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional para guardar el informe. EN: Optional .md path to save the report."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}
