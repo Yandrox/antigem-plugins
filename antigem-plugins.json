@@ -26,6 +26,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "mcp-schema-designer",
+      "id": "mcp-schema-designer",
+      "name": "MCP Schema Designer",
+      "version": "1.0.0",
+      "description": "Skill para diseñar y revisar esquemas de tools MCP: nombres coherentes, descripciones bilingües, tipos y rangos, exclusión mutua, defaults seguros, ejemplos y tabla de errores. Complementa a plugin-doctor, que valida el resultado. / Skill to design and review MCP tool schemas: consistent names, bilingual descriptions, types and ranges, mutual exclusion, safe defaults, examples and error table. It complements plugin-doctor, which validates the result.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "miniapp-test-runner",
       "id": "miniapp-test-runner",
       "name": "MiniApp Test Runner",
