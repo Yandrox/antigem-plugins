@@ -1,0 +1,150 @@
+{
+  "manifest_version": 3,
+  "id": "config-backup-diff",
+  "name": "Config Backup & Diff",
+  "version": "1.0.2",
+  "description": "Exporta y compara configuraciones locales (skills, MCP, temas y notas exportadas), muestra diferencias y restaura archivos de forma selectiva, sin red. / Export and compare local config (skills, MCP, themes and exported notes), show diffs and restore files selectively, offline.",
+  "permissions": [
+    "storage",
+    "antigemFiles"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "config_snapshot",
+      "description": "ES: Crea un snapshot JSON de skills, ajustes de MCP, temas accesibles, notas exportadas o archivos elegidos; puede guardarse en disco. EN: Create a JSON snapshot of skills, MCP settings, reachable themes, exported notes or chosen files; can be saved to disk.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "string",
+            "enum": ["all", "skills", "mcp", "themes", "notes", "custom"],
+            "description": "ES: Perfil de origen (por defecto all). EN: Source profile (default all)."
+          },
+          "roots": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "ES: Carpetas adicionales bajo ~/ o /sdcard. EN: Additional folders under ~/ or /sdcard."
+          },
+          "files": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "ES: Archivos concretos a incluir, además del perfil. EN: Specific files to include in addition to the profile."
+          },
+          "max_files": {
+            "type": "integer",
+            "description": "ES: Máximo de archivos, 1-2000 (por defecto 500). EN: Maximum files, 1-2000 (default 500)."
+          },
+          "max_file_bytes": {
+            "type": "integer",
+            "description": "ES: Tamaño máximo por archivo, 1024-8388608 (por defecto 1048576). EN: Maximum size per file, 1024-8388608 (default 1048576)."
+          },
+          "max_total_bytes": {
+            "type": "integer",
+            "description": "ES: Tamaño total máximo, 65536-67108864 (por defecto 16777216). EN: Maximum total size, 65536-67108864 (default 16777216)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del resumen (por defecto both). EN: Summary language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .json opcional para guardar el snapshot. EN: Optional .json path to save the snapshot."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "config_diff",
+      "description": "ES: Compara dos snapshots y devuelve archivos añadidos, eliminados y modificados con diff unificado; puede guardarse. EN: Compare two snapshots and return added, removed and modified files with a unified diff; can be saved.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "base": {
+            "type": "string",
+            "description": "ES: ID de snapshot, ruta .json o archivo guardado como base. EN: Snapshot ID, .json path or saved file used as base."
+          },
+          "target": {
+            "type": "string",
+            "description": "ES: ID de snapshot, ruta .json o archivo guardado como destino. EN: Snapshot ID, .json path or saved file used as target."
+          },
+          "base_snapshot": {
+            "type": "object",
+            "description": "ES: Snapshot en línea como base; tiene prioridad. EN: Inline snapshot used as base; takes priority."
+          },
+          "target_snapshot": {
+            "type": "object",
+            "description": "ES: Snapshot en línea como destino; tiene prioridad. EN: Inline snapshot used as target; takes priority."
+          },
+          "context": {
+            "type": "integer",
+            "description": "ES: Líneas de contexto en el diff, 0-20 (por defecto 3). EN: Context lines in the diff, 0-20 (default 3)."
+          },
+          "max_lines": {
+            "type": "integer",
+            "description": "ES: Máximo de líneas de diff por archivo, 50-5000 (por defecto 500). EN: Maximum diff lines per file, 50-5000 (default 500)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional para guardar el diff. EN: Optional .md path to save the diff."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "config_restore",
+      "description": "ES: Restaura archivos seleccionados desde un snapshot, con copia de seguridad opcional; requiere dry_run:false para escribir. EN: Restore selected files from a snapshot, with optional backup; requires dry_run:false to write.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "snapshot": {
+            "type": "string",
+            "description": "ES: ID de snapshot o ruta .json; por defecto el último. EN: Snapshot ID or .json path; defaults to the latest."
+          },
+          "files": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "ES: Rutas relativas a restaurar; vacío = todas. EN: Relative paths to restore; empty = all."
+          },
+          "target_dir": {
+            "type": "string",
+            "description": "ES: Carpeta alternativa bajo ~/ o /sdcard; por defecto la ruta original. EN: Alternative folder under ~/ or /sdcard; defaults to the original path."
+          },
+          "backup": {
+            "type": "boolean",
+            "description": "ES: Guardar una copia .bak del archivo actual antes de sobrescribir (por defecto true). EN: Save a .bak copy of the current file before overwriting (default true)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo simular (por defecto); false = escribir archivos. EN: true = simulate only (default); false = write files."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}

@@ -10,6 +10,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "config-backup-diff",
+      "id": "config-backup-diff",
+      "name": "Config Backup & Diff",
+      "version": "1.0.2",
+      "description": "Exporta y compara configuraciones locales (skills, MCP, temas y notas exportadas), muestra diferencias y restaura archivos de forma selectiva, sin red. / Export and compare local config (skills, MCP, themes and exported notes), show diffs and restore files selectively, offline.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "local-assets-lab",
       "id": "local-assets-lab",
       "name": "Local Assets Lab",
