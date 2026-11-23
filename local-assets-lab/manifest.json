@@ -1,0 +1,232 @@
+{
+  "manifest_version": 3,
+  "id": "local-assets-lab",
+  "name": "Local Assets Lab",
+  "version": "1.1.0",
+  "description": "Genera fondos, iconos, stickers y paletas SVG sin conexión. / Generate SVG backgrounds, icons, stickers and palettes offline.",
+  "permissions": [
+    "antigemFiles"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "asset_palette",
+      "description": "ES: Crea paletas de color (armonías o presets) con vista previa SVG y data URI. EN: Create color palettes (harmonies or presets) with SVG preview and data URI.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "ES: Nombre de preset (sunset, ocean, mint, retro, candy, noir, forest, flow). EN: Preset name."
+          },
+          "base": {
+            "type": "string",
+            "description": "ES: Color base hexadecimal si no se usa preset. EN: Base hex color when no preset is used."
+          },
+          "harmony": {
+            "type": "string",
+            "enum": ["analogous", "complementary", "triadic", "tetradic", "monochrome", "split"],
+            "description": "ES: Armonía cromática (por defecto analogous). EN: Color harmony (default analogous)."
+          },
+          "count": {
+            "type": "integer",
+            "description": "ES: Número de colores, 2-12 (por defecto 5). EN: Number of colors, 2-12 (default 5)."
+          },
+          "format": {
+            "type": "string",
+            "enum": ["hex", "rgb", "hsl"],
+            "description": "ES: Formato de salida (por defecto hex). EN: Output format (default hex)."
+          },
+          "labels": {
+            "type": "boolean",
+            "description": "ES: Mostrar códigos en la vista previa (por defecto true). EN: Show codes in the preview (default true)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .svg opcional para guardar la vista previa. EN: Optional .svg path to save the preview."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "asset_background",
+      "description": "ES: Genera fondos SVG offline: degradado, rejilla, halftone, olas, blobs, franjas o papel. EN: Generate offline SVG backgrounds: gradient, grid, halftone, waves, blobs, stripes or paper.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "style": {
+            "type": "string",
+            "enum": ["gradient", "grid", "halftone", "waves", "blobs", "stripes", "paper"],
+            "description": "ES: Estilo de fondo (por defecto gradient). EN: Background style (default gradient)."
+          },
+          "width": {
+            "type": "integer",
+            "description": "ES: Ancho en px, 64-4096 (por defecto 1920). EN: Width in px, 64-4096 (default 1920)."
+          },
+          "height": {
+            "type": "integer",
+            "description": "ES: Alto en px, 64-4096 (por defecto 1080). EN: Height in px, 64-4096 (default 1080)."
+          },
+          "colors": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "ES: 2-6 colores hexadecimales. EN: 2-6 hex colors."
+          },
+          "palette": {
+            "type": "string",
+            "description": "ES: Nombre de paleta preset si no se dan colores. EN: Preset palette name if no colors are given."
+          },
+          "seed": {
+            "type": "integer",
+            "description": "ES: Semilla para patrones deterministas (por defecto 7). EN: Seed for deterministic patterns (default 7)."
+          },
+          "spacing": {
+            "type": "integer",
+            "description": "ES: Espaciado de patrón en px (por defecto 64). EN: Pattern spacing in px (default 64)."
+          },
+          "angle": {
+            "type": "integer",
+            "description": "ES: Ángulo para degradados/franjas (por defecto 135). EN: Angle for gradients/stripes (default 135)."
+          },
+          "opacity": {
+            "type": "number",
+            "description": "ES: Opacidad del patrón, 0.05-1 (por defecto 0.45). EN: Pattern opacity, 0.05-1 (default 0.45)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .svg opcional para guardar el fondo. EN: Optional .svg path to save the background."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "asset_icon",
+      "description": "ES: Genera iconos SVG con formas listas (estrella, corazón, rayo, check, flecha, escudo, play, chat, casa, más). EN: Generate SVG icons from ready shapes (star, heart, bolt, check, arrow, shield, play, chat, home, plus).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "shape": {
+            "type": "string",
+            "enum": ["star", "heart", "bolt", "check", "arrow", "spark", "shield", "play", "chat", "home", "plus"],
+            "description": "ES: Forma del icono (por defecto star). EN: Icon shape (default star)."
+          },
+          "color": {
+            "type": "string",
+            "description": "ES: Color del glifo (por defecto #4361EE). EN: Glyph color (default #4361EE)."
+          },
+          "accent": {
+            "type": "string",
+            "description": "ES: Color del punto de acento (por defecto #F72585). EN: Accent dot color (default #F72585)."
+          },
+          "background": {
+            "type": "string",
+            "enum": ["rounded", "circle", "none"],
+            "description": "ES: Fondo del icono (por defecto rounded). EN: Icon background (default rounded)."
+          },
+          "bgColor": {
+            "type": "string",
+            "description": "ES: Color del fondo (por defecto #F8FAFC). EN: Background color (default #F8FAFC)."
+          },
+          "size": {
+            "type": "integer",
+            "description": "ES: Tamaño en px, 64-1024 (por defecto 256). EN: Size in px, 64-1024 (default 256)."
+          },
+          "stroke": {
+            "type": "integer",
+            "description": "ES: Grosor de trazo para formas de línea (por defecto 8). EN: Stroke width for line shapes (default 8)."
+          },
+          "filled": {
+            "type": "boolean",
+            "description": "ES: Rellenar la forma (por defecto true). EN: Fill the shape (default true)."
+          },
+          "rotation": {
+            "type": "integer",
+            "description": "ES: Rotación en grados (por defecto 0). EN: Rotation in degrees (default 0)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .svg opcional para guardar el icono. EN: Optional .svg path to save the icon."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "asset_sticker",
+      "description": "ES: Crea stickers SVG con borde troquelado, doble sombra y texto, sobre papel o tapete de corte. EN: Create SVG stickers with die-cut border, two-tier shadow and text, on paper or cutting mat.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "shape": {
+            "type": "string",
+            "enum": ["burst", "bubble", "rounded", "blob", "star", "hexagon"],
+            "description": "ES: Forma del sticker (por defecto burst). EN: Sticker shape (default burst)."
+          },
+          "text": {
+            "type": "string",
+            "description": "ES: Texto principal, máximo 32 caracteres (por defecto WOW). EN: Main text, 32 chars max (default WOW)."
+          },
+          "subtext": {
+            "type": "string",
+            "description": "ES: Texto secundario opcional. EN: Optional secondary text."
+          },
+          "color": {
+            "type": "string",
+            "description": "ES: Color del sticker (por defecto #F72585). EN: Sticker color (default #F72585)."
+          },
+          "outline": {
+            "type": "string",
+            "description": "ES: Color del borde troquelado (por defecto blanco). EN: Die-cut border color (default white)."
+          },
+          "outlineWidth": {
+            "type": "integer",
+            "description": "ES: Grosor del borde (por defecto 8). EN: Border width (default 8)."
+          },
+          "textColor": {
+            "type": "string",
+            "description": "ES: Color del texto; por defecto se calcula por contraste. EN: Text color; computed from contrast by default."
+          },
+          "shadow": {
+            "type": "boolean",
+            "description": "ES: Doble sombra (por defecto true). EN: Two-tier shadow (default true)."
+          },
+          "rotation": {
+            "type": "integer",
+            "description": "ES: Rotación en grados (por defecto -6). EN: Rotation in degrees (default -6)."
+          },
+          "width": {
+            "type": "integer",
+            "description": "ES: Ancho en px, 128-2048 (por defecto 640). EN: Width in px, 128-2048 (default 640)."
+          },
+          "height": {
+            "type": "integer",
+            "description": "ES: Alto en px, 128-2048 (por defecto 480). EN: Height in px, 128-2048 (default 480)."
+          },
+          "fontSize": {
+            "type": "integer",
+            "description": "ES: Tamaño de fuente en px. EN: Font size in px."
+          },
+          "background": {
+            "type": "string",
+            "enum": ["none", "paper", "mat"],
+            "description": "ES: Fondo (por defecto paper). EN: Background (default paper)."
+          },
+          "seed": {
+            "type": "integer",
+            "description": "ES: Semilla para el papel arrugado (por defecto 7). EN: Seed for crumpled paper (default 7)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .svg opcional para guardar el sticker. EN: Optional .svg path to save the sticker."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}
