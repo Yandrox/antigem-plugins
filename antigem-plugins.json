@@ -24,6 +24,14 @@
       "version": "1.1.2",
       "description": "Valida y repara repositorios de plugins de AntiGem. / Validate and repair AntiGem plugin repositories.",
       "icon": "icon.svg"
+    },
+    {
+      "path": "storage-cleaner",
+      "id": "storage-cleaner",
+      "name": "Storage Cleaner",
+      "version": "1.1.1",
+      "description": "Escanea duplicados, archivos grandes y restos de proyectos; genera un plan y un informe sin borrar nada. / Scan duplicates, large files and project leftovers; generate a plan and report without deleting anything.",
+      "icon": "icon.svg"
     }
   ]
 }

@@ -1,0 +1,145 @@
+{
+  "manifest_version": 3,
+  "id": "storage-cleaner",
+  "name": "Storage Cleaner",
+  "version": "1.1.1",
+  "description": "Escanea duplicados, archivos grandes y restos de proyectos; genera un plan y un informe sin borrar nada. / Scan duplicates, large files and project leftovers; generate a plan and report without deleting anything.",
+  "permissions": [
+    "storage",
+    "antigemFiles"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "storage_scan",
+      "description": "ES: Busca duplicados por tamaño y hash ligero, archivos grandes y restos de proyectos en ~/ y /sdcard; solo informa, no borra. EN: Find duplicates by size and light hash, large files and project leftovers in ~/ and /sdcard; report only, never deletes.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "roots": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "ES: Carpetas a escanear (por defecto ~/ y /sdcard). EN: Folders to scan (default ~/ and /sdcard)."
+          },
+          "min_size_bytes": {
+            "type": "integer",
+            "description": "ES: Tamaño mínimo en bytes (por defecto 1048576). EN: Minimum size in bytes (default 1048576)."
+          },
+          "max_files": {
+            "type": "integer",
+            "description": "ES: Máximo de archivos a escanear, 100-20000 (por defecto 5000). EN: Maximum files to scan, 100-20000 (default 5000)."
+          },
+          "max_depth": {
+            "type": "integer",
+            "description": "ES: Profundidad máxima, 1-20 (por defecto 8). EN: Maximum depth, 1-20 (default 8)."
+          },
+          "max_hash_bytes": {
+            "type": "integer",
+            "description": "ES: Tamaño máximo para calcular hash; 0 lo desactiva (por defecto 8388608). EN: Maximum size to hash; 0 disables it (default 8388608)."
+          },
+          "max_hashes": {
+            "type": "integer",
+            "description": "ES: Máximo de lecturas para hash (por defecto 200). EN: Maximum hash reads (default 200)."
+          },
+          "exclude": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "ES: Subcadenas de ruta a excluir. EN: Path substrings to exclude."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "storage_plan",
+      "description": "ES: Convierte el último escaneo en un plan con comandos rm revisables; no ejecuta ni borra nada. EN: Turn the latest scan into a plan with reviewable rm commands; nothing is executed or deleted.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "scan": {
+            "type": "string",
+            "description": "ES: ID de escaneo; por defecto el último. EN: Scan ID; defaults to the latest scan."
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["duplicates", "large", "leftovers"]
+            },
+            "description": "ES: Categorías a incluir (por defecto todas). EN: Categories to include (default all)."
+          },
+          "keep": {
+            "type": "string",
+            "enum": ["oldest", "newest", "shortest"],
+            "description": "ES: Qué duplicado conservar (por defecto oldest). EN: Which duplicate to keep (default oldest)."
+          },
+          "include_unconfirmed": {
+            "type": "boolean",
+            "description": "ES: Incluir duplicados solo por tamaño (por defecto false). EN: Include size-only duplicates (default false)."
+          },
+          "max_actions": {
+            "type": "integer",
+            "description": "ES: Máximo de acciones, 1-500 (por defecto 100). EN: Maximum actions, 1-500 (default 100)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .sh opcional para guardar el script. EN: Optional .sh path to save the script."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el script. EN: true = preview only (default); false = write the script."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del plan (por defecto both). EN: Plan language (default both)."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "storage_report",
+      "description": "ES: Genera un informe Markdown bilingüe con escaneo y plan; puede guardarse en disco. EN: Generate a bilingual Markdown report with scan and plan; can be saved to disk.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "scan": {
+            "type": "string",
+            "description": "ES: ID de escaneo; por defecto el último. EN: Scan ID; defaults to the latest scan."
+          },
+          "plan": {
+            "type": "string",
+            "description": "ES: ID de plan; por defecto el último. EN: Plan ID; defaults to the latest plan."
+          },
+          "includePlan": {
+            "type": "boolean",
+            "description": "ES: Incluir el plan (por defecto true). EN: Include the plan (default true)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional para guardar el informe. EN: Optional .md path to save the report."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}
