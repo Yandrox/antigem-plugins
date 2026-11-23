@@ -1,0 +1,203 @@
+{
+  "manifest_version": 3,
+  "id": "offline-subs",
+  "name": "Offline Subs",
+  "version": "1.0.1",
+  "description": "Genera SRT/VTT desde guiones, alinea subtítulos con la duración real del vídeo y crea estilos listos para Shorts, Reels y YouTube, sin red. / Generate SRT/VTT from scripts, align subtitles to real video duration and create ready styles for Shorts, Reels and YouTube, offline.",
+  "permissions": [
+    "storage",
+    "antigemFiles"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "subs_from_script",
+      "description": "ES: Convierte un guion con o sin marcas de tiempo en cues SRT/VTT; puede usar la duración real de un vídeo local. EN: Convert a script with or without timestamps into SRT/VTT cues; can use the real duration of a local video.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "script": {
+            "type": "string",
+            "description": "ES: Texto del guion; admite marcas como [00:03] o 00:00-00:04. EN: Script text; supports markers such as [00:03] or 00:00-00:04."
+          },
+          "script_path": {
+            "type": "string",
+            "description": "ES: Ruta ~/ o /sdcard a un archivo de texto con el guion. EN: ~/ or /sdcard path to a text file with the script."
+          },
+          "video_path": {
+            "type": "string",
+            "description": "ES: Vídeo local para obtener su duración con antigem.mediaInfo. EN: Local video to read its duration with antigem.mediaInfo."
+          },
+          "duration": {
+            "type": "number",
+            "description": "ES: Duración en segundos; tiene prioridad sobre video_path. EN: Duration in seconds; takes priority over video_path."
+          },
+          "wpm": {
+            "type": "number",
+            "description": "ES: Palabras por minuto para estimar tiempos (por defecto 150). EN: Words per minute used to estimate timings (default 150)."
+          },
+          "max_chars": {
+            "type": "integer",
+            "description": "ES: Máximo de caracteres por cue, 12-160 (por defecto 48). EN: Maximum characters per cue, 12-160 (default 48)."
+          },
+          "min_cue_ms": {
+            "type": "integer",
+            "description": "ES: Duración mínima de un cue en ms, 200-10000 (por defecto 800). EN: Minimum cue duration in ms, 200-10000 (default 800)."
+          },
+          "max_cue_ms": {
+            "type": "integer",
+            "description": "ES: Duración máxima de un cue en ms, 500-30000 (por defecto 6000). EN: Maximum cue duration in ms, 500-30000 (default 6000)."
+          },
+          "gap_ms": {
+            "type": "integer",
+            "description": "ES: Separación entre cues en ms, 0-2000 (por defecto 120). EN: Gap between cues in ms, 0-2000 (default 120)."
+          },
+          "offset_ms": {
+            "type": "integer",
+            "description": "ES: Desplazamiento inicial en ms, -60000 a 60000 (por defecto 0). EN: Initial offset in ms, -60000 to 60000 (default 0)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del resumen (por defecto both). EN: Summary language (default both)."
+          },
+          "srt_path": {
+            "type": "string",
+            "description": "ES: Ruta .srt opcional para guardar. EN: Optional .srt path to save."
+          },
+          "vtt_path": {
+            "type": "string",
+            "description": "ES: Ruta .vtt opcional para guardar. EN: Optional .vtt path to save."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir archivos. EN: true = preview only (default); false = write files."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "subs_align",
+      "description": "ES: Ajusta cues existentes a la duración real de un vídeo, aplicando escalado o desplazamiento, y devuelve SRT/VTT corregidos. EN: Adjust existing cues to a video's real duration by scaling or shifting, and return corrected SRT/VTT.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "generation": {
+            "type": "string",
+            "description": "ES: ID de una generación guardada. EN: ID of a stored generation."
+          },
+          "cues": {
+            "type": "array",
+            "items": {"type": "object"},
+            "description": "ES: Cues en línea con start_ms, end_ms y text. EN: Inline cues with start_ms, end_ms and text."
+          },
+          "srt": {
+            "type": "string",
+            "description": "ES: Contenido SRT en línea. EN: Inline SRT content."
+          },
+          "video_path": {
+            "type": "string",
+            "description": "ES: Vídeo local para leer su duración. EN: Local video to read its duration."
+          },
+          "duration": {
+            "type": "number",
+            "description": "ES: Duración objetivo en segundos; tiene prioridad sobre video_path. EN: Target duration in seconds; takes priority over video_path."
+          },
+          "mode": {
+            "type": "string",
+            "enum": ["scale", "shift"],
+            "description": "ES: scale adapta toda la línea de tiempo; shift solo desplaza (por defecto scale). EN: scale adapts the whole timeline; shift only moves it (default scale)."
+          },
+          "offset_ms": {
+            "type": "integer",
+            "description": "ES: Desplazamiento adicional en ms (por defecto 0). EN: Additional offset in ms (default 0)."
+          },
+          "min_gap_ms": {
+            "type": "integer",
+            "description": "ES: Separación mínima entre cues, 0-2000 (por defecto 80). EN: Minimum gap between cues, 0-2000 (default 80)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del resumen (por defecto both). EN: Summary language (default both)."
+          },
+          "srt_path": {
+            "type": "string",
+            "description": "ES: Ruta .srt opcional para guardar. EN: Optional .srt path to save."
+          },
+          "vtt_path": {
+            "type": "string",
+            "description": "ES: Ruta .vtt opcional para guardar. EN: Optional .vtt path to save."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir archivos. EN: true = preview only (default); false = write files."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "subs_style",
+      "description": "ES: Genera estilos CSS y WebVTT para subtítulos en Shorts, Reels, TikTok o YouTube, sin fuentes remotas. EN: Generate CSS and WebVTT styles for captions in Shorts, Reels, TikTok or YouTube, with no remote fonts.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": ["shorts", "reels", "tiktok", "youtube", "all"],
+            "description": "ES: Plataforma objetivo (por defecto all). EN: Target platform (default all)."
+          },
+          "preset": {
+            "type": "string",
+            "enum": ["bold", "neon", "minimal", "karaoke", "banner"],
+            "description": "ES: Estilo base (por defecto bold). EN: Base style (default bold)."
+          },
+          "font_size": {
+            "type": "integer",
+            "description": "ES: Tamaño base en px, 16-160; por defecto según plataforma. EN: Base size in px, 16-160; platform default when omitted."
+          },
+          "color": {
+            "type": "string",
+            "description": "ES: Color principal en hexadecimal. EN: Main hex colour."
+          },
+          "outline_color": {
+            "type": "string",
+            "description": "ES: Color del contorno en hexadecimal. EN: Outline hex colour."
+          },
+          "background": {
+            "type": "string",
+            "description": "ES: Fondo del subtítulo en CSS. EN: Caption background in CSS."
+          },
+          "position": {
+            "type": "string",
+            "enum": ["top", "middle", "bottom"],
+            "description": "ES: Posición vertical (por defecto bottom). EN: Vertical position (default bottom)."
+          },
+          "max_chars": {
+            "type": "integer",
+            "description": "ES: Máximo de caracteres recomendados por línea, 12-160. EN: Recommended maximum characters per line, 12-160."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma de la guía (por defecto both). EN: Guide language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .css opcional para guardar. EN: Optional .css path to save."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}
