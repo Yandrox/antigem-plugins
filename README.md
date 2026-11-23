@@ -4,7 +4,7 @@ Repositorio público con plugins y skills para AntiGem. Todo funciona offline: J
 
 ## Instalar
 
-En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `TU_USUARIO/antigem-plugins`.
+En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Yandrox/antigem-plugins`.
 
 ## Plugins
 
@@ -32,7 +32,7 @@ Public repository with plugins and skills for AntiGem. Everything works offline:
 
 ## Install
 
-In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add `TU_USUARIO/antigem-plugins`.
+In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add `Yandrox/antigem-plugins`.
 
 ## Plugins
 
