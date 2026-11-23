@@ -1,0 +1,173 @@
+{
+  "manifest_version": 3,
+  "id": "miniapp-test-runner",
+  "name": "MiniApp Test Runner",
+  "version": "1.1.4",
+  "description": "Graba, repite, compara e informa pruebas de mini apps sin servicios externos. / Record, replay, compare and report mini app tests without external services.",
+  "permissions": [
+    "storage",
+    "scripting",
+    "tabs",
+    "activeTab",
+    "debugger",
+    "antigemFiles"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "world": "ISOLATED"
+    }
+  ],
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "test_record",
+      "description": "ES: Graba clics, escritura y teclas de la pestaña activa y guarda una prueba reutilizable. EN: Record clicks, typing and keys from the active tab and save a reusable test.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "ES: Nombre de la prueba (letras, números, _ o -). EN: Test name (letters, numbers, _ or -)."
+          },
+          "tabId": {
+            "type": "integer",
+            "description": "ES: ID de pestaña; por defecto la activa. EN: Tab ID; defaults to the active tab."
+          },
+          "duration_ms": {
+            "type": "integer",
+            "description": "ES: Duración de la grabación, 1000-120000 (por defecto 8000). EN: Recording duration, 1000-120000 (default 8000)."
+          },
+          "clear": {
+            "type": "boolean",
+            "description": "ES: Vaciar pasos anteriores al empezar (por defecto true). EN: Clear previous steps when starting (default true)."
+          },
+          "screenshots": {
+            "type": "boolean",
+            "description": "ES: Capturar pantallas antes/después (por defecto true). EN: Capture before/after screenshots (default true)."
+          },
+          "artifacts_dir": {
+            "type": "string",
+            "description": "ES: Carpeta ~/ o /sdcard para guardar las capturas. EN: ~/ or /sdcard folder to save screenshots."
+          }
+        },
+        "required": ["name"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "test_run",
+      "description": "ES: Repite una prueba grabada o pasos en línea, valida el DOM y guarda el resultado con capturas. EN: Replay a recorded test or inline steps, assert DOM state and save the result with screenshots.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "ES: Nombre de una prueba grabada. EN: Name of a recorded test."
+          },
+          "steps": {
+            "type": "array",
+            "items": {"type": "object"},
+            "description": "ES: Pasos en línea (alternativa a name). EN: Inline steps (alternative to name)."
+          },
+          "tabId": {
+            "type": "integer",
+            "description": "ES: ID de pestaña; por defecto la activa. EN: Tab ID; defaults to the active tab."
+          },
+          "screenshots": {
+            "type": "boolean",
+            "description": "ES: Capturar pantallas antes/después (por defecto true). EN: Capture before/after screenshots (default true)."
+          },
+          "artifacts_dir": {
+            "type": "string",
+            "description": "ES: Carpeta ~/ o /sdcard para guardar las capturas. EN: ~/ or /sdcard folder to save screenshots."
+          },
+          "stop_on_fail": {
+            "type": "boolean",
+            "description": "ES: Detener la prueba tras el primer fallo (por defecto false). EN: Stop after the first failure (default false)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del resumen (por defecto both). EN: Summary language (default both)."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "test_compare",
+      "description": "ES: Compara capturas y estado DOM antes/después de una ejecución, entre dos ejecuciones o entre dos archivos. EN: Compare screenshots and DOM state before/after a run, across two runs or between two files.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "run": {
+            "type": "string",
+            "description": "ES: ID de ejecución; por defecto la última. EN: Run ID; defaults to the latest run."
+          },
+          "against": {
+            "type": "string",
+            "description": "ES: Otra ejecución para comparar el estado final. EN: Another run to compare final states."
+          },
+          "beforePath": {
+            "type": "string",
+            "description": "ES: Archivo base64 de la imagen anterior. EN: Base64 file of the before image."
+          },
+          "afterPath": {
+            "type": "string",
+            "description": "ES: Archivo base64 de la imagen posterior. EN: Base64 file of the after image."
+          },
+          "threshold": {
+            "type": "number",
+            "description": "ES: Umbral de cambio visual, 0-1 (por defecto 0.02). EN: Visual change threshold, 0-1 (default 0.02)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del resumen (por defecto both). EN: Summary language (default both)."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "test_report",
+      "description": "ES: Genera un informe Markdown bilingüe de una ejecución con pasos, capturas y comparación. EN: Generate a bilingual Markdown report of a run with steps, screenshots and comparison.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "run": {
+            "type": "string",
+            "description": "ES: ID de ejecución; por defecto la última. EN: Run ID; defaults to the latest run."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "includeComparison": {
+            "type": "boolean",
+            "description": "ES: Incluir comparación automática (por defecto true). EN: Include automatic comparison (default true)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional para guardar el informe. EN: Optional .md path to save the report."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}
