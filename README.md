@@ -10,6 +10,7 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 
 | Plugin | ID | Versión | Descripción |
 | --- | --- | --- | --- |
+| [A11y Audit](./a11y-audit/) | `a11y-audit` | 1.0.2 | Audita accesibilidad de mini apps y WebViews: contraste, zonas táctiles, ARIA, alt, foco y nombres; genera informe y correcciones. / Audit mini apps and WebViews for accessibility: contrast, tap targets, ARIA, alt, focus and names; generate report and fixes. |
 | [Local Assets Lab](./local-assets-lab/) | `local-assets-lab` | 1.1.0 | Genera fondos, iconos, stickers y paletas SVG sin conexión. / Generate SVG backgrounds, icons, stickers and palettes offline. |
 | [MiniApp Test Runner](./miniapp-test-runner/) | `miniapp-test-runner` | 1.1.4 | Graba, repite, compara e informa pruebas de mini apps sin servicios externos. / Record, replay, compare and report mini app tests without external services. |
 | [Plugin Doctor](./plugin-doctor/) | `plugin-doctor` | 1.1.2 | Valida y repara repositorios de plugins de AntiGem. / Validate and repair AntiGem plugin repositories. |
@@ -42,6 +43,7 @@ In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add `Ya
 
 | Plugin | ID | Version | Description |
 | --- | --- | --- | --- |
+| [A11y Audit](./a11y-audit/) | `a11y-audit` | 1.0.2 | Audita accesibilidad de mini apps y WebViews: contraste, zonas táctiles, ARIA, alt, foco y nombres; genera informe y correcciones. / Audit mini apps and WebViews for accessibility: contrast, tap targets, ARIA, alt, focus and names; generate report and fixes. |
 | [Local Assets Lab](./local-assets-lab/) | `local-assets-lab` | 1.1.0 | Genera fondos, iconos, stickers y paletas SVG sin conexión. / Generate SVG backgrounds, icons, stickers and palettes offline. |
 | [MiniApp Test Runner](./miniapp-test-runner/) | `miniapp-test-runner` | 1.1.4 | Graba, repite, compara e informa pruebas de mini apps sin servicios externos. / Record, replay, compare and report mini app tests without external services. |
 | [Plugin Doctor](./plugin-doctor/) | `plugin-doctor` | 1.1.2 | Valida y repara repositorios de plugins de AntiGem. / Validate and repair AntiGem plugin repositories. |

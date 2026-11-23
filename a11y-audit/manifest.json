@@ -1,0 +1,145 @@
+{
+  "manifest_version": 3,
+  "id": "a11y-audit",
+  "name": "A11y Audit",
+  "version": "1.0.2",
+  "description": "Audita accesibilidad de mini apps y WebViews: contraste, zonas táctiles, ARIA, alt, foco y nombres; genera informe y correcciones. / Audit mini apps and WebViews for accessibility: contrast, tap targets, ARIA, alt, focus and names; generate report and fixes.",
+  "permissions": [
+    "storage",
+    "scripting",
+    "tabs",
+    "activeTab",
+    "debugger",
+    "antigemFiles"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "world": "ISOLATED"
+    }
+  ],
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "a11y_scan",
+      "description": "ES: Audita la pestaña activa, HTML en línea o un archivo HTML local; detecta contraste, zonas táctiles, ARIA, alt, foco y nombres. EN: Audit the active tab, inline HTML or a local HTML file; check contrast, tap targets, ARIA, alt, focus and names.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "html": {
+            "type": "string",
+            "description": "ES: HTML en línea; tiene prioridad sobre la pestaña activa. EN: Inline HTML; takes priority over the active tab."
+          },
+          "html_path": {
+            "type": "string",
+            "description": "ES: Ruta ~/ o /sdcard a un archivo .html/.htm. EN: ~/ or /sdcard path to an .html/.htm file."
+          },
+          "tabId": {
+            "type": "integer",
+            "description": "ES: ID de pestaña; por defecto la activa. EN: Tab ID; defaults to the active tab."
+          },
+          "min_tap_size": {
+            "type": "integer",
+            "description": "ES: Lado mínimo del objetivo táctil en px, 24-64 (por defecto 44). EN: Minimum tap target side in px, 24-64 (default 44)."
+          },
+          "contrast_normal": {
+            "type": "number",
+            "description": "ES: Ratio mínimo para texto normal, 2-7 (por defecto 4.5). EN: Minimum ratio for normal text, 2-7 (default 4.5)."
+          },
+          "contrast_large": {
+            "type": "number",
+            "description": "ES: Ratio mínimo para texto grande, 2-7 (por defecto 3). EN: Minimum ratio for large text, 2-7 (default 3)."
+          },
+          "max_elements": {
+            "type": "integer",
+            "description": "ES: Máximo de elementos a revisar, 100-5000 (por defecto 2000). EN: Maximum elements to check, 100-5000 (default 2000)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "a11y_fix_suggestions",
+      "description": "ES: Prioriza correcciones concretas para un escaneo, con fragmentos de código; puede guardarse en disco. EN: Prioritise concrete fixes for a scan, with code snippets; can be saved to disk.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "scan": {
+            "type": "string",
+            "description": "ES: ID de escaneo; por defecto el último. EN: Scan ID; defaults to the latest scan."
+          },
+          "categories": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["contrast", "tap", "names", "alt", "focus", "structure"]
+            },
+            "description": "ES: Categorías a incluir (por defecto todas). EN: Categories to include (default all)."
+          },
+          "max": {
+            "type": "integer",
+            "description": "ES: Máximo de correcciones, 1-100 (por defecto 30). EN: Maximum fixes, 1-100 (default 30)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma de las correcciones (por defecto both). EN: Fixes language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional para guardar las correcciones. EN: Optional .md path to save the fixes."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "a11y_report",
+      "description": "ES: Genera un informe Markdown bilingüe con puntuación, hallazgos y correcciones; puede guardarse en disco. EN: Generate a bilingual Markdown report with score, findings and fixes; can be saved to disk.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "scan": {
+            "type": "string",
+            "description": "ES: ID de escaneo; por defecto el último. EN: Scan ID; defaults to the latest scan."
+          },
+          "include_fixes": {
+            "type": "boolean",
+            "description": "ES: Incluir correcciones guardadas (por defecto true). EN: Include stored fixes (default true)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional para guardar el informe. EN: Optional .md path to save the report."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}

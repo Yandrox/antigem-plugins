@@ -2,6 +2,14 @@
   "name": "Plugins comunitarios para AntiGem / AntiGem community plugins",
   "plugins": [
     {
+      "path": "a11y-audit",
+      "id": "a11y-audit",
+      "name": "A11y Audit",
+      "version": "1.0.2",
+      "description": "Audita accesibilidad de mini apps y WebViews: contraste, zonas táctiles, ARIA, alt, foco y nombres; genera informe y correcciones. / Audit mini apps and WebViews for accessibility: contrast, tap targets, ARIA, alt, focus and names; generate report and fixes.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "local-assets-lab",
       "id": "local-assets-lab",
       "name": "Local Assets Lab",
