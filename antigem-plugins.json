@@ -50,6 +50,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "git-hygiene",
+      "id": "git-hygiene",
+      "name": "Git Hygiene",
+      "version": "1.0.0",
+      "description": "Conventional Commits con scopes del repo, decisión de patch/minor/major, checklist de merge (tests, versión en dos sitios, índice actualizado) y detección de commits que mezclan responsabilidades, con generación de CHANGELOG.md desde git log. Solo skills, sin red. / Conventional Commits with repo scopes, patch/minor/major decision, merge checklist (tests, version in two places, index updated) and detection of mixed-responsibility commits, with CHANGELOG.md generation from git log. Skills only, no network.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "license-audit",
       "id": "license-audit",
       "name": "License Audit",
