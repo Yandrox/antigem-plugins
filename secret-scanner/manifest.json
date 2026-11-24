@@ -1,0 +1,66 @@
+{
+  "manifest_version": 3,
+  "id": "secret-scanner",
+  "name": "Secret Scanner",
+  "version": "1.0.0",
+  "description": "Escáner offline de secretos antes de publicar: detecta claves OpenAI, Google, GitHub, AWS, JWTs, tokens y contraseñas en claro, ignora lockfiles y ejemplos, y emite un informe con ruta:línea, confianza, entradas de .gitignore y pasos de rotación. Nunca modifica archivos. / Offline secret scanner before publishing: detects OpenAI, Google, GitHub, AWS keys, JWTs, tokens and plaintext passwords, skips lockfiles and examples, and reports file:line, confidence, .gitignore entries and rotation steps. Never modifies files.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "secrets_scan",
+      "description": "ES: Escanea un directorio local en busca de secretos filtrados: claves OpenAI/Google/GitHub/AWS, Slack, Stripe, Telegram, npm, JWTs, claves privadas, bearer tokens, credenciales en URLs y contraseñas en claro. Ignora .bak, lockfiles y ejemplos por defecto. Devuelve hallazgos con ruta:línea, confianza y valor redactado, más entradas sugeridas para .gitignore y pasos de rotación. NUNCA escribe ni modifica nada: es solo informe. EN: Scan a local directory for leaked secrets: OpenAI/Google/GitHub/AWS keys, Slack, Stripe, Telegram, npm, JWTs, private keys, bearer tokens, credentials in URLs and plaintext passwords. Skips .bak files, lockfiles and examples by default. Returns findings with file:line, confidence and redacted value, plus suggested .gitignore entries and rotation steps. NEVER writes or modifies anything: report only.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "root": {
+            "type": "string",
+            "description": "ES: Directorio local a escanear (~/... , /sdcard/... o ruta absoluta del terminal). EN: Local directory to scan (~/..., /sdcard/... or an absolute terminal path)."
+          },
+          "max_files": {
+            "type": "integer",
+            "description": "ES: Máximo de archivos leídos, 1-2000 (por defecto 400). EN: Maximum files read, 1-2000 (default 400)."
+          },
+          "max_dirs": {
+            "type": "integer",
+            "description": "ES: Máximo de directorios visitados, 1-2000 (por defecto 300). EN: Maximum directories visited, 1-2000 (default 300)."
+          },
+          "max_depth": {
+            "type": "integer",
+            "description": "ES: Profundidad máxima de recursión, 1-20 (por defecto 6). EN: Maximum recursion depth, 1-20 (default 6)."
+          },
+          "max_bytes_per_file": {
+            "type": "integer",
+            "description": "ES: Tamaño máximo por archivo leído (por defecto 131072). EN: Maximum size per file read (default 131072)."
+          },
+          "exclude_dirs": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "ES: Nombres de directorio a omitir; reemplazan los defaults (.git, .cache, __pycache__, node_modules, vendor, dist, build, coverage, .gradle, .idea). EN: Directory names to skip; replaces defaults (.git, .cache, __pycache__, node_modules, vendor, dist, build, coverage, .gradle, .idea)."
+          },
+          "include_examples": {
+            "type": "boolean",
+            "description": "ES: true = incluir lockfiles, backups y archivos de ejemplo (por defecto false, se ignoran). EN: true = include lockfiles, backups and example files (default false, skipped)."
+          },
+          "min_confidence": {
+            "type": "string",
+            "enum": ["low", "medium", "high"],
+            "description": "ES: Confianza mínima incluida en el informe (por defecto low). EN: Minimum confidence included in the report (default low)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo informe (por defecto y único modo). false NO habilita escrituras: la tool nunca modifica archivos. EN: true = report only (default and only mode). false does NOT enable writes: the tool never modifies files."
+          }
+        },
+        "required": ["root"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

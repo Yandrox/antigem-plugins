@@ -122,6 +122,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "secret-scanner",
+      "id": "secret-scanner",
+      "name": "Secret Scanner",
+      "version": "1.0.0",
+      "description": "Escáner offline de secretos antes de publicar: detecta claves OpenAI, Google, GitHub, AWS, JWTs, tokens y contraseñas en claro, ignora lockfiles y ejemplos, y emite un informe con ruta:línea, confianza, entradas de .gitignore y pasos de rotación. Nunca modifica archivos. / Offline secret scanner before publishing: detects OpenAI, Google, GitHub, AWS keys, JWTs, tokens and plaintext passwords, skips lockfiles and examples, and reports file:line, confidence, .gitignore entries and rotation steps. Never modifies files.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "storage-cleaner",
       "id": "storage-cleaner",
       "name": "Storage Cleaner",
