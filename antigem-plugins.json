@@ -10,6 +10,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "chart-craft",
+      "id": "chart-craft",
+      "name": "Chart Craft",
+      "version": "1.0.2",
+      "description": "Genera gráficos SVG offline para mini apps con ejes, tooltips accesibles y paletas de alto contraste; devuelve SVG en línea y data URI. / Generate offline SVG charts for mini apps with axes, accessible tooltips and high-contrast palettes; returns inline SVG and a data URI.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "config-backup-diff",
       "id": "config-backup-diff",
       "name": "Config Backup & Diff",

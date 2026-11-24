@@ -1,0 +1,133 @@
+{
+  "manifest_version": 3,
+  "id": "chart-craft",
+  "name": "Chart Craft",
+  "version": "1.0.2",
+  "description": "Genera gráficos SVG offline para mini apps con ejes, tooltips accesibles y paletas de alto contraste; devuelve SVG en línea y data URI. / Generate offline SVG charts for mini apps with axes, accessible tooltips and high-contrast palettes; returns inline SVG and a data URI.",
+  "permissions": [
+    "storage",
+    "antigemFiles"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "chart_render",
+      "description": "ES: Genera un gráfico SVG offline (bar, line, area, donut, scatter o sparkline) con escalas, ejes y tooltips accesibles; devuelve svg, dataUri y estadísticas. Usa chart_palette si necesitas colores validados. No dibuja mapas ni diagrams de Gantt. EN: Generate an offline SVG chart (bar, line, area, donut, scatter or sparkline) with scales, axes and accessible tooltips; returns svg, dataUri and stats. Use chart_palette for validated colours. It does not draw maps or Gantt charts.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["bar", "line", "area", "donut", "scatter", "sparkline"],
+            "description": "ES: Tipo de gráfico (por defecto bar). sparkline ignora ejes y título. EN: Chart type (default bar). sparkline ignores axes and title."
+          },
+          "data": {
+            "type": "array",
+            "items": {"type": "object"},
+            "description": "ES: Hasta 500 puntos {label,value} o {x,y}; un campo series opcional agrupa líneas/áreas. También acepta números sueltos. EN: Up to 500 points {label,value} or {x,y}; an optional series field groups lines/areas. Bare numbers are also accepted."
+          },
+          "title": {
+            "type": "string",
+            "description": "ES: Título accesible; también se usa en aria-label. EN: Accessible title; also used in aria-label."
+          },
+          "width": {
+            "type": "integer",
+            "description": "ES: Ancho en px, 80-1600 (por defecto 640; sparkline 240). EN: Width in px, 80-1600 (default 640; sparkline 240)."
+          },
+          "height": {
+            "type": "integer",
+            "description": "ES: Alto en px, 60-1000 (por defecto 360; sparkline 72). EN: Height in px, 60-1000 (default 360; sparkline 72)."
+          },
+          "theme": {
+            "type": "string",
+            "enum": ["contrast", "light", "dark"],
+            "description": "ES: Tema de fondo, texto y rejilla (por defecto contrast). EN: Background, text and grid theme (default contrast)."
+          },
+          "colors": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "ES: Colores hexadecimales; tiene prioridad sobre los colores del tema. EN: Hex colours; takes priority over theme colours."
+          },
+          "show_axes": {
+            "type": "boolean",
+            "description": "ES: true = dibuja ejes (por defecto); false = ocúltalos. EN: true = draw axes (default); false = hide them."
+          },
+          "show_grid": {
+            "type": "boolean",
+            "description": "ES: true = dibuja rejilla horizontal (por defecto); false = ocúltala. EN: true = draw horizontal grid (default); false = hide it."
+          },
+          "show_labels": {
+            "type": "boolean",
+            "description": "ES: true = muestra etiquetas de categoría (por defecto); false = ocúltalas. EN: true = show category labels (default); false = hide them."
+          },
+          "accessible": {
+            "type": "boolean",
+            "description": "ES: true = añade role=img, aria-label, title, desc y tooltips por punto (por defecto); false = SVG mínimo. EN: true = add role=img, aria-label, title, desc and per-point tooltips (default); false = minimal SVG."
+          },
+          "value_format": {
+            "type": "string",
+            "enum": ["number", "percent", "currency", "compact"],
+            "description": "ES: Formato de valores y ejes (por defecto number). compact usa k/M. EN: Value and axis format (default number). compact uses k/M."
+          },
+          "unit": {
+            "type": "string",
+            "description": "ES: Sufijo opcional tras cada valor, p. ej. kg o €. EN: Optional suffix after each value, e.g. kg or €."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma de aria-label y tooltips (por defecto both). EN: Language of aria-label and tooltips (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .svg opcional bajo ~/ o /sdcard para guardar. EN: Optional .svg path under ~/ or /sdcard to save."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el archivo. EN: true = preview only (default); false = write the file."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "chart_palette",
+      "description": "ES: Genera una paleta de colores para gráficos con ratios de contraste WCAG calculados sobre un fondo; devuelve hex, variables CSS y una muestra SVG. EN: Generate a chart colour palette with WCAG contrast ratios against a background; returns hex values, CSS variables and an SVG swatch.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "scheme": {
+            "type": "string",
+            "enum": ["contrast", "categorical", "warm", "cool", "mono", "accessible"],
+            "description": "ES: Esquema de color (por defecto contrast). accessible usa solo colores con ratio >= 4.5 sobre fondo oscuro. EN: Colour scheme (default contrast). accessible only uses colours with ratio >= 4.5 on a dark background."
+          },
+          "count": {
+            "type": "integer",
+            "description": "ES: Número de colores, 2-12 (por defecto 5). EN: Number of colours, 2-12 (default 5)."
+          },
+          "background": {
+            "type": "string",
+            "description": "ES: Color de fondo hexadecimal para calcular contraste (por defecto #0B1020). EN: Hex background colour for contrast calculation (default #0B1020)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma de la guía (por defecto both). EN: Guide language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .css opcional bajo ~/ o /sdcard para guardar las variables. EN: Optional .css path under ~/ or /sdcard to save the variables."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el archivo. EN: true = preview only (default); false = write the file."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}
