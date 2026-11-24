@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "id": "apk-recon",
+  "name": "APK Recon",
+  "version": "1.0.0",
+  "description": "Checklist guiado de reconocimiento de un APK local con REA: manifiesto, permisos peligrosos, componentes exportados, firma, ABIs nativos y strings sospechosos, con informe Markdown ordenado por riesgo. / Guided reconnaissance checklist for a local APK using REA: manifest, dangerous permissions, exported components, signature, native ABIs and suspicious strings, with a risk-ranked Markdown report.",
+  "icon": "icon.svg"
+}
