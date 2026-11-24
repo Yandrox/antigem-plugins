@@ -1,0 +1,134 @@
+{
+  "manifest_version": 3,
+  "id": "prompt-regression",
+  "name": "Prompt Regression",
+  "version": "1.0.2",
+  "description": "Detecta deriva en las skills guardando casos entrada→salida con aserciones de formato, idioma, herramienta y longitud. / Detect skill drift by storing input→output cases with assertions for format, language, tool choice and length.",
+  "permissions": [
+    "storage",
+    "antigemFiles"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "case_record",
+      "description": "ES: Guarda un caso de prueba de una skill (entrada + salida esperada con aserciones) en almacenamiento local; opcionalmente lo exporta a un JSON. No ejecuta el caso: solo lo registra. EN: Store a skill test case (input + expected output with assertions) in local storage; optionally export it to JSON. It does not run the case: it only records it.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "description": "ES: ID estable del caso; se genera si se omite. EN: Stable case ID; generated when omitted."
+          },
+          "skill": {
+            "type": "string",
+            "description": "ES: Nombre o ruta de la skill bajo prueba, p. ej. mcp-schemas. EN: Name or path of the skill under test, e.g. mcp-schemas."
+          },
+          "skill_version": {
+            "type": "string",
+            "description": "ES: Versión del plugin que contiene la skill. EN: Version of the plugin that contains the skill."
+          },
+          "input": {
+            "type": "string",
+            "description": "ES: Entrada exacta que se dará al modelo al repetir el caso. EN: Exact input that will be given to the model when replaying the case."
+          },
+          "expect": {
+            "type": "object",
+            "description": "ES: Aserciones: format {contains,not_contains,regex,json}, language {expected: es|en|both}, tool {expected,forbidden}, length {min_chars,max_chars,min_words,max_words}. EN: Assertions: format {contains,not_contains,regex,json}, language {expected: es|en|both}, tool {expected,forbidden}, length {min_chars,max_chars,min_words,max_words}."
+          },
+          "notes": {
+            "type": "string",
+            "description": "ES: Contexto opcional del caso. EN: Optional case context."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del resumen (por defecto both). EN: Summary language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .json opcional bajo ~/ o /sdcard para exportar el caso. EN: Optional .json path under ~/ or /sdcard to export the case."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el archivo. El caso siempre se guarda en almacenamiento local. EN: true = preview only (default); false = write the file. The case is always saved to local storage."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "case_check",
+      "description": "ES: Compara la salida real de una skill con un caso guardado y detecta deriva por categoría: formato, idioma, herramienta elegida o longitud. La salida real la produce el modelo siguiendo la skill; esta tool solo la evalúa. EN: Compare a skill's real output against a stored case and report drift by category: format, language, tool choice or length. The real output is produced by the model following the skill; this tool only evaluates it.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "case": {
+            "type": "string",
+            "description": "ES: ID de un caso guardado o ruta .json; por defecto el último caso registrado. EN: Stored case ID or .json path; defaults to the latest recorded case."
+          },
+          "case_inline": {
+            "type": "object",
+            "description": "ES: Caso en línea con skill, input y expect; tiene prioridad. EN: Inline case with skill, input and expect; takes priority."
+          },
+          "actual": {
+            "type": "string",
+            "description": "ES: Salida textual real que se quiere evaluar. EN: Real textual output to evaluate."
+          },
+          "actual_tool": {
+            "type": "string",
+            "description": "ES: Nombre de la herramienta que eligió el modelo, si aplica. EN: Name of the tool the model chose, if applicable."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional para guardar el resultado. EN: Optional .md path to save the result."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el informe. EN: true = preview only (default); false = write the report."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "case_report",
+      "description": "ES: Reúne las últimas comprobaciones y genera un informe Markdown de deriva agrupado por skill y categoría. No vuelve a ejecutar casos. EN: Gather the latest checks and produce a Markdown drift report grouped by skill and category. It does not replay cases.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "skill": {
+            "type": "string",
+            "description": "ES: Filtrar por nombre de skill; vacío = todas. EN: Filter by skill name; empty = all."
+          },
+          "limit": {
+            "type": "integer",
+            "description": "ES: Número máximo de comprobaciones, 1-200 (por defecto 50). EN: Maximum checks, 1-200 (default 50)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional bajo ~/ o /sdcard para guardar el informe. EN: Optional .md path under ~/ or /sdcard to save the report."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el informe. EN: true = preview only (default); false = write the report."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}

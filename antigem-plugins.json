@@ -58,6 +58,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "prompt-regression",
+      "id": "prompt-regression",
+      "name": "Prompt Regression",
+      "version": "1.0.2",
+      "description": "Detecta deriva en las skills guardando casos entrada→salida con aserciones de formato, idioma, herramienta y longitud. / Detect skill drift by storing input→output cases with assertions for format, language, tool choice and length.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "storage-cleaner",
       "id": "storage-cleaner",
       "name": "Storage Cleaner",
