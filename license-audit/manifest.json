@@ -1,0 +1,66 @@
+{
+  "manifest_version": 3,
+  "id": "license-audit",
+  "name": "License Audit",
+  "version": "1.0.0",
+  "description": "Auditoría offline de licencias antes de publicar: recorre carpetas locales, lee package.json, LICENSE y cabeceras, detecta copyleft incompatible con MIT, licencias ausentes y snippets sin atribución, y genera THIRD_PARTY_NOTICES.md. / Offline license audit before publishing: scans local folders, reads package.json, LICENSE files and headers, flags copyleft incompatible with MIT, missing licences and unattributed snippets, and generates THIRD_PARTY_NOTICES.md.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "license_scan",
+      "description": "ES: Escanea un directorio local en busca de licencias de terceros. Lee package.json, LICENSE/COPYING/NOTICE y cabeceras de código; marca licencias copyleft o restrictivas incompatibles con la licencia objetivo, componentes sin licencia y snippets con copyright o 'copied from' sin atribución. Genera un informe Markdown y, si se pide, escribe THIRD_PARTY_NOTICES.md. Solo lectura salvo la escritura opcional del informe; sin red. EN: Scan a local directory for third-party licences. Reads package.json, LICENSE/COPYING/NOTICE and code headers; flags copyleft or restrictive licences incompatible with the target licence, components with no licence, and snippets with copyright or 'copied from' markers but no attribution. Produces a Markdown report and optionally writes THIRD_PARTY_NOTICES.md. Read-only apart from the optional report write; offline.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "root": {
+            "type": "string",
+            "description": "ES: Directorio local a escanear, bajo ~/ o /sdcard. EN: Local directory to scan, under ~/ or /sdcard."
+          },
+          "target_license": {
+            "type": "string",
+            "enum": ["MIT", "Apache-2.0", "BSD", "any"],
+            "description": "ES: Licencia objetivo para la comprobación de compatibilidad (por defecto MIT). EN: Target licence for compatibility checks (default MIT)."
+          },
+          "max_files": {
+            "type": "integer",
+            "description": "ES: Máximo de archivos leídos, 1-2000 (por defecto 400). EN: Maximum files read, 1-2000 (default 400)."
+          },
+          "max_dirs": {
+            "type": "integer",
+            "description": "ES: Máximo de directorios visitados, 1-2000 (por defecto 300). EN: Maximum directories visited, 1-2000 (default 300)."
+          },
+          "max_depth": {
+            "type": "integer",
+            "description": "ES: Profundidad máxima de recursión, 1-20 (por defecto 6). EN: Maximum recursion depth, 1-20 (default 6)."
+          },
+          "max_bytes_per_file": {
+            "type": "integer",
+            "description": "ES: Tamaño máximo por archivo leído (por defecto 131072). Los archivos más grandes se omiten. EN: Maximum size per file read (default 131072). Larger files are skipped."
+          },
+          "exclude_dirs": {
+            "type": "array",
+            "items": {"type": "string"},
+            "description": "ES: Nombres de directorio a omitir; reemplazan los defaults (.git, .hg, .svn, .cache, __pycache__, .gradle, .idea). EN: Directory names to skip; replaces defaults (.git, .hg, .svn, .cache, __pycache__, .gradle, .idea)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional bajo ~/ o /sdcard para guardar THIRD_PARTY_NOTICES.md. EN: Optional .md path under ~/ or /sdcard to save THIRD_PARTY_NOTICES.md."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el archivo. EN: true = preview only (default); false = write the file."
+          }
+        },
+        "required": ["root"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}
