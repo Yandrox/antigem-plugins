@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "id": "rea-playbook",
+  "name": "REA Playbook",
+  "version": "1.0.1",
+  "description": "Árbol de decisión para usar REA bien: qué herramienta elegir según el artefacto, argumentos típicos y cómo leer el resultado, con resumen primero y detalle después. No duplica REA / Decision tree for using REA well: which tool to pick per artifact, typical arguments and how to read results, summary first and detail afterwards. It does not duplicate REA.",
+  "icon": "icon.svg"
+}
