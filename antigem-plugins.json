@@ -90,6 +90,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "regex-workbench",
+      "id": "regex-workbench",
+      "name": "Regex Workbench",
+      "version": "1.0.0",
+      "description": "Prueba y explica expresiones regulares con español y Unicode sin salir de la app: tokens, casos de prueba, falsos positivos, riesgo de backtracking y conversiones JS/PCRE/POSIX. / Test and explain regular expressions with Spanish and Unicode offline: tokens, test cases, false positives, backtracking risk and JS/PCRE/POSIX conversions.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "storage-cleaner",
       "id": "storage-cleaner",
       "name": "Storage Cleaner",

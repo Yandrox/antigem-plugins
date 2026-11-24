@@ -1,0 +1,94 @@
+{
+  "manifest_version": 3,
+  "id": "regex-workbench",
+  "name": "Regex Workbench",
+  "version": "1.0.0",
+  "description": "Prueba y explica expresiones regulares con español y Unicode sin salir de la app: tokens, casos de prueba, falsos positivos, riesgo de backtracking y conversiones JS/PCRE/POSIX. / Test and explain regular expressions with Spanish and Unicode offline: tokens, test cases, false positives, backtracking risk and JS/PCRE/POSIX conversions.",
+  "permissions": [
+    "storage",
+    "antigemFiles"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "regex_explain",
+      "description": "ES: Valida un patrón y lo explica token a token; genera casos de prueba con acentos, ñ y falsos positivos, detecta riesgo de backtracking catastrófico y devuelve conversiones JS/PCRE/POSIX con banderas u/i sugeridas. No ejecuta el patrón contratextos arbitrarios. EN: Validate a pattern and explain it token by token; generate test cases with accents, ñ and false positives, flag catastrophic-backtracking risk and return JS/PCRE/POSIX conversions with suggested u/i flags. It does not run the pattern against arbitrary text.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "description": "ES: Patrón sin delimitadores, p. ej. \\b(\\p{L}+)\\b. EN: Pattern without delimiters, e.g. \\b(\\p{L}+)\\b."
+          },
+          "flags": {
+            "type": "string",
+            "description": "ES: Banderas de JavaScript (gimsuy). Por defecto vacías. EN: JavaScript flags (gimsuy). Empty by default."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional bajo ~/ o /sdcard para guardar el informe. EN: Optional .md path under ~/ or /sdcard to save the report."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el archivo. EN: true = preview only (default); false = write the file."
+          }
+        },
+        "required": ["pattern"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "regex_test",
+      "description": "ES: Ejecuta un patrón contra muestras propias y contra los casos generados, indicando qué coincide, qué falla y qué falso positivo aparece. Omite la ejecución de patrones con riesgo alto de backtracking. EN: Run a pattern against your samples and the generated cases, reporting what matches, what fails and which false positive appears. Skips execution for high backtracking-risk patterns.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "pattern": {
+            "type": "string",
+            "description": "ES: Patrón sin delimitadores. EN: Pattern without delimiters."
+          },
+          "flags": {
+            "type": "string",
+            "description": "ES: Banderas de JavaScript (gimsuy). Por defecto vacías. EN: JavaScript flags (gimsuy). Empty by default."
+          },
+          "samples": {
+            "type": "array",
+            "items": {"type": "object"},
+            "description": "ES: Muestras en línea: strings o {text, expect:true|false, label}. expect omite el resultado esperado. EN: Inline samples: strings or {text, expect:true|false, label}. Omit expect for no expectation."
+          },
+          "generate_cases": {
+            "type": "boolean",
+            "description": "ES: true = añade los casos generados (por defecto); false = solo muestras propias. EN: true = add generated cases (default); false = your samples only."
+          },
+          "max_matches": {
+            "type": "integer",
+            "description": "ES: Máximo de coincidencias por muestra, 1-100 (por defecto 20). EN: Maximum matches per sample, 1-100 (default 20)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional bajo ~/ o /sdcard para guardar el informe. EN: Optional .md path under ~/ or /sdcard to save the report."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el archivo. EN: true = preview only (default); false = write the file."
+          }
+        },
+        "required": ["pattern"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}
