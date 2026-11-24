@@ -122,6 +122,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "trace-translator",
+      "id": "trace-translator",
+      "name": "Trace Translator",
+      "version": "1.0.0",
+      "description": "Normaliza stack traces de Java, Kotlin, Dart y JS: agrupa frames repetidos, marca los del proyecto, separa causa raíz de síntoma, traduce mensajes comunes y propone siguientes pasos. Sin red ni servicios externos. / Normalise Java, Kotlin, Dart and JS stack traces: group repeated frames, flag project frames, separate root cause from symptom, translate common messages and suggest next steps. Offline, no external services.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "viral-script-lab",
       "id": "viral-script-lab",
       "name": "Viral Script Lab",
