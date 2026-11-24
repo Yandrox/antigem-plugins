@@ -1,0 +1,190 @@
+{
+  "manifest_version": 3,
+  "id": "bot-forge",
+  "name": "Bot Forge",
+  "version": "1.0.2",
+  "description": "Kit offline para diseñar, generar, auditar y documentar bots de Telegram y Discord. No envía mensajes ni usa tokens. / Offline toolkit to design, generate, audit and document Telegram and Discord bots. It sends no messages and uses no tokens.",
+  "permissions": [
+    "storage",
+    "antigemFiles"
+  ],
+  "background": {
+    "service_worker": "worker.js"
+  },
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "bot_command_spec",
+      "description": "ES: Convierte una especificación unificada de comandos en el texto de /setcommands de BotFather y en JSON de slash commands de Discord, con validación de nombres, longitudes y límites. No registra comandos ni contacta con las plataformas. EN: Convert a unified command specification into BotFather /setcommands text and Discord slash-command JSON, validating names, lengths and limits. It does not register commands or contact the platforms.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "commands": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {"type": "string", "description": "ES: Nombre del comando sin barra, minúsculas. EN: Command name without slash, lowercase."},
+                "description_es": {"type": "string", "description": "ES: Descripción en español (máx. 100 caracteres). EN: Spanish description (max 100 chars)."},
+                "description_en": {"type": "string", "description": "ES: Descripción en inglés (máx. 100 caracteres). EN: English description (max 100 chars)."},
+                "aliases": {"type": "array", "items": {"type": "string"}, "description": "ES: Alias cortos para Telegram. EN: Short aliases for Telegram."},
+                "admin_only": {"type": "boolean", "description": "ES: true = solo administradores. EN: true = admins only."},
+                "dm_only": {"type": "boolean", "description": "ES: true = solo mensajes directos. EN: true = direct messages only."},
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {"type": "string", "description": "ES: Nombre del parámetro. EN: Parameter name."},
+                      "type": {"type": "string", "enum": ["string", "integer", "boolean", "user", "channel", "role", "number", "attachment"], "description": "ES: Tipo del parámetro. EN: Parameter type."},
+                      "required": {"type": "boolean", "description": "ES: true = obligatorio. EN: true = required."},
+                      "description_es": {"type": "string", "description": "ES: Descripción en español. EN: Spanish description."},
+                      "description_en": {"type": "string", "description": "ES: Descripción en inglés. EN: English description."},
+                      "choices": {"type": "array", "items": {"type": "string"}, "description": "ES: Valores permitidos. EN: Allowed values."}
+                    },
+                    "additionalProperties": false
+                  },
+                  "description": "ES: Opciones del slash command de Discord (máx. 25). EN: Discord slash-command options (max 25)."
+                }
+              },
+              "additionalProperties": false
+            },
+            "description": "ES: Lista de comandos a convertir. EN: List of commands to convert."
+          },
+          "platform": {
+            "type": "string",
+            "enum": ["both", "telegram", "discord"],
+            "description": "ES: Plataforma de salida (por defecto both). EN: Output platform (default both)."
+          },
+          "telegram_bot_name": {
+            "type": "string",
+            "description": "ES: Nombre del bot para la cabecera de BotFather. EN: Bot name for the BotFather header."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional bajo ~/ o /sdcard para guardar el informe. EN: Optional .md path under ~/ or /sdcard to save the report."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el archivo. EN: true = preview only (default); false = write the file."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "bot_scaffold",
+      "description": "ES: Genera un proyecto base para un bot de Telegram o Discord con token por variable de entorno, manejo de errores y apagado limpio. Devuelve los archivos como texto y opcionalmente los escribe en disco. No instala dependencias. EN: Generate a starter project for a Telegram or Discord bot with env-var token, error handling and graceful shutdown. Returns files as text and optionally writes them to disk. It installs no dependencies.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "platform": {
+            "type": "string",
+            "enum": ["telegram", "discord"],
+            "description": "ES: Plataforma del bot (por defecto telegram). EN: Bot platform (default telegram)."
+          },
+          "runtime": {
+            "type": "string",
+            "enum": ["node", "python"],
+            "description": "ES: Runtime (por defecto node). EN: Runtime (default node)."
+          },
+          "project_name": {
+            "type": "string",
+            "description": "ES: Nombre del proyecto; se sanea para carpeta. EN: Project name; sanitised for a folder."
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": ["env_token", "start_command", "error_handler", "graceful_shutdown", "logging"]
+            },
+            "description": "ES: Funciones a incluir; por defecto todas. EN: Features to include; all by default."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma de comentarios y README (por defecto both). EN: Language of comments and README (default both)."
+          },
+          "output_dir": {
+            "type": "string",
+            "description": "ES: Directorio opcional bajo ~/ o /sdcard donde escribir los archivos. EN: Optional directory under ~/ or /sdcard to write the files."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir los archivos. EN: true = preview only (default); false = write the files."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "bot_audit",
+      "description": "ES: Audita código o configuración de un bot de Telegram/Discord en busca de token embebido, secretos en logs, falta de manejo de errores, intents privilegiados, permisos amplios y problemas de webhook. Devuelve hallazgos por severidad con correcciones. Es análisis estático, no ejecuta nada. EN: Audit Telegram/Discord bot code or config for embedded tokens, secrets in logs, missing error handling, privileged intents, broad permissions and webhook issues. Returns findings by severity with fixes. Static analysis only; it executes nothing.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "ES: Código fuente a auditar. EN: Source code to audit."
+          },
+          "config": {
+            "type": "object",
+            "description": "ES: Configuración del bot: platform, webhook, webhook_secret, intents, permissions, rate_limit_handling, logging_token. EN: Bot config: platform, webhook, webhook_secret, intents, permissions, rate_limit_handling, logging_token."
+          },
+          "platform": {
+            "type": "string",
+            "enum": ["auto", "telegram", "discord"],
+            "description": "ES: Plataforma para ajustar las reglas (por defecto auto). EN: Platform to tailor rules (default auto)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional bajo ~/ o /sdcard para guardar el informe. EN: Optional .md path under ~/ or /sdcard to save the report."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el archivo. EN: true = preview only (default); false = write the file."
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "bot_reference",
+      "description": "ES: Devuelve una ficha bilingüe y offline sobre un tema de bots de Telegram o Discord: configuración, comandos, teclados, embeds, intents, permisos, webhooks, límites, seguridad, pruebas, despliegue o comparativa. Incluye checklist y errores comunes. EN: Return an offline bilingual reference card on a Telegram/Discord bot topic: setup, commands, keyboards, embeds, intents, permissions, webhooks, limits, security, testing, deployment or comparison. Includes a checklist and common mistakes.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "topic": {
+            "type": "string",
+            "enum": ["telegram-setup", "telegram-commands", "telegram-keyboards", "telegram-inline", "telegram-webhooks", "telegram-limits", "discord-setup", "discord-slash", "discord-embeds", "discord-intents", "discord-permissions", "discord-webhooks", "security", "testing", "deployment", "comparison"],
+            "description": "ES: Tema de la ficha. EN: Reference topic."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma de la ficha (por defecto both). EN: Reference language (default both)."
+          },
+          "output": {
+            "type": "string",
+            "description": "ES: Ruta .md opcional bajo ~/ o /sdcard para guardar la ficha. EN: Optional .md path under ~/ or /sdcard to save the card."
+          },
+          "dry_run": {
+            "type": "boolean",
+            "description": "ES: true = solo previsualizar (por defecto); false = escribir el archivo. EN: true = preview only (default); false = write the file."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}

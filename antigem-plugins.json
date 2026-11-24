@@ -10,6 +10,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "bot-forge",
+      "id": "bot-forge",
+      "name": "Bot Forge",
+      "version": "1.0.2",
+      "description": "Kit offline para diseñar, generar, auditar y documentar bots de Telegram y Discord. No envía mensajes ni usa tokens. / Offline toolkit to design, generate, audit and document Telegram and Discord bots. It sends no messages and uses no tokens.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "chart-craft",
       "id": "chart-craft",
       "name": "Chart Craft",
