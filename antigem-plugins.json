@@ -34,6 +34,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "code-review-offline",
+      "id": "code-review-offline",
+      "name": "Code Review Offline",
+      "version": "1.0.0",
+      "description": "Revisión sistemática de código local antes del commit: checklists por lenguaje (JS/TS, Kotlin, Python, Dart), anti-patrones de móvil y refactors con antes/después e informe con severidad y archivo:línea. Sin red ni login. / Systematic offline code review before commit: per-language checklists (JS/TS, Kotlin, Python, Dart), mobile anti-patterns and before/after refactors with a severity and file:line report. No network, no login.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "config-backup-diff",
       "id": "config-backup-diff",
       "name": "Config Backup & Diff",
