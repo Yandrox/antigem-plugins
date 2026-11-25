@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "id": "theme-audit",
+  "name": "Theme Audit",
+  "version": "1.0.0",
+  "description": "Auditoría offline de contraste WCAG de temas de AntiGem: calcula el ratio de cada par texto/fondo (interfaz, código, editor y terminal), marca fallos AA/AAA y propone un theme_update concreto para el tema claro y el oscuro. Solo lectura. / Offline WCAG contrast audit for AntiGem themes: computes the ratio of every text/background pair (UI, code, editor and terminal), flags AA/AAA failures and proposes a concrete theme_update for the light and dark themes. Read-only.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "audit_theme",
+      "description": "ES: Audita el contraste WCAG de uno o varios temas de AntiGem. Pasa el resultado de theme_get / theme_export en `theme`, `themes` o `json` (o una ruta local a un JSON en `path`); opcionalmente pasa theme_tokens en `tokens` para distinguir seeds de colores derivados. Calcula el ratio de cada par texto/fondo, clasifica errores y avisos, y devuelve un mapa `colors` listo para theme_update. NUNCA modifica temas ni archivos. EN: Audits WCAG contrast of one or more AntiGem themes. Pass the result of theme_get / theme_export in `theme`, `themes` or `json` (or a local JSON path in `path`); optionally pass theme_tokens in `tokens` to distinguish seeds from derived colors. Computes every text/background ratio, classifies errors and warnings, and returns a `colors` map ready for theme_update. NEVER modifies themes or files.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "theme": {
+            "type": "object",
+            "description": "ES: Un tema devuelto por theme_get o theme_export, con un objeto `colors` de token→hex. EN: One theme returned by theme_get or theme_export, with a `colors` token→hex object."
+          },
+          "themes": {
+            "type": "array",
+            "items": {"type": "object"},
+            "description": "ES: Varios temas a auditar de una vez, por ejemplo el claro y el oscuro. EN: Several themes to audit at once, for example the light and dark sides."
+          },
+          "json": {
+            "type": "string",
+            "description": "ES: JSON en texto devuelto por theme_export (un tema o un array). EN: Text JSON returned by theme_export (one theme or an array)."
+          },
+          "path": {
+            "type": "string",
+            "description": "ES: Ruta local (~/..., /sdcard/...) a un JSON de tema exportado. Solo lectura. EN: Local path (~/..., /sdcard/...) to an exported theme JSON. Read-only."
+          },
+          "tokens": {
+            "type": "object",
+            "description": "ES: Resultado de theme_tokens; su campo `seeds` marca los colores que regeneran otros al cambiar. EN: Result of theme_tokens; its `seeds` field marks colors that regenerate others when changed."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          },
+          "include_ansi": {
+            "type": "boolean",
+            "description": "ES: Incluir las 16 parejas ANSI sobre terminal_bg (por defecto true). EN: Include the 16 ANSI pairs over terminal_bg (default true)."
+          },
+          "max_fixes": {
+            "type": "integer",
+            "description": "ES: Máximo de colores propuestos por tema, 1-40 (por defecto 12). EN: Maximum proposed colors per theme, 1-40 (default 12)."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}

@@ -170,6 +170,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "theme-audit",
+      "id": "theme-audit",
+      "name": "Theme Audit",
+      "version": "1.0.0",
+      "description": "Auditoría offline de contraste WCAG de temas de AntiGem: calcula el ratio de cada par texto/fondo (interfaz, código, editor y terminal), marca fallos AA/AAA y propone un theme_update concreto para el tema claro y el oscuro. Solo lectura. / Offline WCAG contrast audit for AntiGem themes: computes the ratio of every text/background pair (UI, code, editor and terminal), flags AA/AAA failures and proposes a concrete theme_update for the light and dark themes. Read-only.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "trace-translator",
       "id": "trace-translator",
       "name": "Trace Translator",
