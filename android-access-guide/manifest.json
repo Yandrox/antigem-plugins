@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "id": "android-access-guide",
+  "name": "Android Access Guide",
+  "version": "1.0.0",
+  "description": "ES: Detecta el modo de acceso shell (ADB, Shizuku, root o ninguno), explica el riesgo y genera el comando exacto con pasos de activación. Solo skills, offline. / EN: Detect shell access mode (ADB, Shizuku, root or none), explains the risk and produces the exact command with activation steps. Skills only, offline.",
+  "icon": "icon.svg"
+}

@@ -1,4 +1,4 @@
-![PLUGINS: 28](./assets/badges/plugins.svg) ![MODE: 100% OFFLINE](./assets/badges/offline.svg) ![PLATFORM: ANTIGEM](./assets/badges/antigem.svg) ![LANG: ES · EN](./assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](./assets/badges/install.svg)
+![PLUGINS: 29](./assets/badges/plugins.svg) ![MODE: 100% OFFLINE](./assets/badges/offline.svg) ![PLATFORM: ANTIGEM](./assets/badges/antigem.svg) ![LANG: ES · EN](./assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](./assets/badges/install.svg)
 
 # Plugins comunitarios para AntiGem / AntiGem community plugins
 
@@ -13,6 +13,7 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 | Plugin | ID | Versión / Version | Descripción / Description |
 | --- | --- | --- | --- |
 | [A11y Audit](./a11y-audit/) | `a11y-audit` | 1.0.2 | Audita accesibilidad de mini apps y WebViews: contraste, zonas táctiles, ARIA, alt, foco y nombres; genera informe y correcciones. / Audit mini apps and WebViews for accessibility: contrast, tap targets, ARIA, alt, focus and names; generate report and fixes. |
+| [Android Access Guide](./android-access-guide/) | `android-access-guide` | 1.0.0 | ES: Detecta el modo de acceso shell (ADB, Shizuku, root o ninguno), explica el riesgo y genera el comando exacto con pasos de activación. Solo skills, offline. / EN: Detect shell access mode (ADB, Shizuku, root or none), explains the risk and produces the exact command with activation steps. Skills only, offline. |
 | [APK Recon](./apk-recon/) | `apk-recon` | 1.0.0 | Checklist guiado de reconocimiento de un APK local con REA: manifiesto, permisos peligrosos, componentes exportados, firma, ABIs nativos y strings sospechosos, con informe Markdown ordenado por riesgo. / Guided reconnaissance checklist for a local APK using REA: manifest, dangerous permissions, exported components, signature, native ABIs and suspicious strings, with a risk-ranked Markdown report. |
 | [Bot Forge](./bot-forge/) | `bot-forge` | 1.0.2 | Kit offline para diseñar, generar, auditar y documentar bots de Telegram y Discord. No envía mensajes ni usa tokens. / Offline toolkit to design, generate, audit and document Telegram and Discord bots. It sends no messages and uses no tokens. |
 | [Browser Flow Recorder](./browser-flow-recorder/) | `browser-flow-recorder` | 1.0.0 | ES: Convierte acciones de browser_mcp en flujos reproducibles con aserciones, redacción de credenciales, comparación de capturas e informe bilingüe. Offline. / EN: Turn browser_mcp actions into reproducible flows with assertions, credential redaction, screenshot comparison and a bilingual report. Offline. |
