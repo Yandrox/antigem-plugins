@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "id": "session-handoff",
+  "name": "Session Handoff",
+  "version": "1.0.0",
+  "description": "Genera un bloque Markdown portable y conciso para continuar una sesión en otro agente (OpenCode, Jarvis, Claude Code, Codex): objetivo, decisiones, trabajo completado, bloqueos, estado del repo, rutas relevantes, pendientes y siguiente paso. Offline, sin ejecutar acciones ni exponer secretos. / Generates a compact, portable Markdown block to continue a session in another agent (OpenCode, Jarvis, Claude Code, Codex): objective, decisions, completed work, blockers, repo state, relevant paths, open items and next step. Offline, no actions, no secrets.",
+  "icon": "icon.svg"
+}
