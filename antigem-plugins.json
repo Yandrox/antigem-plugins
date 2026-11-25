@@ -34,6 +34,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "chrome-api-compat",
+      "id": "chrome-api-compat",
+      "name": "Chrome API Compatibility",
+      "version": "1.0.0",
+      "description": "Matriz bilingüe de las APIs chrome.* realmente implementadas en AntiGem (stubs y rechazos incluidos), plantillas de manifest.json mínimo y checklist para sustituir APIs de escritorio por equivalentes nativos. Solo skills, offline. / Bilingual matrix of the chrome.* APIs actually implemented in AntiGem (including stubs and rejections), minimal manifest.json templates and a checklist to replace desktop APIs with native equivalents. Skills only, offline.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "code-review-offline",
       "id": "code-review-offline",
       "name": "Code Review Offline",
