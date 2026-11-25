@@ -130,6 +130,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "notes-bridge",
+      "id": "notes-bridge",
+      "name": "Notes Bridge",
+      "version": "1.0.0",
+      "description": "ES: Exporta e importa notas y listas de notes_mcp a Markdown local con frontmatter, búsqueda full-text y deduplicación; prepara un plan para aplicar con notes_update. Híbrido y offline. / EN: Export and import notes_mcp notes and to-dos to local Markdown with frontmatter, full-text search and deduplication; prepares a plan to apply with notes_update. Hybrid and offline.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "offline-subs",
       "id": "offline-subs",
       "name": "Offline Subs",

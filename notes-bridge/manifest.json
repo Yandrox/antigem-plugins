@@ -1,0 +1,95 @@
+{
+  "manifest_version": 3,
+  "id": "notes-bridge",
+  "name": "Notes Bridge",
+  "version": "1.0.0",
+  "description": "ES: Exporta e importa notas y listas de notes_mcp a Markdown local con frontmatter, búsqueda full-text y deduplicación; prepara un plan para aplicar con notes_update. Híbrido y offline. / EN: Export and import notes_mcp notes and to-dos to local Markdown with frontmatter, full-text search and deduplication; prepares a plan to apply with notes_update. Hybrid and offline.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "notes_export",
+      "description": "ES: Exporta notas y listas de notes_mcp a Markdown con frontmatter en una carpeta local; calcula hash y devuelve un índice. La redacción no se aplica: revisa el contenido antes de guardarlo. EN: Export notes_mcp notes and to-do lists to Markdown with frontmatter in a local folder; computes hashes and returns an index. Preview by default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "notes": {"type": "array", "items": {"type": "object"}, "description": "ES: Notas de notes_list(include_body:true) o notes_get. EN: Notes from notes_list(include_body:true) or notes_get."},
+          "output": {"type": "string", "description": "ES: Carpeta de exportación (por defecto ~/notes-bridge/export). EN: Export folder (default ~/notes-bridge/export)."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."},
+          "overwrite": {"type": "boolean", "description": "ES: Sobrescribir archivos existentes (por defecto true). EN: Overwrite existing files (default true)."},
+          "language": {"type": "string", "enum": ["es", "en", "both"], "description": "ES: Idioma de la salida (por defecto both). EN: Output language (default both)."}
+        },
+        "required": ["notes"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "notes_import",
+      "description": "ES: Lee Markdown con frontmatter de una carpeta y compara con el inventario actual; devuelve un plan de llamadas notes_create/notes_update/notes_todo_* listo para aplicar. No modifica Notes. EN: Read frontmatter Markdown from a folder, compare with the current inventory and return a plan of notes_create/notes_update/notes_todo_* calls. Never writes to Notes.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {"type": "string", "description": "ES: Carpeta con los .md exportados (por defecto ~/notes-bridge/export). EN: Folder with exported .md files (default ~/notes-bridge/export)."},
+          "notes": {"type": "array", "items": {"type": "object"}, "description": "ES: Inventario actual de notes_list(include_body:true). EN: Current inventory from notes_list(include_body:true)."},
+          "dry_run": {"type": "boolean", "description": "ES: Reservado; la herramienta siempre solo planifica. EN: Reserved; the tool always plans only."},
+          "maxFiles": {"type": "integer", "description": "ES: Máximo de archivos a leer (por defecto 500). EN: Maximum files to read (default 500)."},
+          "language": {"type": "string", "enum": ["es", "en", "both"], "description": "ES: Idioma de la salida (por defecto both). EN: Output language (default both)."}
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "notes_search",
+      "description": "ES: Búsqueda full-text (o regex) sobre notas pasadas por el agente o sobre el Markdown exportado; devuelve fragmentos con la coincidencia. EN: Full-text (or regex) search over agent-provided notes or exported Markdown; returns matching snippets.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {"type": "string", "description": "ES: Texto o expresión regular a buscar. EN: Text or regular expression to search for."},
+          "notes": {"type": "array", "items": {"type": "object"}, "description": "ES: Notas donde buscar. EN: Notes to search."},
+          "path": {"type": "string", "description": "ES: Carpeta de .md exportados donde buscar. EN: Folder of exported .md files to search."},
+          "fields": {"type": "array", "items": {"type": "string", "enum": ["title", "text", "items"]}, "description": "ES: Campos a buscar (por defecto title, text, items). EN: Fields to search (default title, text, items)."},
+          "case_sensitive": {"type": "boolean", "description": "ES: Distingue mayúsculas (por defecto false; ignora acentos). EN: Case sensitive (default false; accents ignored)."},
+          "regex": {"type": "boolean", "description": "ES: Tratar query como regex (por defecto false). EN: Treat query as regex (default false)."},
+          "limit": {"type": "integer", "description": "ES: Máximo de resultados (por defecto 50). EN: Maximum results (default 50)."},
+          "language": {"type": "string", "enum": ["es", "en", "both"], "description": "ES: Idioma de la salida (por defecto both). EN: Output language (default both)."}
+        },
+        "required": ["query"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "notes_dedupe",
+      "description": "ES: Detecta notas duplicadas exactas y similares (Jaccard de tokens), sugiere cuál conservar y propone acciones para revisar. No elimina nada. EN: Detect exact and near-duplicate notes (token Jaccard), suggests which to keep and proposes actions for review. Deletes nothing.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "notes": {"type": "array", "items": {"type": "object"}, "description": "ES: Notas a analizar. EN: Notes to analyse."},
+          "path": {"type": "string", "description": "ES: Carpeta de .md exportados a analizar. EN: Folder of exported .md files to analyse."},
+          "threshold": {"type": "number", "description": "ES: Similitud mínima para duplicados próximos, 0.5-1 (por defecto 0.9). EN: Minimum similarity for near duplicates, 0.5-1 (default 0.9)."},
+          "exact_only": {"type": "boolean", "description": "ES: Solo duplicados exactos (por defecto false). EN: Only exact duplicates (default false)."},
+          "language": {"type": "string", "enum": ["es", "en", "both"], "description": "ES: Idioma de la salida (por defecto both). EN: Output language (default both)."}
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "notes_report",
+      "description": "ES: Genera un informe Markdown bilingüe con operaciones, resumen, hallazgos y siguientes pasos; previsualiza por defecto y solo escribe con dry_run:false. EN: Generate a bilingual Markdown report with operations, summary, findings and next steps; previews by default and only writes with dry_run:false.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string", "description": "ES: Título del informe. EN: Report title."},
+          "operations": {"type": "array", "items": {"type": "object"}, "description": "ES: Resultados de otras tools con tool y summary. EN: Results from other tools with tool and summary."},
+          "summary": {"type": "object", "description": "ES: Métricas clave (nombre → valor). EN: Key metrics (name → value)."},
+          "findings": {"type": "array", "description": "ES: Hallazgos en texto o {es, en}. EN: Findings as text or {es, en}."},
+          "warnings": {"type": "array", "description": "ES: Avisos a incluir. EN: Warnings to include."},
+          "output": {"type": "string", "description": "ES: Ruta .md opcional para guardar. EN: Optional .md path to save."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."},
+          "language": {"type": "string", "enum": ["es", "en", "both"], "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."}
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}
