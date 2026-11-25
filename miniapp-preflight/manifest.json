@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "id": "miniapp-preflight",
+  "name": "MiniApp Preflight",
+  "version": "1.0.0",
+  "description": "ES: Checklist bilingüe antes de firmar o instalar mini apps: manifest, permisos, AntiGem.*, bundle, consola, captura y clave; informe ✅/⚠️/❌. Solo skills, offline. / EN: Bilingual preflight checklist before signing or installing mini apps: manifest, permissions, AntiGem.*, bundle, console, screenshot and key; ✅/⚠️/❌ report. Skills only, offline.",
+  "icon": "icon.svg"
+}
