@@ -1,0 +1,99 @@
+{
+  "manifest_version": 3,
+  "id": "mcp-health-check",
+  "name": "MCP Health Check",
+  "version": "1.0.0",
+  "description": "Diagnóstico offline de la salud del ecosistema MCP de AntiGem: inventario de plugins instalados y borradores, conteo de tools y skills, duplicados, workers ausentes, deriva de versiones, tamaño de storage y observaciones de servidores declinados o lentos. Solo lectura. / Offline health check for the AntiGem MCP ecosystem: inventory of installed plugins and drafts, tool and skill counts, duplicate names, missing workers, version drift, storage size and observations about declined or slow servers. Read-only.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "mcp_health",
+      "description": "ES: Diagnostica la salud del ecosistema MCP de AntiGem leyendo solo archivos locales: plugins instalados en ~/extensions, borradores en ~/extension-projects y dumps de storage en ~/browser-extensions/.antigem-state. Cuenta tools y skills, detecta duplicados (informativos, porque están scoped por ID), compara versiones instaladas vs borrador, mide el tamaño de storage e integra observaciones que el agente haya recogido con webview_extension_list / webview_extension_logs (servidores declinados, no disponibles o lentos). Devuelve puntuación, hallazgos con severidad, recomendaciones e informe Markdown. NUNCA escribe ni llama a la red. EN: Diagnose AntiGem MCP ecosystem health from local files only: installed plugins in ~/extensions, drafts in ~/extension-projects and storage dumps in ~/browser-extensions/.antigem-state. Count tools and skills, flag duplicates (informational: they are scoped per ID), compare installed vs draft versions, measure storage size and merge observations the agent collected with webview_extension_list / webview_extension_logs (declined, unreachable or slow servers). Returns a score, severity-tagged findings, recommendations and a Markdown report. NEVER writes or uses the network.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "extensions_dir": {
+            "type": "string",
+            "description": "ES: Directorio de plugins instalados (por defecto ~/extensions). EN: Installed plugins directory (default ~/extensions)."
+          },
+          "drafts_dir": {
+            "type": "string",
+            "description": "ES: Directorio de borradores (por defecto ~/extension-projects). EN: Drafts directory (default ~/extension-projects)."
+          },
+          "state_dir": {
+            "type": "string",
+            "description": "ES: Directorio con los dumps de storage (por defecto ~/browser-extensions/.antigem-state). EN: Directory with storage dumps (default ~/browser-extensions/.antigem-state)."
+          },
+          "max_extensions": {
+            "type": "integer",
+            "description": "ES: Máximo de plugins por directorio, 1-500 (por defecto 120). EN: Maximum plugins per directory, 1-500 (default 120)."
+          },
+          "max_bytes_per_file": {
+            "type": "integer",
+            "description": "ES: Tamaño máximo de archivo leído, 1024-8388608 (por defecto 262144). EN: Maximum size of a read file, 1024-8388608 (default 262144)."
+          },
+          "storage_warn_bytes": {
+            "type": "integer",
+            "description": "ES: Umbral de storage por plugin para avisar (por defecto 1048576). EN: Per-plugin storage threshold for a warning (default 1048576)."
+          },
+          "observed": {
+            "type": "object",
+            "description": "ES: Observaciones reales recogidas por el agente con webview_extension_list / webview_extension_logs. La tool no las inventa. EN: Real observations gathered by the agent with webview_extension_list / webview_extension_logs. The tool never invents them.",
+            "properties": {
+              "declined": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "server": {"type": "string"},
+                    "error": {"type": "string"}
+                  },
+                  "required": ["server"],
+                  "additionalProperties": false
+                }
+              },
+              "unreachable": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "server": {"type": "string"},
+                    "error": {"type": "string"}
+                  },
+                  "required": ["server"],
+                  "additionalProperties": false
+                }
+              },
+              "latency_ms": {
+                "type": "object",
+                "additionalProperties": {"type": "number"}
+              },
+              "logs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "server": {"type": "string"},
+                    "level": {"type": "string"},
+                    "message": {"type": "string"}
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

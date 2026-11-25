@@ -74,6 +74,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "mcp-health-check",
+      "id": "mcp-health-check",
+      "name": "MCP Health Check",
+      "version": "1.0.0",
+      "description": "Diagnóstico offline de la salud del ecosistema MCP de AntiGem: inventario de plugins instalados y borradores, conteo de tools y skills, duplicados, workers ausentes, deriva de versiones, tamaño de storage y observaciones de servidores declinados o lentos. Solo lectura. / Offline health check for the AntiGem MCP ecosystem: inventory of installed plugins and drafts, tool and skill counts, duplicate names, missing workers, version drift, storage size and observations about declined or slow servers. Read-only.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "mcp-schema-designer",
       "id": "mcp-schema-designer",
       "name": "MCP Schema Designer",
