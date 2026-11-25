@@ -1,14 +1,14 @@
-# Plugins comunitarios para AntiGem
+# Plugins comunitarios para AntiGem / AntiGem community plugins
 
-Repositorio público con plugins y skills para AntiGem. Todo funciona offline: JavaScript incluido en cada plugin, sin CDNs ni servicios remotos.
+Repositorio público con plugins y skills para AntiGem. Todo funciona offline: JavaScript incluido en cada plugin, sin CDNs ni servicios remotos. / Public repository with plugins and skills for AntiGem. Everything works offline: JavaScript is bundled in each plugin, with no CDNs or remote services.
 
-## Instalar
+## Instalar / Install
 
-En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Yandrox/antigem-plugins`.
+En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Yandrox/antigem-plugins`. / In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add `Yandrox/antigem-plugins`.
 
 ## Plugins
 
-| Plugin | ID | Versión | Descripción |
+| Plugin | ID | Versión / Version | Descripción / Description |
 | --- | --- | --- | --- |
 | [A11y Audit](./a11y-audit/) | `a11y-audit` | 1.0.2 | Audita accesibilidad de mini apps y WebViews: contraste, zonas táctiles, ARIA, alt, foco y nombres; genera informe y correcciones. / Audit mini apps and WebViews for accessibility: contrast, tap targets, ARIA, alt, focus and names; generate report and fixes. |
 | [APK Recon](./apk-recon/) | `apk-recon` | 1.0.0 | Checklist guiado de reconocimiento de un APK local con REA: manifiesto, permisos peligrosos, componentes exportados, firma, ABIs nativos y strings sospechosos, con informe Markdown ordenado por riesgo. / Guided reconnaissance checklist for a local APK using REA: manifest, dangerous permissions, exported components, signature, native ABIs and suspicious strings, with a risk-ranked Markdown report. |
@@ -36,66 +36,14 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 | [Trace Translator](./trace-translator/) | `trace-translator` | 1.0.0 | Normaliza stack traces de Java, Kotlin, Dart y JS: agrupa frames repetidos, marca los del proyecto, separa causa raíz de síntoma, traduce mensajes comunes y propone siguientes pasos. Sin red ni servicios externos. / Normalise Java, Kotlin, Dart and JS stack traces: group repeated frames, flag project frames, separate root cause from symptom, translate common messages and suggest next steps. Offline, no external services. |
 | [Viral Script Lab](./viral-script-lab/) | `viral-script-lab` | 1.0.2 | Analiza guiones cortos (gancho, cortes, ritmo, 3 actos y CTA) y genera títulos y hashtags sin servicios externos. / Analyse short-form scripts (hook, cuts, pace, 3 acts and CTA) and generate titles and hashtags offline. |
 
-## Mantenimiento con Plugin Doctor
+## Mantenimiento con Plugin Doctor / Maintenance with Plugin Doctor
 
-- `doctor_validate`: revisa manifiestos, skills, índice, enlaces y límites de tamaño.
-- `doctor_fix_index`: regenera `antigem-plugins.json` desde los `manifest.json`.
-- `doctor_generate_readme`: genera este README en español e inglés.
+- `doctor_validate`: revisa manifiestos, skills, índice, enlaces y límites de tamaño. / Checks manifests, skills, index, links and size limits.
+- `doctor_fix_index`: regenera `antigem-plugins.json` desde los `manifest.json`. / Rebuilds `antigem-plugins.json` from every `manifest.json`.
+- `doctor_generate_readme`: genera este README en español e inglés. / Generates this bilingual README.
 
-## Límites por plugin
+## Límites por plugin / Per-plugin limits
 
-- Máximo 5000 archivos.
-- Máximo 32 MiB por archivo y 128 MiB por plugin.
-- Sube la versión en el `manifest.json` y en el índice al publicar cambios.
-
----
-
-# AntiGem community plugins
-
-Public repository with plugins and skills for AntiGem. Everything works offline: JavaScript is bundled in each plugin, with no CDNs or remote services.
-
-## Install
-
-In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add `Yandrox/antigem-plugins`.
-
-## Plugins
-
-| Plugin | ID | Version | Description |
-| --- | --- | --- | --- |
-| [A11y Audit](./a11y-audit/) | `a11y-audit` | 1.0.2 | Audita accesibilidad de mini apps y WebViews: contraste, zonas táctiles, ARIA, alt, foco y nombres; genera informe y correcciones. / Audit mini apps and WebViews for accessibility: contrast, tap targets, ARIA, alt, focus and names; generate report and fixes. |
-| [APK Recon](./apk-recon/) | `apk-recon` | 1.0.0 | Checklist guiado de reconocimiento de un APK local con REA: manifiesto, permisos peligrosos, componentes exportados, firma, ABIs nativos y strings sospechosos, con informe Markdown ordenado por riesgo. / Guided reconnaissance checklist for a local APK using REA: manifest, dangerous permissions, exported components, signature, native ABIs and suspicious strings, with a risk-ranked Markdown report. |
-| [Bot Forge](./bot-forge/) | `bot-forge` | 1.0.2 | Kit offline para diseñar, generar, auditar y documentar bots de Telegram y Discord. No envía mensajes ni usa tokens. / Offline toolkit to design, generate, audit and document Telegram and Discord bots. It sends no messages and uses no tokens. |
-| [Chart Craft](./chart-craft/) | `chart-craft` | 1.0.2 | Genera gráficos SVG offline para mini apps con ejes, tooltips accesibles y paletas de alto contraste; devuelve SVG en línea y data URI. / Generate offline SVG charts for mini apps with axes, accessible tooltips and high-contrast palettes; returns inline SVG and a data URI. |
-| [Chrome API Compatibility](./chrome-api-compat/) | `chrome-api-compat` | 1.0.0 | Matriz bilingüe de las APIs chrome.* realmente implementadas en AntiGem (stubs y rechazos incluidos), plantillas de manifest.json mínimo y checklist para sustituir APIs de escritorio por equivalentes nativos. Solo skills, offline. / Bilingual matrix of the chrome.* APIs actually implemented in AntiGem (including stubs and rejections), minimal manifest.json templates and a checklist to replace desktop APIs with native equivalents. Skills only, offline. |
-| [Code Review Offline](./code-review-offline/) | `code-review-offline` | 1.0.0 | Revisión sistemática de código local antes del commit: checklists por lenguaje (JS/TS, Kotlin, Python, Dart), anti-patrones de móvil y refactors con antes/después e informe con severidad y archivo:línea. Sin red ni login. / Systematic offline code review before commit: per-language checklists (JS/TS, Kotlin, Python, Dart), mobile anti-patterns and before/after refactors with a severity and file:line report. No network, no login. |
-| [Config Backup & Diff](./config-backup-diff/) | `config-backup-diff` | 1.0.2 | Exporta y compara configuraciones locales (skills, MCP, temas y notas exportadas), muestra diferencias y restaura archivos de forma selectiva, sin red. / Export and compare local config (skills, MCP, themes and exported notes), show diffs and restore files selectively, offline. |
-| [Git Hygiene](./git-hygiene/) | `git-hygiene` | 1.0.0 | Conventional Commits con scopes del repo, decisión de patch/minor/major, checklist de merge (tests, versión en dos sitios, índice actualizado) y detección de commits que mezclan responsabilidades, con generación de CHANGELOG.md desde git log. Solo skills, sin red. / Conventional Commits with repo scopes, patch/minor/major decision, merge checklist (tests, version in two places, index updated) and detection of mixed-responsibility commits, with CHANGELOG.md generation from git log. Skills only, no network. |
-| [License Audit](./license-audit/) | `license-audit` | 1.0.0 | Auditoría offline de licencias antes de publicar: recorre carpetas locales, lee package.json, LICENSE y cabeceras, detecta copyleft incompatible con MIT, licencias ausentes y snippets sin atribución, y genera THIRD_PARTY_NOTICES.md. / Offline license audit before publishing: scans local folders, reads package.json, LICENSE files and headers, flags copyleft incompatible with MIT, missing licences and unattributed snippets, and generates THIRD_PARTY_NOTICES.md. |
-| [Local Assets Lab](./local-assets-lab/) | `local-assets-lab` | 1.1.0 | Genera fondos, iconos, stickers y paletas SVG sin conexión. / Generate SVG backgrounds, icons, stickers and palettes offline. |
-| [MCP Health Check](./mcp-health-check/) | `mcp-health-check` | 1.0.0 | Diagnóstico offline de la salud del ecosistema MCP de AntiGem: inventario de plugins instalados y borradores, conteo de tools y skills, duplicados, workers ausentes, deriva de versiones, tamaño de storage y observaciones de servidores declinados o lentos. Solo lectura. / Offline health check for the AntiGem MCP ecosystem: inventory of installed plugins and drafts, tool and skill counts, duplicate names, missing workers, version drift, storage size and observations about declined or slow servers. Read-only. |
-| [MCP Schema Designer](./mcp-schema-designer/) | `mcp-schema-designer` | 1.0.0 | Skill para diseñar y revisar esquemas de tools MCP: nombres coherentes, descripciones bilingües, tipos y rangos, exclusión mutua, defaults seguros, ejemplos y tabla de errores. Complementa a plugin-doctor, que valida el resultado. / Skill to design and review MCP tool schemas: consistent names, bilingual descriptions, types and ranges, mutual exclusion, safe defaults, examples and error table. It complements plugin-doctor, which validates the result. |
-| [MiniApp Test Runner](./miniapp-test-runner/) | `miniapp-test-runner` | 1.1.4 | Graba, repite, compara e informa pruebas de mini apps sin servicios externos. / Record, replay, compare and report mini app tests without external services. |
-| [Offline Subs](./offline-subs/) | `offline-subs` | 1.0.1 | Genera SRT/VTT desde guiones, alinea subtítulos con la duración real del vídeo y crea estilos listos para Shorts, Reels y YouTube, sin red. / Generate SRT/VTT from scripts, align subtitles to real video duration and create ready styles for Shorts, Reels and YouTube, offline. |
-| [Plugin Doctor](./plugin-doctor/) | `plugin-doctor` | 1.1.2 | Valida y repara repositorios de plugins de AntiGem. / Validate and repair AntiGem plugin repositories. |
-| [Prompt Regression](./prompt-regression/) | `prompt-regression` | 1.0.2 | Detecta deriva en las skills guardando casos entrada→salida con aserciones de formato, idioma, herramienta y longitud. / Detect skill drift by storing input→output cases with assertions for format, language, tool choice and length. |
-| [REA Playbook](./rea-playbook/) | `rea-playbook` | 1.0.1 | Árbol de decisión para usar REA bien: qué herramienta elegir según el artefacto, argumentos típicos y cómo leer el resultado, con resumen primero y detalle después. No duplica REA / Decision tree for using REA well: which tool to pick per artifact, typical arguments and how to read results, summary first and detail afterwards. It does not duplicate REA. |
-| [Regex Workbench](./regex-workbench/) | `regex-workbench` | 1.0.0 | Prueba y explica expresiones regulares con español y Unicode sin salir de la app: tokens, casos de prueba, falsos positivos, riesgo de backtracking y conversiones JS/PCRE/POSIX. / Test and explain regular expressions with Spanish and Unicode offline: tokens, test cases, false positives, backtracking risk and JS/PCRE/POSIX conversions. |
-| [Secret Scanner](./secret-scanner/) | `secret-scanner` | 1.0.0 | Escáner offline de secretos antes de publicar: detecta claves OpenAI, Google, GitHub, AWS, JWTs, tokens y contraseñas en claro, ignora lockfiles y ejemplos, y emite un informe con ruta:línea, confianza, entradas de .gitignore y pasos de rotación. Nunca modifica archivos. / Offline secret scanner before publishing: detects OpenAI, Google, GitHub, AWS keys, JWTs, tokens and plaintext passwords, skips lockfiles and examples, and reports file:line, confidence, .gitignore entries and rotation steps. Never modifies files. |
-| [Session Handoff](./session-handoff/) | `session-handoff` | 1.0.0 | Genera un bloque Markdown portable y conciso para continuar una sesión en otro agente (OpenCode, Jarvis, Claude Code, Codex): objetivo, decisiones, trabajo completado, bloqueos, estado del repo, rutas relevantes, pendientes y siguiente paso. Offline, sin ejecutar acciones ni exponer secretos. / Generates a compact, portable Markdown block to continue a session in another agent (OpenCode, Jarvis, Claude Code, Codex): objective, decisions, completed work, blockers, repo state, relevant paths, open items and next step. Offline, no actions, no secrets. |
-| [Skill Linter](./skill-linter/) | `skill-linter` | 1.0.0 | Linter offline de contenido de skills de AntiGem: valida frontmatter, exige secciones ES/EN, comprueba referencias a archivos de detalle y enlaces, mide longitud y avisa de posibles instrucciones inyectadas. Complementa a plugin-doctor, que revisa la estructura. Solo lectura. / Offline content linter for AntiGem skills: validates frontmatter, requires ES/EN sections, checks detail-file references and links, measures length and flags possible injected instructions. Complements plugin-doctor, which checks structure. Read-only. |
-| [Storage Cleaner](./storage-cleaner/) | `storage-cleaner` | 1.1.1 | Escanea duplicados, archivos grandes y restos de proyectos; genera un plan y un informe sin borrar nada. / Scan duplicates, large files and project leftovers; generate a plan and report without deleting anything. |
-| [Theme Audit](./theme-audit/) | `theme-audit` | 1.0.0 | Auditoría offline de contraste WCAG de temas de AntiGem: calcula el ratio de cada par texto/fondo (interfaz, código, editor y terminal), marca fallos AA/AAA y propone un theme_update concreto para el tema claro y el oscuro. Solo lectura. / Offline WCAG contrast audit for AntiGem themes: computes the ratio of every text/background pair (UI, code, editor and terminal), flags AA/AAA failures and proposes a concrete theme_update for the light and dark themes. Read-only. |
-| [Trace Translator](./trace-translator/) | `trace-translator` | 1.0.0 | Normaliza stack traces de Java, Kotlin, Dart y JS: agrupa frames repetidos, marca los del proyecto, separa causa raíz de síntoma, traduce mensajes comunes y propone siguientes pasos. Sin red ni servicios externos. / Normalise Java, Kotlin, Dart and JS stack traces: group repeated frames, flag project frames, separate root cause from symptom, translate common messages and suggest next steps. Offline, no external services. |
-| [Viral Script Lab](./viral-script-lab/) | `viral-script-lab` | 1.0.2 | Analiza guiones cortos (gancho, cortes, ritmo, 3 actos y CTA) y genera títulos y hashtags sin servicios externos. / Analyse short-form scripts (hook, cuts, pace, 3 acts and CTA) and generate titles and hashtags offline. |
-
-## Maintenance with Plugin Doctor
-
-- `doctor_validate`: check manifests, skills, index, links and size limits.
-- `doctor_fix_index`: rebuild `antigem-plugins.json` from every `manifest.json`.
-- `doctor_generate_readme`: generate this bilingual README (Spanish and English).
-
-## Per-plugin limits
-
-- 5000 files maximum.
-- 32 MiB per file and 128 MiB per plugin maximum.
-- Raise the version in both `manifest.json` and the index when publishing changes.
+- Máximo 5000 archivos. / 5000 files maximum.
+- Máximo 32 MiB por archivo y 128 MiB por plugin. / 32 MiB per file and 128 MiB per plugin maximum.
+- Sube la versión en el `manifest.json` y en el índice al publicar cambios. / Raise the version in both `manifest.json` and the index when publishing changes.
