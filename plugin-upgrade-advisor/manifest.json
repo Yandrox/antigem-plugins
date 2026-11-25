@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "id": "plugin-upgrade-advisor",
+  "name": "Plugin Upgrade Advisor",
+  "version": "1.0.0",
+  "description": "ES: Compara el inventario local con el índice del repo, lee changelogs del git log, clasifica el riesgo de cada salto de versión y propone un orden seguro de actualización. Solo skills, offline. / EN: Compare the local inventory with the repo index, read changelogs from git log, classifies version-bump risk and proposes a safe upgrade order. Skills only, offline.",
+  "icon": "icon.svg"
+}
