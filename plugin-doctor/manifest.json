@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "id": "plugin-doctor",
   "name": "Plugin Doctor",
-  "version": "1.1.2",
-  "description": "Valida y repara repositorios de plugins de AntiGem. / Validate and repair AntiGem plugin repositories.",
+  "version": "1.2.0",
+  "description": "Valida y repara repositorios de plugins de AntiGem; genera un README con una sola tabla y badges SVG locales. / Validate and repair AntiGem plugin repositories; generates a README with a single table and local SVG badges.",
   "permissions": [
     "antigemFiles"
   ],
@@ -61,7 +61,7 @@
     },
     {
       "name": "doctor_generate_readme",
-      "description": "ES: Genera un README bilingüe (es/en) a partir del índice o de los manifiestos. EN: Generate a bilingual (es/en) README from the index or the manifests.",
+      "description": "ES: Genera un README bilingüe con una sola tabla de plugins y badges SVG locales, a partir del índice o de los manifiestos. EN: Generate a bilingual README with a single plugin table and local SVG badges, from the index or the manifests.",
       "inputSchema": {
         "type": "object",
         "properties": {

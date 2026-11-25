@@ -1,3 +1,5 @@
+![PLUGINS: 25](./assets/badges/plugins.svg) ![MODE: 100% OFFLINE](./assets/badges/offline.svg) ![PLATFORM: ANTIGEM](./assets/badges/antigem.svg) ![LANG: ES · EN](./assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](./assets/badges/install.svg)
+
 # Plugins comunitarios para AntiGem / AntiGem community plugins
 
 Repositorio público con plugins y skills para AntiGem. Todo funciona offline: JavaScript incluido en cada plugin, sin CDNs ni servicios remotos. / Public repository with plugins and skills for AntiGem. Everything works offline: JavaScript is bundled in each plugin, with no CDNs or remote services.
@@ -24,7 +26,7 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 | [MCP Schema Designer](./mcp-schema-designer/) | `mcp-schema-designer` | 1.0.0 | Skill para diseñar y revisar esquemas de tools MCP: nombres coherentes, descripciones bilingües, tipos y rangos, exclusión mutua, defaults seguros, ejemplos y tabla de errores. Complementa a plugin-doctor, que valida el resultado. / Skill to design and review MCP tool schemas: consistent names, bilingual descriptions, types and ranges, mutual exclusion, safe defaults, examples and error table. It complements plugin-doctor, which validates the result. |
 | [MiniApp Test Runner](./miniapp-test-runner/) | `miniapp-test-runner` | 1.1.4 | Graba, repite, compara e informa pruebas de mini apps sin servicios externos. / Record, replay, compare and report mini app tests without external services. |
 | [Offline Subs](./offline-subs/) | `offline-subs` | 1.0.1 | Genera SRT/VTT desde guiones, alinea subtítulos con la duración real del vídeo y crea estilos listos para Shorts, Reels y YouTube, sin red. / Generate SRT/VTT from scripts, align subtitles to real video duration and create ready styles for Shorts, Reels and YouTube, offline. |
-| [Plugin Doctor](./plugin-doctor/) | `plugin-doctor` | 1.1.2 | Valida y repara repositorios de plugins de AntiGem. / Validate and repair AntiGem plugin repositories. |
+| [Plugin Doctor](./plugin-doctor/) | `plugin-doctor` | 1.2.0 | Valida y repara repositorios de plugins de AntiGem; genera un README con una sola tabla y badges SVG locales. / Validate and repair AntiGem plugin repositories; generates a README with a single table and local SVG badges. |
 | [Prompt Regression](./prompt-regression/) | `prompt-regression` | 1.0.2 | Detecta deriva en las skills guardando casos entrada→salida con aserciones de formato, idioma, herramienta y longitud. / Detect skill drift by storing input→output cases with assertions for format, language, tool choice and length. |
 | [REA Playbook](./rea-playbook/) | `rea-playbook` | 1.0.1 | Árbol de decisión para usar REA bien: qué herramienta elegir según el artefacto, argumentos típicos y cómo leer el resultado, con resumen primero y detalle después. No duplica REA / Decision tree for using REA well: which tool to pick per artifact, typical arguments and how to read results, summary first and detail afterwards. It does not duplicate REA. |
 | [Regex Workbench](./regex-workbench/) | `regex-workbench` | 1.0.0 | Prueba y explica expresiones regulares con español y Unicode sin salir de la app: tokens, casos de prueba, falsos positivos, riesgo de backtracking y conversiones JS/PCRE/POSIX. / Test and explain regular expressions with Spanish and Unicode offline: tokens, test cases, false positives, backtracking risk and JS/PCRE/POSIX conversions. |
@@ -40,7 +42,7 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 
 - `doctor_validate`: revisa manifiestos, skills, índice, enlaces y límites de tamaño. / Checks manifests, skills, index, links and size limits.
 - `doctor_fix_index`: regenera `antigem-plugins.json` desde los `manifest.json`. / Rebuilds `antigem-plugins.json` from every `manifest.json`.
-- `doctor_generate_readme`: genera este README en español e inglés. / Generates this bilingual README.
+- `doctor_generate_readme`: genera este README con una sola tabla de plugins y badges locales. / Generates this README with a single plugin table and local badges.
 
 ## Límites por plugin / Per-plugin limits
 

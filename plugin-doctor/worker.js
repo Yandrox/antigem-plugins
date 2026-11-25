@@ -776,8 +776,55 @@ function escapeCell(value) {
   return String(value == null ? '' : value).replace(/\r?\n/g, ' ').replace(/\|/g, '\\|');
 }
 
-function buildReadme(plugins, repository, language) {
-  const buildTable = (versionLabel, descriptionLabel) => plugins.length ? [
+function escapeXml(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+}
+
+function badgeSvg(label, value, color) {
+  const labelText = String(label);
+  const valueText = String(value);
+  const labelWidth = Math.max(46, Math.round(12 + labelText.length * 7));
+  const valueWidth = Math.max(54, Math.round(14 + valueText.length * 7));
+  const total = labelWidth + valueWidth;
+  const title = escapeXml(`${labelText}: ${valueText}`);
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${total}" height="20" role="img" aria-label="${title}">`,
+    `<title>${title}</title>`,
+    `<rect width="${labelWidth}" height="20" fill="#3B4252"/>`,
+    `<rect x="${labelWidth}" width="${valueWidth}" height="20" fill="${color}"/>`,
+    '<g fill="#FFFFFF" font-family="Verdana,DejaVu Sans,sans-serif" font-size="10.5" text-anchor="middle">',
+    `<text x="${labelWidth / 2}" y="14">${escapeXml(labelText)}</text>`,
+    `<text x="${labelWidth + valueWidth / 2}" y="14">${escapeXml(valueText)}</text>`,
+    '</g></svg>'
+  ].join('');
+}
+
+function buildBadges(plugins, repository) {
+  const definitions = [
+    {file: 'plugins.svg', label: 'PLUGINS', value: String(plugins.length), color: '#0F766E'},
+    {file: 'offline.svg', label: 'MODE', value: '100% OFFLINE', color: '#15803D'},
+    {file: 'antigem.svg', label: 'PLATFORM', value: 'ANTIGEM', color: '#6D28D9'},
+    {file: 'lang.svg', label: 'LANG', value: 'ES · EN', color: '#2563EB'},
+    {file: 'install.svg', label: 'INSTALL', value: repository, color: '#B45309'}
+  ];
+  return definitions.map(badge => Object.assign({}, badge, {
+    svg: badgeSvg(badge.label, badge.value, badge.color)
+  }));
+}
+
+function badgeLine(badges) {
+  return badges.map(badge =>
+    `![${badge.label}: ${badge.value}](./assets/badges/${badge.file})`).join(' ');
+}
+
+function buildReadme(plugins, repository, language, badges) {
+  const versionLabel = language === 'en' ? 'Version' :
+    language === 'es' ? 'Versión' : 'Versión / Version';
+  const descriptionLabel = language === 'en' ? 'Description' :
+    language === 'es' ? 'Descripción' : 'Descripción / Description';
+  const table = plugins.length ? [
     `| Plugin | ID | ${versionLabel} | ${descriptionLabel} |`,
     '| --- | --- | --- | --- |',
     ...plugins.map(plugin => {
@@ -786,9 +833,7 @@ function buildReadme(plugins, repository, language) {
       return `| ${link} | \`${escapeCell(plugin.id || '')}\` | ${escapeCell(plugin.version || '')} | ` +
         `${escapeCell(plugin.description || '')} |`;
     })
-  ].join('\n') : '(no plugins yet)';
-  const esTable = buildTable('Versión', 'Descripción');
-  const enTable = buildTable('Version', 'Description');
+  ].join('\n') : '(no plugins yet / sin plugins aún)';
 
   const es = [
     '# Plugins comunitarios para AntiGem',
@@ -801,20 +846,20 @@ function buildReadme(plugins, repository, language) {
     '',
     '## Plugins',
     '',
-    esTable,
+    table,
     '',
     '## Mantenimiento con Plugin Doctor',
     '',
     '- `doctor_validate`: revisa manifiestos, skills, índice, enlaces y límites de tamaño.',
     '- `doctor_fix_index`: regenera `antigem-plugins.json` desde los `manifest.json`.',
-    '- `doctor_generate_readme`: genera este README en español e inglés.',
+    '- `doctor_generate_readme`: genera este README con una sola tabla de plugins y badges locales.',
     '',
     '## Límites por plugin',
     '',
     '- Máximo 5000 archivos.',
     '- Máximo 32 MiB por archivo y 128 MiB por plugin.',
     '- Sube la versión en el `manifest.json` y en el índice al publicar cambios.'
-  ].join('\n');
+  ];
 
   const en = [
     '# AntiGem community plugins',
@@ -827,24 +872,49 @@ function buildReadme(plugins, repository, language) {
     '',
     '## Plugins',
     '',
-    enTable,
+    table,
     '',
     '## Maintenance with Plugin Doctor',
     '',
     '- `doctor_validate`: check manifests, skills, index, links and size limits.',
     '- `doctor_fix_index`: rebuild `antigem-plugins.json` from every `manifest.json`.',
-    '- `doctor_generate_readme`: generate this bilingual README (Spanish and English).',
+    '- `doctor_generate_readme`: generate this README with a single plugin table and local badges.',
     '',
     '## Per-plugin limits',
     '',
     '- 5000 files maximum.',
     '- 32 MiB per file and 128 MiB per plugin maximum.',
     '- Raise the version in both `manifest.json` and the index when publishing changes.'
-  ].join('\n');
+  ];
 
-  if (language === 'es') return `${es}\n`;
-  if (language === 'en') return `${en}\n`;
-  return `${es}\n\n---\n\n${en}\n`;
+  // One document, one table. For `both`, bilingual labels are merged into
+  // each section instead of appending a full second copy of the README.
+  const body = language === 'es' ? es : language === 'en' ? en : [
+    '# Plugins comunitarios para AntiGem / AntiGem community plugins',
+    '',
+    'Repositorio público con plugins y skills para AntiGem. Todo funciona offline: JavaScript incluido en cada plugin, sin CDNs ni servicios remotos. / Public repository with plugins and skills for AntiGem. Everything works offline: JavaScript is bundled in each plugin, with no CDNs or remote services.',
+    '',
+    '## Instalar / Install',
+    '',
+    `En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade \`${repository}\`. / In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add \`${repository}\`.`,
+    '',
+    '## Plugins',
+    '',
+    table,
+    '',
+    '## Mantenimiento con Plugin Doctor / Maintenance with Plugin Doctor',
+    '',
+    '- `doctor_validate`: revisa manifiestos, skills, índice, enlaces y límites de tamaño. / Checks manifests, skills, index, links and size limits.',
+    '- `doctor_fix_index`: regenera `antigem-plugins.json` desde los `manifest.json`. / Rebuilds `antigem-plugins.json` from every `manifest.json`.',
+    '- `doctor_generate_readme`: genera este README con una sola tabla de plugins y badges locales. / Generates this README with a single plugin table and local badges.',
+    '',
+    '## Límites por plugin / Per-plugin limits',
+    '',
+    '- Máximo 5000 archivos. / 5000 files maximum.',
+    '- Máximo 32 MiB por archivo y 128 MiB por plugin. / 32 MiB per file and 128 MiB per plugin maximum.',
+    '- Sube la versión en el `manifest.json` y en el índice al publicar cambios. / Raise the version in both `manifest.json` and the index when publishing changes.'
+  ];
+  return `${badgeLine(badges)}\n\n${body.join('\n')}\n`;
 }
 
 async function doctorGenerateReadme(args) {
@@ -894,15 +964,25 @@ async function doctorGenerateReadme(args) {
 
   const repository = typeof args.repository === 'string' && args.repository.trim() ?
     args.repository.trim() : 'TU_USUARIO/antigem-plugins';
-  const markdown = buildReadme(plugins, repository, language);
+  const badges = buildBadges(plugins, repository);
+  const markdown = buildReadme(plugins, repository, language, badges);
   const path = join(root, output);
   let written = false;
   if (!dryRun) {
     await chrome.antigem.writeFile({path, data: markdown, encoding: 'utf8'});
+    for (const badge of badges) {
+      await chrome.antigem.writeFile({
+        path: join(root, `assets/badges/${badge.file}`), data: badge.svg, encoding: 'utf8'
+      });
+    }
     written = true;
   }
   const errors = issues.filter(item => item.severity === 'error').length;
-  return {ok: errors === 0, root, path, written, language, plugins, markdown, issues};
+  return {
+    ok: errors === 0, root, path, written, language, plugins, markdown, issues,
+    badges: badges.map(badge => ({file: badge.file, label: badge.label, value: badge.value})),
+    tableCount: (markdown.match(/^\| Plugin \| ID \|/gm) || []).length
+  };
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
