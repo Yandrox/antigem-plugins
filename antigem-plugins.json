@@ -154,6 +154,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "skill-linter",
+      "id": "skill-linter",
+      "name": "Skill Linter",
+      "version": "1.0.0",
+      "description": "Linter offline de contenido de skills de AntiGem: valida frontmatter, exige secciones ES/EN, comprueba referencias a archivos de detalle y enlaces, mide longitud y avisa de posibles instrucciones inyectadas. Complementa a plugin-doctor, que revisa la estructura. Solo lectura. / Offline content linter for AntiGem skills: validates frontmatter, requires ES/EN sections, checks detail-file references and links, measures length and flags possible injected instructions. Complements plugin-doctor, which checks structure. Read-only.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "storage-cleaner",
       "id": "storage-cleaner",
       "name": "Storage Cleaner",

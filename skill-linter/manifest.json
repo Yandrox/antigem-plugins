@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "id": "skill-linter",
+  "name": "Skill Linter",
+  "version": "1.0.0",
+  "description": "Linter offline de contenido de skills de AntiGem: valida frontmatter, exige secciones ES/EN, comprueba referencias a archivos de detalle y enlaces, mide longitud y avisa de posibles instrucciones inyectadas. Complementa a plugin-doctor, que revisa la estructura. Solo lectura. / Offline content linter for AntiGem skills: validates frontmatter, requires ES/EN sections, checks detail-file references and links, measures length and flags possible injected instructions. Complements plugin-doctor, which checks structure. Read-only.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "lint_skills",
+      "description": "ES: Analiza el contenido de las skills Markdown de un repo o carpeta: frontmatter name/description, secciones bilingües ES/EN, referencias a archivos de detalle (get_skill_file), enlaces locales rotos, longitud y patrones sospechosos de inyección de prompt. Devuelve hallazgos con ruta:línea, severidad y propuesta de corrección, e informe Markdown. NUNCA modifica archivos. EN: Analyse the content of Markdown skills in a repo or folder: name/description frontmatter, bilingual ES/EN sections, detail-file references (get_skill_file), broken local links, length and suspicious prompt-injection patterns. Returns findings with file:line, severity and a proposed fix, plus a Markdown report. NEVER modifies files.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "root": {
+            "type": "string",
+            "description": "ES: Ruta local al repo, a una carpeta de plugin o a un directorio skills/ (~/..., /sdcard/... o ruta absoluta). EN: Local path to a repo, a plugin folder or a skills/ directory (~/..., /sdcard/... or absolute path)."
+          },
+          "require_bilingual": {
+            "type": "boolean",
+            "description": "ES: Si exige encabezados ## ES y ## EN en cada skill (por defecto true). EN: Require ## ES and ## EN headings in every skill (default true)."
+          },
+          "max_files": {
+            "type": "integer",
+            "description": "ES: Máximo de archivos .md leídos, 1-1000 (por defecto 200). EN: Maximum .md files read, 1-1000 (default 200)."
+          },
+          "max_bytes_per_file": {
+            "type": "integer",
+            "description": "ES: Tamaño máximo por archivo, 1024-8388608 (por defecto 262144). EN: Maximum size per file, 1024-8388608 (default 262144)."
+          },
+          "language": {
+            "type": "string",
+            "enum": ["es", "en", "both"],
+            "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."
+          }
+        },
+        "required": ["root"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}
