@@ -1,0 +1,92 @@
+{
+  "manifest_version": 3,
+  "id": "browser-flow-recorder",
+  "name": "Browser Flow Recorder",
+  "version": "1.0.0",
+  "description": "ES: Convierte acciones de browser_mcp en flujos reproducibles con aserciones, redacción de credenciales, comparación de capturas e informe bilingüe. Offline. / EN: Turn browser_mcp actions into reproducible flows with assertions, credential redaction, screenshot comparison and a bilingual report. Offline.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "flow_save",
+      "description": "ES: Guarda un flujo reproducible a partir de pasos de browser_mcp: normaliza refs, redacta secretos y calcula un hash. EN: Save a reproducible flow from browser_mcp steps: normalise refs, redact secrets and compute a hash.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "description": "ES: Nombre corto (letras, dígitos, _ o -). EN: Short name (letters, digits, _ or -)."},
+          "url": {"type": "string", "description": "ES: URL o dominio de partida. EN: Starting URL or domain."},
+          "steps": {"type": "array", "items": {"type": "object"}, "description": "ES: Pasos con tool, action, args, selector/description y expect opcional. EN: Steps with tool, action, args, selector/description and optional expect."},
+          "expect": {"type": "array", "items": {"type": "object"}, "description": "ES: Aserciones por defecto para flow_check. EN: Default assertions for flow_check."},
+          "notes": {"type": "string", "description": "ES: Notas libres (también redactadas). EN: Free notes (redacted too)."},
+          "sensitive": {"type": "array", "items": {"type": "string"}, "description": "ES: Valores exactos a ocultar, por ejemplo lo que escribiste en un campo. EN: Exact values to hide, e.g. what you typed into a field."},
+          "redact": {"type": "boolean", "description": "ES: Reservado; la redacción siempre está activa. EN: Reserved; redaction is always on."},
+          "output": {"type": "string", "description": "ES: Ruta .json alternativa opcional (~/, /sdcard/ o /data/). EN: Optional alternate .json path (~/, /sdcard/ or /data/)."}
+        },
+        "required": ["name", "steps"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "flow_list",
+      "description": "ES: Lista los flujos guardados o devuelve uno completo por nombre. EN: List saved flows or return one in full by name.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "description": "ES: Nombre del flujo; sin él devuelve el índice. EN: Flow name; without it returns the index."},
+          "limit": {"type": "integer", "description": "ES: Máximo de flujos a listar (por defecto 100). EN: Maximum flows to list (default 100)."}
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "flow_check",
+      "description": "ES: Evalúa aserciones contra observaciones reales del navegador y guarda la ejecución. EN: Evaluate assertions against real browser observations and save the run.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "description": "ES: Flujo cuyas aserciones se van a comprobar. EN: Flow whose assertions will be checked."},
+          "expect": {"type": "array", "items": {"type": "object"}, "description": "ES: Aserciones en línea (alternativa a name). EN: Inline assertions (alternative to name)."},
+          "observations": {"type": "object", "description": "ES: Valores observados: text, url, elements, counts, present... EN: Observed values: text, url, elements, counts, present..."},
+          "language": {"type": "string", "enum": ["es", "en", "both"], "description": "ES: Idioma del resultado (por defecto both). EN: Result language (default both)."},
+          "save": {"type": "boolean", "description": "ES: Guardar la ejecución para informes (por defecto true si hay name). EN: Save the run for reports (default true when name is given)."}
+        },
+        "required": ["observations"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "flow_compare",
+      "description": "ES: Compara dos capturas, dos conjuntos de observaciones o un flujo con su baseline. EN: Compare two screenshots, two observation sets or a flow against its baseline.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "beforePath": {"type": "string", "description": "ES: Ruta de la captura anterior. EN: Path to the before screenshot."},
+          "afterPath": {"type": "string", "description": "ES: Ruta de la captura posterior. EN: Path to the after screenshot."},
+          "beforeObservations": {"type": "object", "description": "ES: Observaciones de la línea base. EN: Baseline observations."},
+          "afterObservations": {"type": "object", "description": "ES: Observaciones actuales. EN: Current observations."},
+          "baseline": {"type": "string", "description": "ES: Nombre del flujo guardado como baseline. EN: Name of the saved baseline flow."},
+          "hash": {"type": "string", "description": "ES: Hash actual a comparar con el baseline. EN: Current hash to compare with the baseline."}
+        },
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "flow_report",
+      "description": "ES: Genera un informe Markdown bilingüe con pasos, aserciones, capturas y veredicto. EN: Generate a bilingual Markdown report with steps, assertions, screenshots and verdict.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string", "description": "ES: Nombre del flujo. EN: Flow name."},
+          "run": {"type": "string", "description": "ES: ID de ejecución; por defecto la última del flujo. EN: Run ID; defaults to the latest run for the flow."},
+          "beforePath": {"type": "string", "description": "ES: Captura anterior para el informe. EN: Before screenshot for the report."},
+          "afterPath": {"type": "string", "description": "ES: Captura posterior para el informe. EN: After screenshot for the report."},
+          "output": {"type": "string", "description": "ES: Ruta .md opcional para guardar. EN: Optional .md path to save."},
+          "language": {"type": "string", "enum": ["es", "en", "both"], "description": "ES: Idioma del informe (por defecto both). EN: Report language (default both)."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."}
+        },
+        "additionalProperties": false
+      }
+    }
+  ]
+}

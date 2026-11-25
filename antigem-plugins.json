@@ -26,6 +26,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "browser-flow-recorder",
+      "id": "browser-flow-recorder",
+      "name": "Browser Flow Recorder",
+      "version": "1.0.0",
+      "description": "ES: Convierte acciones de browser_mcp en flujos reproducibles con aserciones, redacción de credenciales, comparación de capturas e informe bilingüe. Offline. / EN: Turn browser_mcp actions into reproducible flows with assertions, credential redaction, screenshot comparison and a bilingual report. Offline.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "chart-craft",
       "id": "chart-craft",
       "name": "Chart Craft",
