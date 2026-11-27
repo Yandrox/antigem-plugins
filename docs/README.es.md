@@ -1,4 +1,4 @@
-![PLUGINS: 35](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
+![PLUGINS: 36](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
 
 [Leer el README en inglés](../README.md)
 
@@ -33,6 +33,7 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 | [MiniApp Preflight](../miniapp-preflight/) | `miniapp-preflight` | 1.0.0 | Checklist bilingüe antes de firmar o instalar mini apps: manifest, permisos, AntiGem.*, bundle, consola, captura y clave; informe ✅/⚠️/❌. Solo skills, offline. |
 | [MiniApp Test Runner](../miniapp-test-runner/) | `miniapp-test-runner` | 1.1.4 | Graba, repite, compara e informa pruebas de mini apps sin servicios externos. |
 | [Notes Bridge](../notes-bridge/) | `notes-bridge` | 1.0.0 | Exporta e importa notas y listas de notes_mcp a Markdown local con frontmatter, búsqueda full-text y deduplicación; prepara un plan para aplicar con notes_update. Híbrido y offline. |
+| [OCR Offline Recipe](../ocr-offline-recipe/) | `ocr-offline-recipe` | 1.0.0 | Receta local en proot para extraer texto de imágenes y PDFs escaneados con Tesseract: idiomas, preprocesado con ImageMagick/ffmpeg, salida TXT/TSV/JSON con coordenadas y verificación. Avisa si falta el idioma. Solo skills, sin red. |
 | [Offline Subs](../offline-subs/) | `offline-subs` | 1.0.1 | Genera SRT/VTT desde guiones, alinea subtítulos con la duración real del vídeo y crea estilos listos para Shorts, Reels y YouTube, sin red. |
 | [PDF Toolkit](../pdf-toolkit/) | `pdf-toolkit` | 1.0.0 | Recetas offline en proot para dividir, unir, comprimir, rotar y extraer texto o imágenes de PDF con qpdf, poppler y ghostscript, verificando el número de páginas antes y después. Solo skills, sin red. |
 | [Plugin Doctor](../plugin-doctor/) | `plugin-doctor` | 1.3.0 | Valida y repara repositorios de plugins de AntiGem; genera un README raíz en inglés y una copia en español en docs/, cada uno con una sola tabla y badges SVG locales. |

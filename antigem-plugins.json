@@ -154,6 +154,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "ocr-offline-recipe",
+      "id": "ocr-offline-recipe",
+      "name": "OCR Offline Recipe",
+      "version": "1.0.0",
+      "description": "ES: Receta local en proot para extraer texto de imágenes y PDFs escaneados con Tesseract: idiomas, preprocesado con ImageMagick/ffmpeg, salida TXT/TSV/JSON con coordenadas y verificación. Avisa si falta el idioma. Solo skills, sin red. / EN: Local proot recipe to extract text from images and scanned PDFs with Tesseract: languages, ImageMagick/ffmpeg preprocessing, TXT/TSV/JSON output with coordinates and verification. Warns when a language is missing. Skills only, no network.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "offline-subs",
       "id": "offline-subs",
       "name": "Offline Subs",
