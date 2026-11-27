@@ -1,4 +1,4 @@
-![PLUGINS: 36](./assets/badges/plugins.svg) ![MODE: 100% OFFLINE](./assets/badges/offline.svg) ![PLATFORM: ANTIGEM](./assets/badges/antigem.svg) ![LANG: ES · EN](./assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](./assets/badges/install.svg)
+![PLUGINS: 37](./assets/badges/plugins.svg) ![MODE: 100% OFFLINE](./assets/badges/offline.svg) ![PLATFORM: ANTIGEM](./assets/badges/antigem.svg) ![LANG: ES · EN](./assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](./assets/badges/install.svg)
 
 [Read the README in Spanish](./docs/README.es.md)
 
@@ -25,6 +25,7 @@ In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add `Ya
 | [Code Review Offline](./code-review-offline/) | `code-review-offline` | 1.0.0 | Systematic offline code review before commit: per-language checklists (JS/TS, Kotlin, Python, Dart), mobile anti-patterns and before/after refactors with a severity and file:line report. No network, no login. |
 | [Config Backup & Diff](./config-backup-diff/) | `config-backup-diff` | 1.0.2 | Export and compare local config (skills, MCP, themes and exported notes), show diffs and restore files selectively, offline. |
 | [Git Hygiene](./git-hygiene/) | `git-hygiene` | 1.0.0 | Conventional Commits with repo scopes, patch/minor/major decision, merge checklist (tests, version in two places, index updated) and detection of mixed-responsibility commits, with CHANGELOG.md generation from git log. Skills only, no network. |
+| [Image Metadata Scrubber](./image-metadata-scrubber/) | `image-metadata-scrubber` | 1.0.0 | Detect and remove private metadata from local JPEG and PNG files (EXIF, GPS, XMP, IPTC, tEXt, eXIf) with no network. Inspect, back up the original, write a clean image and verify the result. Hybrid and offline. |
 | [License Audit](./license-audit/) | `license-audit` | 1.0.0 | Offline license audit before publishing: scans local folders, reads package.json, LICENSE files and headers, flags copyleft incompatible with MIT, missing licences and unattributed snippets, and generates THIRD_PARTY_NOTICES.md. |
 | [Local Assets Lab](./local-assets-lab/) | `local-assets-lab` | 1.1.0 | Generate SVG backgrounds, icons, stickers and palettes offline. |
 | [Markdown Link Checker](./markdown-link-checker/) | `markdown-link-checker` | 1.0.0 | Scans local Markdown files and reports broken relative links, images and anchors, wrong casing and missing targets, with path and line. Hybrid, offline and no network. |

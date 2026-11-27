@@ -1,4 +1,4 @@
-![PLUGINS: 36](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
+![PLUGINS: 37](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
 
 [Leer el README en inglés](../README.md)
 
@@ -25,6 +25,7 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 | [Code Review Offline](../code-review-offline/) | `code-review-offline` | 1.0.0 | Revisión sistemática de código local antes del commit: checklists por lenguaje (JS/TS, Kotlin, Python, Dart), anti-patrones de móvil y refactors con antes/después e informe con severidad y archivo:línea. Sin red ni login. |
 | [Config Backup & Diff](../config-backup-diff/) | `config-backup-diff` | 1.0.2 | Exporta y compara configuraciones locales (skills, MCP, temas y notas exportadas), muestra diferencias y restaura archivos de forma selectiva, sin red. |
 | [Git Hygiene](../git-hygiene/) | `git-hygiene` | 1.0.0 | Conventional Commits con scopes del repo, decisión de patch/minor/major, checklist de merge (tests, versión en dos sitios, índice actualizado) y detección de commits que mezclan responsabilidades, con generación de CHANGELOG.md desde git log. Solo skills, sin red. |
+| [Image Metadata Scrubber](../image-metadata-scrubber/) | `image-metadata-scrubber` | 1.0.0 | Detecta y elimina metadatos privados de JPEG y PNG locales (EXIF, GPS, XMP, IPTC, tEXt, eXIf) sin red. Inspecciona, guarda copia del original, escribe una imagen limpia y verifica el resultado. Híbrido y offline. |
 | [License Audit](../license-audit/) | `license-audit` | 1.0.0 | Auditoría offline de licencias antes de publicar: recorre carpetas locales, lee package.json, LICENSE y cabeceras, detecta copyleft incompatible con MIT, licencias ausentes y snippets sin atribución, y genera THIRD_PARTY_NOTICES.md. |
 | [Local Assets Lab](../local-assets-lab/) | `local-assets-lab` | 1.1.0 | Genera fondos, iconos, stickers y paletas SVG sin conexión. |
 | [Markdown Link Checker](../markdown-link-checker/) | `markdown-link-checker` | 1.0.0 | Recorre archivos Markdown locales y avisa de enlaces relativos, imágenes y anclas rotas, mayúsculas incorrectas y destinos inexistentes, con ruta y línea. Híbrido, offline y sin red. |

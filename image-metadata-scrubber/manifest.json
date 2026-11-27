@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "id": "image-metadata-scrubber",
+  "name": "Image Metadata Scrubber",
+  "version": "1.0.0",
+  "description": "ES: Detecta y elimina metadatos privados de JPEG y PNG locales (EXIF, GPS, XMP, IPTC, tEXt, eXIf) sin red. Inspecciona, guarda copia del original, escribe una imagen limpia y verifica el resultado. Híbrido y offline. / EN: Detect and remove private metadata from local JPEG and PNG files (EXIF, GPS, XMP, IPTC, tEXt, eXIf) with no network. Inspect, back up the original, write a clean image and verify the result. Hybrid and offline.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "image_meta_inspect",
+      "description": "ES: Lee un JPEG o PNG local sin modificarlo y devuelve sus metadatos (EXIF, GPS, XMP, IPTC, tEXt, eXIf, tIME) con origen, valor y gravedad, más un resumen. EN: Read a local JPEG or PNG without modifying it and return its metadata (EXIF, GPS, XMP, IPTC, tEXt, eXIf, tIME) with source, value and severity, plus a summary.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {"type": "string", "description": "ES: Ruta del archivo .jpg o .png. EN: Path of the .jpg or .png file."},
+          "max_entries": {"type": "integer", "description": "ES: Máximo de elementos devueltos, 1-200 (por defecto 80). El análisis usa todos. EN: Maximum returned items, 1-200 (default 80). Analysis uses all of them."}
+        },
+        "required": ["path"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "image_meta_scrub",
+      "description": "ES: Escribe una copia limpia del JPEG o PNG en una ruta nueva, conserva el original en una copia y verifica que no queden metadatos. Por defecto solo previsualiza; nunca sobrescribe archivos existentes. EN: Write a clean copy of the JPEG or PNG to a new path, preserve the original as a backup and verify that no metadata remains. Previews by default; never overwrites existing files.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {"type": "string", "description": "ES: Ruta de la imagen original. EN: Path of the original image."},
+          "output": {"type": "string", "description": "ES: Ruta de la imagen limpia (por defecto, sufijo .clean antes de la extensión). EN: Clean image path (default: .clean suffix before the extension)."},
+          "backup": {"type": "string", "description": "ES: Ruta de la copia del original (por defecto, sufijo .original); usa null para no crearla. EN: Backup path for the original (default: .original suffix); use null to skip."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir imagen y copia. EN: true = preview only (default); false = write image and backup."},
+          "strip_icc": {"type": "boolean", "description": "ES: Quitar también el perfil de color ICC (por defecto false). EN: Also strip the ICC colour profile (default false)."},
+          "aggressive": {"type": "boolean", "description": "ES: Quitar todos los segmentos/chunks auxiliares salvo los esenciales (por defecto false). EN: Strip all ancillary segments/chunks except the essential ones (default false)."}
+        },
+        "required": ["path"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "image_meta_report",
+      "description": "ES: Genera un informe Markdown bilingüe del antes y el después; previsualiza por defecto y puede escribir el .md. EN: Produce a bilingual Markdown before/after report; previews by default and can write the .md file.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {"type": "string", "description": "ES: Ruta de la imagen original (o única) a analizar. EN: Path of the original (or only) image to analyse."},
+          "after_path": {"type": "string", "description": "ES: Ruta de la imagen limpia para comparar y listar lo eliminado. EN: Path of the clean image to compare and list what was removed."},
+          "output": {"type": "string", "description": "ES: Ruta .md de salida. EN: Output .md path."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."}
+        },
+        "required": ["path"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

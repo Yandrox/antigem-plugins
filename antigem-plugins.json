@@ -90,6 +90,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "image-metadata-scrubber",
+      "id": "image-metadata-scrubber",
+      "name": "Image Metadata Scrubber",
+      "version": "1.0.0",
+      "description": "ES: Detecta y elimina metadatos privados de JPEG y PNG locales (EXIF, GPS, XMP, IPTC, tEXt, eXIf) sin red. Inspecciona, guarda copia del original, escribe una imagen limpia y verifica el resultado. Híbrido y offline. / EN: Detect and remove private metadata from local JPEG and PNG files (EXIF, GPS, XMP, IPTC, tEXt, eXIf) with no network. Inspect, back up the original, write a clean image and verify the result. Hybrid and offline.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "license-audit",
       "id": "license-audit",
       "name": "License Audit",
