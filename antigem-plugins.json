@@ -18,6 +18,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "api-contract-checker",
+      "id": "api-contract-checker",
+      "name": "API Contract Checker",
+      "version": "1.0.0",
+      "description": "ES: Detecta deriva entre contratos OpenAPI/Swagger/JSON Schema locales y el código: compara versiones, extrae rutas y campos y genera un informe Markdown, sin llamar a la API. Híbrido y offline. / EN: Detect drift between local OpenAPI/Swagger/JSON Schema contracts and code: compares versions, extracts routes and fields and produces a Markdown report, without calling the API. Hybrid and offline.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "apk-recon",
       "id": "apk-recon",
       "name": "APK Recon",

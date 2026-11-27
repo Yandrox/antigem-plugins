@@ -1,0 +1,69 @@
+{
+  "manifest_version": 3,
+  "id": "api-contract-checker",
+  "name": "API Contract Checker",
+  "version": "1.0.0",
+  "description": "ES: Detecta deriva entre contratos OpenAPI/Swagger/JSON Schema locales y el código: compara versiones, extrae rutas y campos y genera un informe Markdown, sin llamar a la API. Híbrido y offline. / EN: Detect drift between local OpenAPI/Swagger/JSON Schema contracts and code: compares versions, extracts routes and fields and produces a Markdown report, without calling the API. Hybrid and offline.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "contract_parse",
+      "description": "ES: Carga un contrato OpenAPI 3, Swagger 2 o JSON Schema local, resuelve $ref internos y devuelve operaciones, parámetros, campos de petición/respuesta y esquemas aplanados. EN: Load a local OpenAPI 3, Swagger 2 or JSON Schema contract, resolve internal $ref and return operations, parameters, request/response fields and flattened schemas.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {"type": "string", "description": "ES: Ruta .json del contrato. EN: Contract .json path."}
+        },
+        "required": ["path"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "contract_diff",
+      "description": "ES: Compara dos contratos locales y clasifica cambios como ruptura, aviso o nota: operaciones, parámetros, campos y tipos. EN: Compare two local contracts and classify changes as breaking, warning or info: operations, parameters, fields and types.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "old": {"type": "string", "description": "ES: Ruta .json del contrato anterior. EN: Old contract .json path."},
+          "new": {"type": "string", "description": "ES: Ruta .json del contrato nuevo. EN: New contract .json path."}
+        },
+        "required": ["old", "new"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "contract_scan",
+      "description": "ES: Analiza archivos de código locales en busca de rutas y campos, los compara con el contrato y devuelve hallazgos de deriva (heurístico, sin AST). EN: Scan local code files for routes and fields, compare them with the contract and return drift findings (heuristic, no AST).",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "contract": {"type": "string", "description": "ES: Ruta .json del contrato de referencia. EN: Reference contract .json path."},
+          "files": {"type": "array", "items": {"type": "string"}, "description": "ES: Rutas de archivos de código a analizar. EN: Code file paths to scan."},
+          "directory": {"type": "string", "description": "ES: Carpeta a analizar de forma recursiva (máx. 60 archivos). EN: Directory to scan recursively (max 60 files)."}
+        },
+        "required": ["contract"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "contract_report",
+      "description": "ES: Genera un informe Markdown bilingüe con la comparación de versiones y/o la deriva del código; previsualiza por defecto y puede escribir el .md. EN: Produce a bilingual Markdown report with the version diff and/or code drift; previews by default and can write the .md file.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "contract": {"type": "string", "description": "ES: Ruta .json del contrato de referencia. EN: Reference contract .json path."},
+          "old": {"type": "string", "description": "ES: Contrato anterior, si se quiere comparar versiones. EN: Old contract, to compare versions."},
+          "new": {"type": "string", "description": "ES: Contrato nuevo, si se quiere comparar versiones. EN: New contract, to compare versions."},
+          "files": {"type": "array", "items": {"type": "string"}, "description": "ES: Archivos de código a analizar. EN: Code files to scan."},
+          "directory": {"type": "string", "description": "ES: Carpeta de código a analizar de forma recursiva. EN: Code directory to scan recursively."},
+          "output": {"type": "string", "description": "ES: Ruta .md de salida. EN: Output .md path."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."}
+        },
+        "required": ["contract"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

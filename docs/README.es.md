@@ -1,4 +1,4 @@
-![PLUGINS: 31](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
+![PLUGINS: 32](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
 
 [Leer el README en inglés](../README.md)
 
@@ -16,6 +16,7 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 | --- | --- | --- | --- |
 | [A11y Audit](../a11y-audit/) | `a11y-audit` | 1.0.2 | Audita accesibilidad de mini apps y WebViews: contraste, zonas táctiles, ARIA, alt, foco y nombres; genera informe y correcciones. |
 | [Android Access Guide](../android-access-guide/) | `android-access-guide` | 1.0.0 | Detecta el modo de acceso shell (ADB, Shizuku, root o ninguno), explica el riesgo y genera el comando exacto con pasos de activación. Solo skills, offline. |
+| [API Contract Checker](../api-contract-checker/) | `api-contract-checker` | 1.0.0 | Detecta deriva entre contratos OpenAPI/Swagger/JSON Schema locales y el código: compara versiones, extrae rutas y campos y genera un informe Markdown, sin llamar a la API. Híbrido y offline. |
 | [APK Recon](../apk-recon/) | `apk-recon` | 1.0.0 | Checklist guiado de reconocimiento de un APK local con REA: manifiesto, permisos peligrosos, componentes exportados, firma, ABIs nativos y strings sospechosos, con informe Markdown ordenado por riesgo. |
 | [Bot Forge](../bot-forge/) | `bot-forge` | 1.0.2 | Kit offline para diseñar, generar, auditar y documentar bots de Telegram y Discord. No envía mensajes ni usa tokens. |
 | [Browser Flow Recorder](../browser-flow-recorder/) | `browser-flow-recorder` | 1.0.0 | Convierte acciones de browser_mcp en flujos reproducibles con aserciones, redacción de credenciales, comparación de capturas e informe bilingüe. Offline. |

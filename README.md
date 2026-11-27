@@ -1,4 +1,4 @@
-![PLUGINS: 31](./assets/badges/plugins.svg) ![MODE: 100% OFFLINE](./assets/badges/offline.svg) ![PLATFORM: ANTIGEM](./assets/badges/antigem.svg) ![LANG: ES · EN](./assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](./assets/badges/install.svg)
+![PLUGINS: 32](./assets/badges/plugins.svg) ![MODE: 100% OFFLINE](./assets/badges/offline.svg) ![PLATFORM: ANTIGEM](./assets/badges/antigem.svg) ![LANG: ES · EN](./assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](./assets/badges/install.svg)
 
 [Read the README in Spanish](./docs/README.es.md)
 
@@ -16,6 +16,7 @@ In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add `Ya
 | --- | --- | --- | --- |
 | [A11y Audit](./a11y-audit/) | `a11y-audit` | 1.0.2 | Audit mini apps and WebViews for accessibility: contrast, tap targets, ARIA, alt, focus and names; generate report and fixes. |
 | [Android Access Guide](./android-access-guide/) | `android-access-guide` | 1.0.0 | Detect shell access mode (ADB, Shizuku, root or none), explains the risk and produces the exact command with activation steps. Skills only, offline. |
+| [API Contract Checker](./api-contract-checker/) | `api-contract-checker` | 1.0.0 | Detect drift between local OpenAPI/Swagger/JSON Schema contracts and code: compares versions, extracts routes and fields and produces a Markdown report, without calling the API. Hybrid and offline. |
 | [APK Recon](./apk-recon/) | `apk-recon` | 1.0.0 | Guided reconnaissance checklist for a local APK using REA: manifest, dangerous permissions, exported components, signature, native ABIs and suspicious strings, with a risk-ranked Markdown report. |
 | [Bot Forge](./bot-forge/) | `bot-forge` | 1.0.2 | Offline toolkit to design, generate, audit and document Telegram and Discord bots. It sends no messages and uses no tokens. |
 | [Browser Flow Recorder](./browser-flow-recorder/) | `browser-flow-recorder` | 1.0.0 | Turn browser_mcp actions into reproducible flows with assertions, credential redaction, screenshot comparison and a bilingual report. Offline. |
