@@ -1,0 +1,107 @@
+{
+  "manifest_version": 3,
+  "id": "snippet-forge",
+  "name": "Snippet Forge",
+  "version": "1.0.0",
+  "description": "ES: Biblioteca offline de snippets con variables {{nombre:valor}}, etiquetas por lenguaje, búsqueda y renderizado determinista; exporta a Markdown. Híbrido y sin red. / EN: Offline snippet library with {{name:default}} variables, language tags, search and deterministic rendering; exports to Markdown. Hybrid and offline.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "snippet_save",
+      "description": "ES: Crea o actualiza un snippet con cuerpo {{variable:valor}}, lenguaje y etiquetas en la biblioteca JSON local; previsualiza por defecto. EN: Create or update a snippet with {{name:default}} variables, language and tags in the local JSON library; previews by default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "title": {"type": "string", "description": "ES: Título del snippet. EN: Snippet title."},
+          "body": {"type": "string", "description": "ES: Plantilla de código con variables {{nombre}} o {{nombre:valor}}. EN: Code template with {{name}} or {{name:default}} variables."},
+          "id": {"type": "string", "description": "ES: Id para actualizar; si se omite, se crea o se actualiza por título+lenguaje. EN: Id to update; if omitted, creates or updates by title+language."},
+          "language": {"type": "string", "description": "ES: Lenguaje del snippet (por defecto text). EN: Snippet language (default text)."},
+          "tags": {"type": "array", "items": {"type": "string"}, "description": "ES: Etiquetas para filtrar. EN: Tags for filtering."},
+          "description": {"type": "string", "description": "ES: Descripción breve. EN: Short description."},
+          "library": {"type": "string", "description": "ES: Ruta del JSON (por defecto ~/snippet-forge/snippets.json). EN: JSON path (default ~/snippet-forge/snippets.json)."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."}
+        },
+        "required": ["title", "body"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "snippet_get",
+      "description": "ES: Devuelve un snippet completo por id, con cuerpo y variables detectadas. EN: Return a full snippet by id, including body and detected variables.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string", "description": "ES: Id del snippet. EN: Snippet id."},
+          "library": {"type": "string", "description": "ES: Ruta del JSON (por defecto ~/snippet-forge/snippets.json). EN: JSON path (default ~/snippet-forge/snippets.json)."}
+        },
+        "required": ["id"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "snippet_search",
+      "description": "ES: Busca snippets por texto, lenguaje o etiqueta y devuelve resúmenes con sus variables. EN: Search snippets by text, language or tag and return summaries with their variables.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {"type": "string", "description": "ES: Términos a buscar en título, descripción, etiquetas y cuerpo (AND). EN: Terms to match in title, description, tags and body (AND)."},
+          "language": {"type": "string", "description": "ES: Filtrar por lenguaje exacto. EN: Filter by exact language."},
+          "tag": {"type": "string", "description": "ES: Filtrar por etiqueta exacta. EN: Filter by exact tag."},
+          "limit": {"type": "integer", "description": "ES: Máximo de resultados, 1-100 (por defecto 50). EN: Maximum results, 1-100 (default 50)."},
+          "library": {"type": "string", "description": "ES: Ruta del JSON (por defecto ~/snippet-forge/snippets.json). EN: JSON path (default ~/snippet-forge/snippets.json)."}
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "snippet_render",
+      "description": "ES: Sustituye {{nombre}} y {{nombre:valor}} por los valores dados; avisa de variables sin valor y puede escribir el resultado en un archivo. EN: Replace {{name}} and {{name:default}} with given values, warn about missing variables and optionally write the result to a file.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string", "description": "ES: Id del snippet a renderizar. EN: Id of the snippet to render."},
+          "body": {"type": "string", "description": "ES: Plantilla en línea si no se da id. EN: Inline template when no id is given."},
+          "values": {"type": "object", "description": "ES: Valores por nombre de variable. EN: Values by variable name."},
+          "strict": {"type": "boolean", "description": "ES: true = falla si falta alguna variable (por defecto false). EN: true = fail on any missing variable (default false)."},
+          "output": {"type": "string", "description": "ES: Archivo opcional donde guardar el resultado. EN: Optional file to save the result."},
+          "dry_run": {"type": "boolean", "description": "ES: true = no escribe el archivo (por defecto); false = escribe. EN: true = do not write the file (default); false = write."},
+          "library": {"type": "string", "description": "ES: Ruta del JSON (por defecto ~/snippet-forge/snippets.json). EN: JSON path (default ~/snippet-forge/snippets.json)."}
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "snippet_delete",
+      "description": "ES: Elimina un snippet por id de la biblioteca local, con copia .bak y previsualización por defecto. EN: Delete a snippet by id from the local library, with a .bak copy and preview by default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "string", "description": "ES: Id del snippet a eliminar. EN: Id of the snippet to delete."},
+          "library": {"type": "string", "description": "ES: Ruta del JSON (por defecto ~/snippet-forge/snippets.json). EN: JSON path (default ~/snippet-forge/snippets.json)."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."}
+        },
+        "required": ["id"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "snippet_export",
+      "description": "ES: Exporta la biblioteca (o un lenguaje) a Markdown con bloques de código y variables; previsualiza por defecto. EN: Export the library (or one language) to Markdown with code blocks and variables; previews by default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "library": {"type": "string", "description": "ES: Ruta del JSON (por defecto ~/snippet-forge/snippets.json). EN: JSON path (default ~/snippet-forge/snippets.json)."},
+          "output": {"type": "string", "description": "ES: Ruta .md de salida (por defecto ~/snippet-forge/snippets.md). EN: Output .md path (default ~/snippet-forge/snippets.md)."},
+          "language": {"type": "string", "description": "ES: Exportar solo este lenguaje. EN: Export only this language."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."}
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

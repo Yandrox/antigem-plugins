@@ -210,6 +210,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "snippet-forge",
+      "id": "snippet-forge",
+      "name": "Snippet Forge",
+      "version": "1.0.0",
+      "description": "ES: Biblioteca offline de snippets con variables {{nombre:valor}}, etiquetas por lenguaje, búsqueda y renderizado determinista; exporta a Markdown. Híbrido y sin red. / EN: Offline snippet library with {{name:default}} variables, language tags, search and deterministic rendering; exports to Markdown. Hybrid and offline.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "storage-cleaner",
       "id": "storage-cleaner",
       "name": "Storage Cleaner",

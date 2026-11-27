@@ -1,4 +1,4 @@
-![PLUGINS: 30](./assets/badges/plugins.svg) ![MODE: 100% OFFLINE](./assets/badges/offline.svg) ![PLATFORM: ANTIGEM](./assets/badges/antigem.svg) ![LANG: ES · EN](./assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](./assets/badges/install.svg)
+![PLUGINS: 31](./assets/badges/plugins.svg) ![MODE: 100% OFFLINE](./assets/badges/offline.svg) ![PLATFORM: ANTIGEM](./assets/badges/antigem.svg) ![LANG: ES · EN](./assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](./assets/badges/install.svg)
 
 [Read the README in Spanish](./docs/README.es.md)
 
@@ -40,6 +40,7 @@ In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add `Ya
 | [Secret Scanner](./secret-scanner/) | `secret-scanner` | 1.0.0 | Offline secret scanner before publishing: detects OpenAI, Google, GitHub, AWS keys, JWTs, tokens and plaintext passwords, skips lockfiles and examples, and reports file:line, confidence, .gitignore entries and rotation steps. Never modifies files. |
 | [Session Handoff](./session-handoff/) | `session-handoff` | 1.0.0 | Generates a compact, portable Markdown block to continue a session in another agent (OpenCode, Jarvis, Claude Code, Codex): objective, decisions, completed work, blockers, repo state, relevant paths, open items and next step. Offline, no actions, no secrets. |
 | [Skill Linter](./skill-linter/) | `skill-linter` | 1.0.0 | Offline content linter for AntiGem skills: validates frontmatter, requires ES/EN sections, checks detail-file references and links, measures length and flags possible injected instructions. Complements plugin-doctor, which checks structure. Read-only. |
+| [Snippet Forge](./snippet-forge/) | `snippet-forge` | 1.0.0 | Offline snippet library with {{name:default}} variables, language tags, search and deterministic rendering; exports to Markdown. Hybrid and offline. |
 | [Storage Cleaner](./storage-cleaner/) | `storage-cleaner` | 1.1.1 | Scan duplicates, large files and project leftovers; generate a plan and report without deleting anything. |
 | [Theme Audit](./theme-audit/) | `theme-audit` | 1.0.0 | Offline WCAG contrast audit for AntiGem themes: computes the ratio of every text/background pair (UI, code, editor and terminal), flags AA/AAA failures and proposes a concrete theme_update for the light and dark themes. Read-only. |
 | [Trace Translator](./trace-translator/) | `trace-translator` | 1.0.0 | Normalise Java, Kotlin, Dart and JS stack traces: group repeated frames, flag project frames, separate root cause from symptom, translate common messages and suggest next steps. Offline, no external services. |
