@@ -1,4 +1,4 @@
-![PLUGINS: 34](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
+![PLUGINS: 35](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
 
 [Leer el README en inglés](../README.md)
 
@@ -48,6 +48,7 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 | [Theme Audit](../theme-audit/) | `theme-audit` | 1.0.0 | Auditoría offline de contraste WCAG de temas de AntiGem: calcula el ratio de cada par texto/fondo (interfaz, código, editor y terminal), marca fallos AA/AAA y propone un theme_update concreto para el tema claro y el oscuro. Solo lectura. |
 | [Trace Translator](../trace-translator/) | `trace-translator` | 1.0.0 | Normaliza stack traces de Java, Kotlin, Dart y JS: agrupa frames repetidos, marca los del proyecto, separa causa raíz de síntoma, traduce mensajes comunes y propone siguientes pasos. Sin red ni servicios externos. |
 | [Viral Script Lab](../viral-script-lab/) | `viral-script-lab` | 1.0.2 | Analiza guiones cortos (gancho, cortes, ritmo, 3 actos y CTA) y genera títulos y hashtags sin servicios externos. |
+| [ZIP Archive Explorer](../zip-archive-explorer/) | `zip-archive-explorer` | 1.0.0 | Inspecciona ZIP, TAR y TAR.GZ locales sin extraerlos: lista rutas, tamaños y fechas, detecta path traversal, rutas absolutas, symlinks y cifrado, y propone comandos seguros de extracción con control de sobrescritura. Híbrido y offline. |
 
 ## Mantenimiento con Plugin Doctor
 

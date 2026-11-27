@@ -272,6 +272,14 @@
       "version": "1.0.2",
       "description": "Analiza guiones cortos (gancho, cortes, ritmo, 3 actos y CTA) y genera títulos y hashtags sin servicios externos. / Analyse short-form scripts (hook, cuts, pace, 3 acts and CTA) and generate titles and hashtags offline.",
       "icon": "icon.svg"
+    },
+    {
+      "path": "zip-archive-explorer",
+      "id": "zip-archive-explorer",
+      "name": "ZIP Archive Explorer",
+      "version": "1.0.0",
+      "description": "ES: Inspecciona ZIP, TAR y TAR.GZ locales sin extraerlos: lista rutas, tamaños y fechas, detecta path traversal, rutas absolutas, symlinks y cifrado, y propone comandos seguros de extracción con control de sobrescritura. Híbrido y offline. / EN: Inspect local ZIP, TAR and TAR.GZ archives without extracting: list paths, sizes and dates, detect traversal, absolute paths, symlinks and encryption, and propose safe extraction commands with overwrite control. Hybrid and offline.",
+      "icon": "icon.svg"
     }
   ]
 }

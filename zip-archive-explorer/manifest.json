@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "id": "zip-archive-explorer",
+  "name": "ZIP Archive Explorer",
+  "version": "1.0.0",
+  "description": "ES: Inspecciona ZIP, TAR y TAR.GZ locales sin extraerlos: lista rutas, tamaños y fechas, detecta path traversal, rutas absolutas, symlinks y cifrado, y propone comandos seguros de extracción con control de sobrescritura. Híbrido y offline. / EN: Inspect local ZIP, TAR and TAR.GZ archives without extracting: list paths, sizes and dates, detect traversal, absolute paths, symlinks and encryption, and propose safe extraction commands with overwrite control. Hybrid and offline.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "archive_list",
+      "description": "ES: Abre un ZIP, TAR o TAR.GZ local sin extraerlo y devuelve entradas (nombre, tipo, tamaño, fecha), resumen y hallazgos de seguridad con gravedad. EN: Open a local ZIP, TAR or TAR.GZ without extracting and return entries (name, type, size, date), a summary and security findings with severity.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {"type": "string", "description": "ES: Ruta del archivo .zip, .tar o .tar.gz. EN: Path of the .zip, .tar or .tar.gz file."},
+          "max_entries": {"type": "integer", "description": "ES: Máximo de entradas devueltas, 1-200 (por defecto 80). El análisis siempre usa todas. EN: Maximum returned entries, 1-200 (default 80). Analysis always uses all."}
+        },
+        "required": ["path"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "archive_plan",
+      "description": "ES: Propone comandos seguros de extracción a una carpeta elegida con política de sobrescritura; bloquea la extracción si hay entradas peligrosas. No ejecuta nada. EN: Propose safe extraction commands into a chosen folder with an overwrite policy; blocks extraction when dangerous entries exist. Executes nothing.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {"type": "string", "description": "ES: Ruta del archivo comprimido. EN: Path of the archive."},
+          "destination": {"type": "string", "description": "ES: Carpeta de destino (se crea con mkdir -p). EN: Destination folder (created with mkdir -p)."},
+          "overwrite": {"type": "string", "enum": ["skip", "overwrite"], "description": "ES: skip conserva archivos existentes (por defecto); overwrite los reemplaza. EN: skip keeps existing files (default); overwrite replaces them."},
+          "strip_components": {"type": "integer", "description": "ES: Solo TAR: quita N niveles de directorio al extraer, 0-20 (por defecto 0). EN: TAR only: strip N directory levels when extracting, 0-20 (default 0)."}
+        },
+        "required": ["path", "destination"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "archive_report",
+      "description": "ES: Genera un informe Markdown bilingüe con hallazgos de seguridad y entradas; previsualiza por defecto y puede escribir el .md. EN: Produce a bilingual Markdown report with security findings and entries; previews by default and can write the .md file.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {"type": "string", "description": "ES: Ruta del archivo comprimido. EN: Path of the archive."},
+          "output": {"type": "string", "description": "ES: Ruta .md de salida. EN: Output .md path."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."}
+        },
+        "required": ["path"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}
