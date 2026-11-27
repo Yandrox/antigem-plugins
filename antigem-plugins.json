@@ -226,6 +226,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "screenshot-annotator",
+      "id": "screenshot-annotator",
+      "name": "Screenshot Annotator",
+      "version": "1.0.0",
+      "description": "ES: Anota capturas sin modificarlas: genera un overlay SVG con flechas, rectángulos, números y texto, un visor HTML sin dependencias que muestra original y capa, y un informe Markdown bilingüe para bugs. Híbrido y offline. / EN: Annotate screenshots without modifying them: generate an SVG overlay with arrows, rectangles, numbers and text, a dependency-free HTML viewer showing original and overlay, and a bilingual Markdown bug report. Hybrid and offline.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "secret-scanner",
       "id": "secret-scanner",
       "name": "Secret Scanner",

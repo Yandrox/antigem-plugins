@@ -1,0 +1,70 @@
+{
+  "manifest_version": 3,
+  "id": "screenshot-annotator",
+  "name": "Screenshot Annotator",
+  "version": "1.0.0",
+  "description": "ES: Anota capturas sin modificarlas: genera un overlay SVG con flechas, rectángulos, números y texto, un visor HTML sin dependencias que muestra original y capa, y un informe Markdown bilingüe para bugs. Híbrido y offline. / EN: Annotate screenshots without modifying them: generate an SVG overlay with arrows, rectangles, numbers and text, a dependency-free HTML viewer showing original and overlay, and a bilingual Markdown bug report. Hybrid and offline.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "annotation_svg",
+      "description": "ES: Genera un overlay SVG transparente sobre la captura local, con flechas, rectángulos, elipses, números y texto. Lee las dimensiones del archivo si no se indican. No modifica la imagen; previsualiza por defecto. EN: Generate a transparent SVG overlay for a local screenshot with arrows, rectangles, ellipses, numbers and text. Reads dimensions from the file when omitted. Never modifies the image; previews by default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image": {"type": "string", "description": "ES: Ruta de la captura original (.png, .jpg, .gif, .webp). EN: Path of the original screenshot."},
+          "shapes": {"type": "array", "items": {"type": "object", "additionalProperties": true}, "description": "ES: Figuras: {type:'rect|arrow|number|text|ellipse', x,y,w,h o x1,y1,x2,y2, color, label, size}. Máximo 60. EN: Shapes: {type:'rect|arrow|number|text|ellipse', x,y,w,h or x1,y1,x2,y2, color, label, size}. Maximum 60."},
+          "width": {"type": "integer", "description": "ES: Ancho del lienzo; se detecta solo si se omite. EN: Canvas width; detected automatically when omitted."},
+          "height": {"type": "integer", "description": "ES: Alto del lienzo; se detecta solo si se omite. EN: Canvas height; detected automatically when omitted."},
+          "title": {"type": "string", "description": "ES: Título accesible del SVG. EN: Accessible SVG title."},
+          "output": {"type": "string", "description": "ES: Ruta .svg de salida; nunca sobrescribe. EN: Output .svg path; never overwrites."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo devolver el SVG (por defecto); false = escribirlo. EN: true = return the SVG only (default); false = write it."}
+        },
+        "required": ["image", "shapes"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "annotation_page",
+      "description": "ES: Crea un visor HTML offline con la imagen original y el overlay superpuesto, un interruptor para mostrar/ocultar la capa y una comparación lado a lado. Referencia la imagen por ruta relativa o la incrusta en base64. EN: Create an offline HTML viewer with the original image and the overlay, a toggle to show/hide the layer and a side-by-side comparison. References the image by relative path or embeds it as base64.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image": {"type": "string", "description": "ES: Ruta de la captura original. EN: Path of the original screenshot."},
+          "shapes": {"type": "array", "items": {"type": "object", "additionalProperties": true}, "description": "ES: Figuras de anotación, igual que en annotation_svg. EN: Annotation shapes, same as annotation_svg."},
+          "width": {"type": "integer", "description": "ES: Ancho del lienzo; se detecta solo si se omite. EN: Canvas width; detected automatically when omitted."},
+          "height": {"type": "integer", "description": "ES: Alto del lienzo; se detecta solo si se omite. EN: Canvas height; detected automatically when omitted."},
+          "title": {"type": "string", "description": "ES: Título de la página. EN: Page title."},
+          "output": {"type": "string", "description": "ES: Ruta .html de salida (obligatoria para escribir). EN: Output .html path (required to write)."},
+          "embed_image": {"type": "boolean", "description": "ES: Incrustar la imagen en base64 en vez de usar ruta relativa (por defecto false, máximo 8 MiB). EN: Embed the image as base64 instead of a relative path (default false, max 8 MiB)."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo devolver el HTML (por defecto); false = escribirlo. EN: true = return the HTML only (default); false = write it."}
+        },
+        "required": ["image", "shapes", "output"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "annotation_report",
+      "description": "ES: Genera un informe Markdown bilingüe para un bug con la lista de anotaciones, rutas del SVG y del visor, notas y checklist de verificación. Previsualiza por defecto. EN: Produce a bilingual Markdown bug report with the annotation list, SVG and viewer paths, notes and a verification checklist. Previews by default.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "image": {"type": "string", "description": "ES: Ruta de la captura original. EN: Path of the original screenshot."},
+          "shapes": {"type": "array", "items": {"type": "object", "additionalProperties": true}, "description": "ES: Figuras de anotación, igual que en annotation_svg. EN: Annotation shapes, same as annotation_svg."},
+          "width": {"type": "integer", "description": "ES: Ancho del lienzo; se detecta solo si se omite. EN: Canvas width; detected automatically when omitted."},
+          "height": {"type": "integer", "description": "ES: Alto del lienzo; se detecta solo si se omite. EN: Canvas height; detected automatically when omitted."},
+          "title": {"type": "string", "description": "ES: Título de la captura anotada. EN: Annotated screenshot title."},
+          "svg_path": {"type": "string", "description": "ES: Ruta del SVG generado para enlazar en el informe. EN: Generated SVG path to link in the report."},
+          "html_path": {"type": "string", "description": "ES: Ruta del visor HTML generado. EN: Generated HTML viewer path."},
+          "notes": {"type": "string", "description": "ES: Notas del bug; una línea por viñeta. EN: Bug notes; one line per bullet."},
+          "output": {"type": "string", "description": "ES: Ruta .md de salida; nunca sobrescribe. EN: Output .md path; never overwrites."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."}
+        },
+        "required": ["image", "shapes"],
+        "additionalProperties": false
+      }
+    }
+  ]
+}

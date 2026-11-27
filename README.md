@@ -1,4 +1,4 @@
-![PLUGINS: 37](./assets/badges/plugins.svg) ![MODE: 100% OFFLINE](./assets/badges/offline.svg) ![PLATFORM: ANTIGEM](./assets/badges/antigem.svg) ![LANG: ES · EN](./assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](./assets/badges/install.svg)
+![PLUGINS: 38](./assets/badges/plugins.svg) ![MODE: 100% OFFLINE](./assets/badges/offline.svg) ![PLATFORM: ANTIGEM](./assets/badges/antigem.svg) ![LANG: ES · EN](./assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](./assets/badges/install.svg)
 
 [Read the README in Spanish](./docs/README.es.md)
 
@@ -42,6 +42,7 @@ In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add `Ya
 | [Prompt Regression](./prompt-regression/) | `prompt-regression` | 1.0.2 | Detect skill drift by storing input→output cases with assertions for format, language, tool choice and length. |
 | [REA Playbook](./rea-playbook/) | `rea-playbook` | 1.0.1 | Decision tree for using REA well: which tool to pick per artifact, typical arguments and how to read results, summary first and detail afterwards. It does not duplicate REA. |
 | [Regex Workbench](./regex-workbench/) | `regex-workbench` | 1.0.0 | Test and explain regular expressions with Spanish and Unicode offline: tokens, test cases, false positives, backtracking risk and JS/PCRE/POSIX conversions. |
+| [Screenshot Annotator](./screenshot-annotator/) | `screenshot-annotator` | 1.0.0 | Annotate screenshots without modifying them: generate an SVG overlay with arrows, rectangles, numbers and text, a dependency-free HTML viewer showing original and overlay, and a bilingual Markdown bug report. Hybrid and offline. |
 | [Secret Scanner](./secret-scanner/) | `secret-scanner` | 1.0.0 | Offline secret scanner before publishing: detects OpenAI, Google, GitHub, AWS keys, JWTs, tokens and plaintext passwords, skips lockfiles and examples, and reports file:line, confidence, .gitignore entries and rotation steps. Never modifies files. |
 | [Session Handoff](./session-handoff/) | `session-handoff` | 1.0.0 | Generates a compact, portable Markdown block to continue a session in another agent (OpenCode, Jarvis, Claude Code, Codex): objective, decisions, completed work, blockers, repo state, relevant paths, open items and next step. Offline, no actions, no secrets. |
 | [Skill Linter](./skill-linter/) | `skill-linter` | 1.0.0 | Offline content linter for AntiGem skills: validates frontmatter, requires ES/EN sections, checks detail-file references and links, measures length and flags possible injected instructions. Complements plugin-doctor, which checks structure. Read-only. |

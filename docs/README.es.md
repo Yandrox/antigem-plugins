@@ -1,4 +1,4 @@
-![PLUGINS: 37](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
+![PLUGINS: 38](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
 
 [Leer el README en inglés](../README.md)
 
@@ -42,6 +42,7 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 | [Prompt Regression](../prompt-regression/) | `prompt-regression` | 1.0.2 | Detecta deriva en las skills guardando casos entrada→salida con aserciones de formato, idioma, herramienta y longitud. |
 | [REA Playbook](../rea-playbook/) | `rea-playbook` | 1.0.1 | Árbol de decisión para usar REA bien: qué herramienta elegir según el artefacto, argumentos típicos y cómo leer el resultado, con resumen primero y detalle después. No duplica REA |
 | [Regex Workbench](../regex-workbench/) | `regex-workbench` | 1.0.0 | Prueba y explica expresiones regulares con español y Unicode sin salir de la app: tokens, casos de prueba, falsos positivos, riesgo de backtracking y conversiones JS/PCRE/POSIX. |
+| [Screenshot Annotator](../screenshot-annotator/) | `screenshot-annotator` | 1.0.0 | Anota capturas sin modificarlas: genera un overlay SVG con flechas, rectángulos, números y texto, un visor HTML sin dependencias que muestra original y capa, y un informe Markdown bilingüe para bugs. Híbrido y offline. |
 | [Secret Scanner](../secret-scanner/) | `secret-scanner` | 1.0.0 | Escáner offline de secretos antes de publicar: detecta claves OpenAI, Google, GitHub, AWS, JWTs, tokens y contraseñas en claro, ignora lockfiles y ejemplos, y emite un informe con ruta:línea, confianza, entradas de .gitignore y pasos de rotación. Nunca modifica archivos. |
 | [Session Handoff](../session-handoff/) | `session-handoff` | 1.0.0 | Genera un bloque Markdown portable y conciso para continuar una sesión en otro agente (OpenCode, Jarvis, Claude Code, Codex): objetivo, decisiones, trabajo completado, bloqueos, estado del repo, rutas relevantes, pendientes y siguiente paso. Offline, sin ejecutar acciones ni exponer secretos. |
 | [Skill Linter](../skill-linter/) | `skill-linter` | 1.0.0 | Linter offline de contenido de skills de AntiGem: valida frontmatter, exige secciones ES/EN, comprueba referencias a archivos de detalle y enlaces, mide longitud y avisa de posibles instrucciones inyectadas. Complementa a plugin-doctor, que revisa la estructura. Solo lectura. |
