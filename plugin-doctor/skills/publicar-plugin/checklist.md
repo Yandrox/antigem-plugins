@@ -6,7 +6,7 @@
 - [ ] Revisar los avisos (`warning`): ids o versiones ausentes, skills sin frontmatter, iconos no declarados, enlaces rotos.
 - [ ] Si el índice está desincronizado, ejecutar `doctor_fix_index` primero en preview y después escribiéndolo.
 - [ ] Comprobar que `id` y `version` del índice coinciden con los de cada `manifest.json`.
-- [ ] Generar el README con `doctor_generate_readme` (`language: "both"` por defecto).
+- [ ] Generar los README con `doctor_generate_readme`: raíz en inglés y copia ES en `docs/README.es.md` (ambos con una sola tabla).
 - [ ] Subir la versión en **todos** los `manifest.json` y en `antigem-plugins.json`.
 - [ ] Empaquetar, instalar y probar cada plugin con el MCP de desarrollo antes de copiarlo al repo.
 - [ ] Copiar el contenido de `src/.` en la carpeta del plugin (no la carpeta `src` dentro).
@@ -21,7 +21,7 @@
 - [ ] Review warnings: missing ids or versions, skills without frontmatter, undeclared icons, broken links.
 - [ ] If the index is out of sync, run `doctor_fix_index` in preview mode first, then write it.
 - [ ] Check that every index `id` and `version` matches its `manifest.json`.
-- [ ] Generate the README with `doctor_generate_readme` (`language: "both"` by default).
+- [ ] Generate the READMEs with `doctor_generate_readme`: English root and ES copy in `docs/README.es.md` (one table each).
 - [ ] Raise the version in **every** `manifest.json` and in `antigem-plugins.json`.
 - [ ] Package, install and test each plugin with the developer MCP before copying it into the repo.
 - [ ] Copy the contents of `src/.` into the plugin folder (not the `src` folder itself).

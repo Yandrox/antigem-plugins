@@ -149,8 +149,8 @@
       "path": "plugin-doctor",
       "id": "plugin-doctor",
       "name": "Plugin Doctor",
-      "version": "1.2.0",
-      "description": "Valida y repara repositorios de plugins de AntiGem; genera un README con una sola tabla y badges SVG locales. / Validate and repair AntiGem plugin repositories; generates a README with a single table and local SVG badges.",
+      "version": "1.3.0",
+      "description": "Valida y repara repositorios de plugins de AntiGem; genera un README raíz en inglés y una copia en español en docs/, cada uno con una sola tabla y badges SVG locales. / Validate and repair AntiGem plugin repositories; generates an English root README plus a Spanish copy in docs/, each with a single table and local SVG badges.",
       "icon": "icon.svg"
     },
     {

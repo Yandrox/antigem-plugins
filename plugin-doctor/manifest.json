@@ -2,8 +2,8 @@
   "manifest_version": 3,
   "id": "plugin-doctor",
   "name": "Plugin Doctor",
-  "version": "1.2.0",
-  "description": "Valida y repara repositorios de plugins de AntiGem; genera un README con una sola tabla y badges SVG locales. / Validate and repair AntiGem plugin repositories; generates a README with a single table and local SVG badges.",
+  "version": "1.3.0",
+  "description": "Valida y repara repositorios de plugins de AntiGem; genera un README raíz en inglés y una copia en español en docs/, cada uno con una sola tabla y badges SVG locales. / Validate and repair AntiGem plugin repositories; generates an English root README plus a Spanish copy in docs/, each with a single table and local SVG badges.",
   "permissions": [
     "antigemFiles"
   ],
@@ -61,7 +61,7 @@
     },
     {
       "name": "doctor_generate_readme",
-      "description": "ES: Genera un README bilingüe con una sola tabla de plugins y badges SVG locales, a partir del índice o de los manifiestos. EN: Generate a bilingual README with a single plugin table and local SVG badges, from the index or the manifests.",
+      "description": "ES: Genera el README raíz en inglés y una copia en español en docs/README.es.md, cada uno con una sola tabla y badges SVG locales, desde el índice o los manifiestos. EN: Generate the English root README and a Spanish copy at docs/README.es.md, each with a single plugin table and local SVG badges, from the index or the manifests.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -76,11 +76,15 @@
           "language": {
             "type": "string",
             "enum": ["es", "en", "both"],
-            "description": "ES: Idioma del README (por defecto both). EN: README language (default both)."
+            "description": "ES: Solo idioma del markdown devuelto en la vista previa; los archivos siempre son EN + ES (por defecto en). EN: Preview markdown language only; files are always EN + ES (default en)."
           },
           "output": {
             "type": "string",
-            "description": "ES: Archivo de salida relativo (por defecto README.md). EN: Relative output file (default README.md)."
+            "description": "ES: Ruta relativa del README raíz en inglés (por defecto README.md). EN: Relative path of the English root README (default README.md)."
+          },
+          "spanish_output": {
+            "type": "string",
+            "description": "ES: Ruta relativa de la copia en español (por defecto docs/README.es.md). EN: Relative path of the Spanish copy (default docs/README.es.md)."
           },
           "dry_run": {
             "type": "boolean",

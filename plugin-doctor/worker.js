@@ -814,116 +814,123 @@ function buildBadges(plugins, repository) {
   }));
 }
 
-function badgeLine(badges) {
-  return badges.map(badge =>
-    `![${badge.label}: ${badge.value}](./assets/badges/${badge.file})`).join(' ');
+function pathPrefix(relOutput) {
+  const value = String(relOutput || '');
+  const dir = value.includes('/') ? value.slice(0, value.lastIndexOf('/')) : '';
+  return dir ? '../'.repeat(dir.split('/').length) : './';
 }
 
-function buildReadme(plugins, repository, language, badges) {
-  const versionLabel = language === 'en' ? 'Version' :
-    language === 'es' ? 'Versión' : 'Versión / Version';
-  const descriptionLabel = language === 'en' ? 'Description' :
-    language === 'es' ? 'Descripción' : 'Descripción / Description';
-  const table = plugins.length ? [
+function relativeLink(fromRel, toRel) {
+  const fromDir = String(fromRel || '').includes('/') ?
+    String(fromRel).split('/').slice(0, -1) : [];
+  const toParts = String(toRel || '').split('/').filter(Boolean);
+  let common = 0;
+  while (common < fromDir.length && common < toParts.length - 1 &&
+         fromDir[common] === toParts[common]) {
+    common += 1;
+  }
+  const ups = '../'.repeat(fromDir.length - common);
+  const rest = toParts.slice(common).join('/');
+  return ups ? `${ups}${rest}` : `./${rest}`;
+}
+
+function badgeLine(badges, prefix) {
+  return badges.map(badge =>
+    `![${badge.label}: ${badge.value}](${prefix}assets/badges/${badge.file})`).join(' ');
+}
+
+function localizeDescription(text, language) {
+  const parts = String(text == null ? '' : text).split(' / ');
+  const chosen = language === 'es' ? parts[0] :
+    parts.length > 1 ? parts[parts.length - 1] : parts[0];
+  return chosen.trim().replace(/^(?:ES|EN):\s*/i, '').trim();
+}
+
+function buildTable(plugins, prefix, language) {
+  const versionLabel = language === 'es' ? 'Versión' : 'Version';
+  const descriptionLabel = language === 'es' ? 'Descripción' : 'Description';
+  if (!plugins.length) return '(no plugins yet / sin plugins aún)';
+  return [
     `| Plugin | ID | ${versionLabel} | ${descriptionLabel} |`,
     '| --- | --- | --- | --- |',
     ...plugins.map(plugin => {
       const label = escapeCell(plugin.name || plugin.path);
-      const link = plugin.path ? `[${label}](./${String(plugin.path).replace(/^\/+/, '')}/)` : label;
+      const link = plugin.path ?
+        `[${label}](${prefix}${String(plugin.path).replace(/^\/+/, '')}/)` : label;
       return `| ${link} | \`${escapeCell(plugin.id || '')}\` | ${escapeCell(plugin.version || '')} | ` +
-        `${escapeCell(plugin.description || '')} |`;
+        `${escapeCell(localizeDescription(plugin.description, language))} |`;
     })
-  ].join('\n') : '(no plugins yet / sin plugins aún)';
+  ].join('\n');
+}
 
-  const es = [
-    '# Plugins comunitarios para AntiGem',
+function buildDoc(language, plugins, repository, badges, docRel, otherRel) {
+  const prefix = pathPrefix(docRel);
+  const spanish = language === 'es';
+  const crossLabel = spanish ? 'Leer el README en inglés' : 'Read the README in Spanish';
+  const lines = [
+    badgeLine(badges, prefix),
     '',
-    'Repositorio público con plugins y skills para AntiGem. Todo funciona offline: JavaScript incluido en cada plugin, sin CDNs ni servicios remotos.',
+    `[${crossLabel}](${relativeLink(docRel, otherRel)})`,
     '',
-    '## Instalar',
+    spanish ? '# Plugins comunitarios para AntiGem' : '# AntiGem community plugins',
     '',
-    `En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade \`${repository}\`.`,
+    spanish ?
+      'Repositorio público con plugins y skills para AntiGem. Todo funciona offline: JavaScript incluido en cada plugin, sin CDNs ni servicios remotos.' :
+      'Public repository with plugins and skills for AntiGem. Everything works offline: JavaScript is bundled in each plugin, with no CDNs or remote services.',
+    '',
+    spanish ? '## Instalar' : '## Install',
+    '',
+    spanish ?
+      `En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade \`${repository}\`.` :
+      `In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add \`${repository}\`.`,
     '',
     '## Plugins',
     '',
-    table,
+    buildTable(plugins, prefix, language),
     '',
-    '## Mantenimiento con Plugin Doctor',
+    spanish ? '## Mantenimiento con Plugin Doctor' : '## Maintenance with Plugin Doctor',
     '',
-    '- `doctor_validate`: revisa manifiestos, skills, índice, enlaces y límites de tamaño.',
-    '- `doctor_fix_index`: regenera `antigem-plugins.json` desde los `manifest.json`.',
-    '- `doctor_generate_readme`: genera este README con una sola tabla de plugins y badges locales.',
+    spanish ?
+      '- `doctor_validate`: revisa manifiestos, skills, índice, enlaces y límites de tamaño.' :
+      '- `doctor_validate`: check manifests, skills, index, links and size limits.',
+    spanish ?
+      '- `doctor_fix_index`: regenera `antigem-plugins.json` desde los `manifest.json`.' :
+      '- `doctor_fix_index`: rebuild `antigem-plugins.json` from every `manifest.json`.',
+    spanish ?
+      '- `doctor_generate_readme`: genera el README raíz en inglés y una copia en español en `docs/`, cada uno con una sola tabla y badges locales.' :
+      '- `doctor_generate_readme`: generate the English root README and a Spanish copy in `docs/`, each with a single table and local badges.',
     '',
-    '## Límites por plugin',
+    spanish ? '## Límites por plugin' : '## Per-plugin limits',
     '',
-    '- Máximo 5000 archivos.',
-    '- Máximo 32 MiB por archivo y 128 MiB por plugin.',
-    '- Sube la versión en el `manifest.json` y en el índice al publicar cambios.'
+    spanish ? '- Máximo 5000 archivos.' : '- 5000 files maximum.',
+    spanish ? '- Máximo 32 MiB por archivo y 128 MiB por plugin.' :
+      '- 32 MiB per file and 128 MiB per plugin maximum.',
+    spanish ? '- Sube la versión en el `manifest.json` y en el índice al publicar cambios.' :
+      '- Raise the version in both `manifest.json` and the index when publishing changes.'
   ];
+  return `${lines.join('\n')}\n`;
+}
 
-  const en = [
-    '# AntiGem community plugins',
-    '',
-    'Public repository with plugins and skills for AntiGem. Everything works offline: JavaScript is bundled in each plugin, with no CDNs or remote services.',
-    '',
-    '## Install',
-    '',
-    `In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add \`${repository}\`.`,
-    '',
-    '## Plugins',
-    '',
-    table,
-    '',
-    '## Maintenance with Plugin Doctor',
-    '',
-    '- `doctor_validate`: check manifests, skills, index, links and size limits.',
-    '- `doctor_fix_index`: rebuild `antigem-plugins.json` from every `manifest.json`.',
-    '- `doctor_generate_readme`: generate this README with a single plugin table and local badges.',
-    '',
-    '## Per-plugin limits',
-    '',
-    '- 5000 files maximum.',
-    '- 32 MiB per file and 128 MiB per plugin maximum.',
-    '- Raise the version in both `manifest.json` and the index when publishing changes.'
-  ];
-
-  // One document, one table. For `both`, bilingual labels are merged into
-  // each section instead of appending a full second copy of the README.
-  const body = language === 'es' ? es : language === 'en' ? en : [
-    '# Plugins comunitarios para AntiGem / AntiGem community plugins',
-    '',
-    'Repositorio público con plugins y skills para AntiGem. Todo funciona offline: JavaScript incluido en cada plugin, sin CDNs ni servicios remotos. / Public repository with plugins and skills for AntiGem. Everything works offline: JavaScript is bundled in each plugin, with no CDNs or remote services.',
-    '',
-    '## Instalar / Install',
-    '',
-    `En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade \`${repository}\`. / In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add \`${repository}\`.`,
-    '',
-    '## Plugins',
-    '',
-    table,
-    '',
-    '## Mantenimiento con Plugin Doctor / Maintenance with Plugin Doctor',
-    '',
-    '- `doctor_validate`: revisa manifiestos, skills, índice, enlaces y límites de tamaño. / Checks manifests, skills, index, links and size limits.',
-    '- `doctor_fix_index`: regenera `antigem-plugins.json` desde los `manifest.json`. / Rebuilds `antigem-plugins.json` from every `manifest.json`.',
-    '- `doctor_generate_readme`: genera este README con una sola tabla de plugins y badges locales. / Generates this README with a single plugin table and local badges.',
-    '',
-    '## Límites por plugin / Per-plugin limits',
-    '',
-    '- Máximo 5000 archivos. / 5000 files maximum.',
-    '- Máximo 32 MiB por archivo y 128 MiB por plugin. / 32 MiB per file and 128 MiB per plugin maximum.',
-    '- Sube la versión en el `manifest.json` y en el índice al publicar cambios. / Raise the version in both `manifest.json` and the index when publishing changes.'
-  ];
-  return `${badgeLine(badges)}\n\n${body.join('\n')}\n`;
+function buildReadme(plugins, repository, badges, output, spanishOutput) {
+  return {
+    en: buildDoc('en', plugins, repository, badges, output, spanishOutput),
+    es: buildDoc('es', plugins, repository, badges, spanishOutput, output)
+  };
 }
 
 async function doctorGenerateReadme(args) {
   const issues = [];
   const root = await resolveRoot(args.root);
-  const language = ['es', 'en', 'both'].includes(args.language) ? args.language : 'both';
+  const language = ['es', 'en', 'both'].includes(args.language) ? args.language : 'en';
   const dryRun = args.dry_run !== false;
   const output = safeRel(args.output || 'README.md', issues, 'output');
-  if (!output) throw new Error('Invalid output path / Ruta de salida inválida');
+  const spanishOutput = safeRel(args.spanish_output || 'docs/README.es.md', issues, 'spanish_output');
+  if (!output || !spanishOutput) {
+    throw new Error('Invalid output path / Ruta de salida inválida');
+  }
+  if (output === spanishOutput) {
+    throw new Error('output and spanish_output must differ / output y spanish_output deben diferir');
+  }
 
   let plugins = [];
   const indexPath = join(root, 'antigem-plugins.json');
@@ -965,11 +972,13 @@ async function doctorGenerateReadme(args) {
   const repository = typeof args.repository === 'string' && args.repository.trim() ?
     args.repository.trim() : 'TU_USUARIO/antigem-plugins';
   const badges = buildBadges(plugins, repository);
-  const markdown = buildReadme(plugins, repository, language, badges);
+  const docs = buildReadme(plugins, repository, badges, output, spanishOutput);
   const path = join(root, output);
+  const spanishPath = join(root, spanishOutput);
   let written = false;
   if (!dryRun) {
-    await chrome.antigem.writeFile({path, data: markdown, encoding: 'utf8'});
+    await chrome.antigem.writeFile({path, data: docs.en, encoding: 'utf8'});
+    await chrome.antigem.writeFile({path: spanishPath, data: docs.es, encoding: 'utf8'});
     for (const badge of badges) {
       await chrome.antigem.writeFile({
         path: join(root, `assets/badges/${badge.file}`), data: badge.svg, encoding: 'utf8'
@@ -978,10 +987,19 @@ async function doctorGenerateReadme(args) {
     written = true;
   }
   const errors = issues.filter(item => item.severity === 'error').length;
+  const countTables = text => (text.match(/^\| Plugin \| ID \|/gm) || []).length;
   return {
-    ok: errors === 0, root, path, written, language, plugins, markdown, issues,
+    ok: errors === 0, root, path, spanishPath, written, language, plugins,
+    markdown: language === 'es' ? docs.es : docs.en,
+    spanish_markdown: docs.es,
+    files: [
+      {path, language: 'en', written},
+      {path: spanishPath, language: 'es', written}
+    ],
+    issues,
     badges: badges.map(badge => ({file: badge.file, label: badge.label, value: badge.value})),
-    tableCount: (markdown.match(/^\| Plugin \| ID \|/gm) || []).length
+    tableCount: countTables(docs.en),
+    spanishTableCount: countTables(docs.es)
   };
 }
 

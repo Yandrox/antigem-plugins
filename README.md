@@ -32,7 +32,7 @@ In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add `Ya
 | [MiniApp Test Runner](./miniapp-test-runner/) | `miniapp-test-runner` | 1.1.4 | Record, replay, compare and report mini app tests without external services. |
 | [Notes Bridge](./notes-bridge/) | `notes-bridge` | 1.0.0 | Export and import notes_mcp notes and to-dos to local Markdown with frontmatter, full-text search and deduplication; prepares a plan to apply with notes_update. Hybrid and offline. |
 | [Offline Subs](./offline-subs/) | `offline-subs` | 1.0.1 | Generate SRT/VTT from scripts, align subtitles to real video duration and create ready styles for Shorts, Reels and YouTube, offline. |
-| [Plugin Doctor](./plugin-doctor/) | `plugin-doctor` | 1.2.0 | Validate and repair AntiGem plugin repositories; generates a README with a single table and local SVG badges. |
+| [Plugin Doctor](./plugin-doctor/) | `plugin-doctor` | 1.3.0 | Validate and repair AntiGem plugin repositories; generates an English root README plus a Spanish copy in docs/, each with a single table and local SVG badges. |
 | [Plugin Upgrade Advisor](./plugin-upgrade-advisor/) | `plugin-upgrade-advisor` | 1.0.0 | Compare the local inventory with the repo index, read changelogs from git log, classifies version-bump risk and proposes a safe upgrade order. Skills only, offline. |
 | [Prompt Regression](./prompt-regression/) | `prompt-regression` | 1.0.2 | Detect skill drift by storing input→output cases with assertions for format, language, tool choice and length. |
 | [REA Playbook](./rea-playbook/) | `rea-playbook` | 1.0.1 | Decision tree for using REA well: which tool to pick per artifact, typical arguments and how to read results, summary first and detail afterwards. It does not duplicate REA. |
@@ -47,9 +47,9 @@ In AntiGem: **Settings → Custom AntiGem Plugins → Repositories** and add `Ya
 
 ## Maintenance with Plugin Doctor
 
-- `doctor_validate`: Checks manifests, skills, index, links and size limits.
-- `doctor_fix_index`: Rebuilds `antigem-plugins.json` from every `manifest.json`.
-- `doctor_generate_readme`: Generates this README with a single plugin table and local badges.
+- `doctor_validate`: check manifests, skills, index, links and size limits.
+- `doctor_fix_index`: rebuild `antigem-plugins.json` from every `manifest.json`.
+- `doctor_generate_readme`: generate the English root README and a Spanish copy in `docs/`, each with a single table and local badges.
 
 ## Per-plugin limits
 
