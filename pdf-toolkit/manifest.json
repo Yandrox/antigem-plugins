@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "id": "pdf-toolkit",
+  "name": "PDF Toolkit",
+  "version": "1.0.0",
+  "description": "ES: Recetas offline en proot para dividir, unir, comprimir, rotar y extraer texto o imágenes de PDF con qpdf, poppler y ghostscript, verificando el número de páginas antes y después. Solo skills, sin red. / EN: Offline proot recipes to split, merge, compress, rotate and extract text or images from PDFs with qpdf, poppler and ghostscript, checking the page count before and after. Skills only, no network.",
+  "icon": "icon.svg"
+}

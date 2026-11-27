@@ -1,4 +1,4 @@
-![PLUGINS: 32](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
+![PLUGINS: 33](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
 
 [Leer el README en inglés](../README.md)
 
@@ -33,6 +33,7 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 | [MiniApp Test Runner](../miniapp-test-runner/) | `miniapp-test-runner` | 1.1.4 | Graba, repite, compara e informa pruebas de mini apps sin servicios externos. |
 | [Notes Bridge](../notes-bridge/) | `notes-bridge` | 1.0.0 | Exporta e importa notas y listas de notes_mcp a Markdown local con frontmatter, búsqueda full-text y deduplicación; prepara un plan para aplicar con notes_update. Híbrido y offline. |
 | [Offline Subs](../offline-subs/) | `offline-subs` | 1.0.1 | Genera SRT/VTT desde guiones, alinea subtítulos con la duración real del vídeo y crea estilos listos para Shorts, Reels y YouTube, sin red. |
+| [PDF Toolkit](../pdf-toolkit/) | `pdf-toolkit` | 1.0.0 | Recetas offline en proot para dividir, unir, comprimir, rotar y extraer texto o imágenes de PDF con qpdf, poppler y ghostscript, verificando el número de páginas antes y después. Solo skills, sin red. |
 | [Plugin Doctor](../plugin-doctor/) | `plugin-doctor` | 1.3.0 | Valida y repara repositorios de plugins de AntiGem; genera un README raíz en inglés y una copia en español en docs/, cada uno con una sola tabla y badges SVG locales. |
 | [Plugin Upgrade Advisor](../plugin-upgrade-advisor/) | `plugin-upgrade-advisor` | 1.0.0 | Compara el inventario local con el índice del repo, lee changelogs del git log, clasifica el riesgo de cada salto de versión y propone un orden seguro de actualización. Solo skills, offline. |
 | [Prompt Regression](../prompt-regression/) | `prompt-regression` | 1.0.2 | Detecta deriva en las skills guardando casos entrada→salida con aserciones de formato, idioma, herramienta y longitud. |
