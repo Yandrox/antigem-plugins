@@ -1,4 +1,4 @@
-![PLUGINS: 33](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
+![PLUGINS: 34](../assets/badges/plugins.svg) ![MODE: 100% OFFLINE](../assets/badges/offline.svg) ![PLATFORM: ANTIGEM](../assets/badges/antigem.svg) ![LANG: ES · EN](../assets/badges/lang.svg) ![INSTALL: Yandrox/antigem-plugins](../assets/badges/install.svg)
 
 [Leer el README en inglés](../README.md)
 
@@ -27,6 +27,7 @@ En AntiGem: **Ajustes → Custom AntiGem Plugins → Repositories** y añade `Ya
 | [Git Hygiene](../git-hygiene/) | `git-hygiene` | 1.0.0 | Conventional Commits con scopes del repo, decisión de patch/minor/major, checklist de merge (tests, versión en dos sitios, índice actualizado) y detección de commits que mezclan responsabilidades, con generación de CHANGELOG.md desde git log. Solo skills, sin red. |
 | [License Audit](../license-audit/) | `license-audit` | 1.0.0 | Auditoría offline de licencias antes de publicar: recorre carpetas locales, lee package.json, LICENSE y cabeceras, detecta copyleft incompatible con MIT, licencias ausentes y snippets sin atribución, y genera THIRD_PARTY_NOTICES.md. |
 | [Local Assets Lab](../local-assets-lab/) | `local-assets-lab` | 1.1.0 | Genera fondos, iconos, stickers y paletas SVG sin conexión. |
+| [Markdown Link Checker](../markdown-link-checker/) | `markdown-link-checker` | 1.0.0 | Recorre archivos Markdown locales y avisa de enlaces relativos, imágenes y anclas rotas, mayúsculas incorrectas y destinos inexistentes, con ruta y línea. Híbrido, offline y sin red. |
 | [MCP Health Check](../mcp-health-check/) | `mcp-health-check` | 1.0.0 | Diagnóstico offline de la salud del ecosistema MCP de AntiGem: inventario de plugins instalados y borradores, conteo de tools y skills, duplicados, workers ausentes, deriva de versiones, tamaño de storage y observaciones de servidores declinados o lentos. Solo lectura. |
 | [MCP Schema Designer](../mcp-schema-designer/) | `mcp-schema-designer` | 1.0.0 | Skill para diseñar y revisar esquemas de tools MCP: nombres coherentes, descripciones bilingües, tipos y rangos, exclusión mutua, defaults seguros, ejemplos y tabla de errores. Complementa a plugin-doctor, que valida el resultado. |
 | [MiniApp Preflight](../miniapp-preflight/) | `miniapp-preflight` | 1.0.0 | Checklist bilingüe antes de firmar o instalar mini apps: manifest, permisos, AntiGem.*, bundle, consola, captura y clave; informe ✅/⚠️/❌. Solo skills, offline. |

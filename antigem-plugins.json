@@ -106,6 +106,14 @@
       "icon": "icon.svg"
     },
     {
+      "path": "markdown-link-checker",
+      "id": "markdown-link-checker",
+      "name": "Markdown Link Checker",
+      "version": "1.0.0",
+      "description": "ES: Recorre archivos Markdown locales y avisa de enlaces relativos, imágenes y anclas rotas, mayúsculas incorrectas y destinos inexistentes, con ruta y línea. Híbrido, offline y sin red. / EN: Scans local Markdown files and reports broken relative links, images and anchors, wrong casing and missing targets, with path and line. Hybrid, offline and no network.",
+      "icon": "icon.svg"
+    },
+    {
       "path": "mcp-health-check",
       "id": "mcp-health-check",
       "name": "MCP Health Check",

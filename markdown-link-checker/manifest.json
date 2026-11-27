@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "id": "markdown-link-checker",
+  "name": "Markdown Link Checker",
+  "version": "1.0.0",
+  "description": "ES: Recorre archivos Markdown locales y avisa de enlaces relativos, imágenes y anclas rotas, mayúsculas incorrectas y destinos inexistentes, con ruta y línea. Híbrido, offline y sin red. / EN: Scans local Markdown files and reports broken relative links, images and anchors, wrong casing and missing targets, with path and line. Hybrid, offline and no network.",
+  "permissions": ["antigemFiles"],
+  "background": {"service_worker": "worker.js"},
+  "icon": "icon.svg",
+  "mcp_tools": [
+    {
+      "name": "mdlink_check",
+      "description": "ES: Comprueba todos los .md de una carpeta (o una lista de archivos): resuelve enlaces relativos, imágenes, definiciones de referencia y anclas, y devuelve hallazgos con archivo y línea. EN: Check all .md files in a directory (or a file list): resolve relative links, images, reference definitions and anchors, and return findings with file and line.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "directory": {"type": "string", "description": "ES: Carpeta a recorrer; por defecto recursiva. EN: Directory to walk; recursive by default."},
+          "files": {"type": "array", "items": {"type": "string"}, "description": "ES: Archivos .md concretos a revisar. EN: Specific .md files to check."},
+          "recursive": {"type": "boolean", "description": "ES: true = incluir subcarpetas (por defecto); false = solo la carpeta. EN: true = include subfolders (default); false = top level only."},
+          "ignore": {"type": "array", "items": {"type": "string"}, "description": "ES: Fragmentos de ruta a ignorar; por defecto /.git/, /node_modules/ y /dist/. EN: Path fragments to ignore; default /.git/, /node_modules/ and /dist/."},
+          "case_sensitive": {"type": "boolean", "description": "ES: true = avisar si la ruta difiere solo en mayúsculas (por defecto). EN: true = warn when a path differs only in casing (default)."},
+          "limit": {"type": "integer", "description": "ES: Máximo de archivos .md, 1-200 (por defecto 200). EN: Maximum .md files, 1-200 (default 200)."}
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "mdlink_anchors",
+      "description": "ES: Lista las anclas de un archivo Markdown: encabezados convertidos a slug de GitHub y anclas HTML id/name, con su línea. EN: List anchors in a Markdown file: headings converted to GitHub slugs and HTML id/name anchors, with their line.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "path": {"type": "string", "description": "ES: Ruta del archivo .md. EN: Path of the .md file."}
+        },
+        "required": ["path"],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "mdlink_report",
+      "description": "ES: Genera un informe Markdown bilingüe con los enlaces rotos y avisos; previsualiza por defecto y puede escribir el .md. EN: Produce a bilingual Markdown report of broken links and warnings; previews by default and can write the .md file.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "directory": {"type": "string", "description": "ES: Carpeta a recorrer. EN: Directory to walk."},
+          "files": {"type": "array", "items": {"type": "string"}, "description": "ES: Archivos .md concretos. EN: Specific .md files."},
+          "recursive": {"type": "boolean", "description": "ES: true = incluir subcarpetas (por defecto). EN: true = include subfolders (default)."},
+          "ignore": {"type": "array", "items": {"type": "string"}, "description": "ES: Fragmentos de ruta a ignorar. EN: Path fragments to ignore."},
+          "case_sensitive": {"type": "boolean", "description": "ES: true = avisar de diferencias de mayúsculas (por defecto). EN: true = warn about casing differences (default)."},
+          "limit": {"type": "integer", "description": "ES: Máximo de archivos, 1-200. EN: Maximum files, 1-200."},
+          "output": {"type": "string", "description": "ES: Ruta .md de salida. EN: Output .md path."},
+          "dry_run": {"type": "boolean", "description": "ES: true = solo previsualizar (por defecto); false = escribir. EN: true = preview only (default); false = write."}
+        },
+        "required": [],
+        "additionalProperties": false
+      }
+    }
+  ]
+}
